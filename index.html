@@ -51,18 +51,26 @@
     <script>
         const vercelURL = 'https://safety-law-api.vercel.app'; 
 
-        // ★ 띄어쓰기 에러를 완벽히 차단하는 강력한 팝업 함수 ★
+        // ★ 법제처 API 규칙에 맞게 조문과 별표를 완벽히 구분하는 팝업 엔진 ★
         function openLawPopup(targetLawName, specificTarget = '') {
-            // 법령명에서 모든 띄어쓰기 제거 (예: 산업안전보건기준에 관한 규칙 -> 산업안전보건기준에관한규칙)
             let safeLawName = targetLawName.replace(/\s/g, '');
-            let url = `https://www.law.go.kr/법령/${encodeURIComponent(safeLawName)}`;
+            let url = '';
             
             if (specificTarget) {
-                // 별표 번호에서도 모든 띄어쓰기 제거 (예: 별표 4 -> 별표4)
                 let safeTarget = specificTarget.replace(/\s/g, '');
-                url += `/${encodeURIComponent(safeTarget)}`;
+                
+                // 클릭한 대상이 '별표'인 경우 법제처 특수 규칙 적용
+                if (safeTarget.indexOf('별표') !== -1) {
+                    // 예시: https://www.law.go.kr/법령별표서식/(산업안전보건기준에관한규칙,별표4)
+                    url = `https://www.law.go.kr/법령별표서식/(${encodeURIComponent(safeLawName)},${encodeURIComponent(safeTarget)})`;
+                } else {
+                    // 클릭한 대상이 '조문(제O조)'인 경우 기존 규칙 적용
+                    url = `https://www.law.go.kr/법령/${encodeURIComponent(safeLawName)}/${encodeURIComponent(safeTarget)}`;
+                }
+            } else {
+                url = `https://www.law.go.kr/법령/${encodeURIComponent(safeLawName)}`;
             }
-            window.open(url, 'lawPopup', 'width=700,height=800,scrollbars=yes,resizable=yes');
+            window.open(url, 'lawPopup', 'width=800,height=900,scrollbars=yes,resizable=yes');
         }
 
         function applyBlueLinks(text, parentLaw) {
@@ -79,12 +87,12 @@
 
             let resultHtml = text;
 
-            // 1. ★ 별표 링크 복구 ★ (예: 별표 1, [별표 4])
+            // 1. 별표 링크 처리
             resultHtml = resultHtml.replace(/(?:\[)?(별표\s*[0-9]+(?:의[0-9]+)?)(?:\])?/g, function(match, p1) {
                 return `<span class="law-link" onclick="openLawPopup('${parentLaw}', '${p1}')">${match}</span>`;
             });
 
-            // 2. 조문 링크 적용 (법, 영, 규칙 제O조)
+            // 2. 조문 링크 처리 (법, 영, 규칙 제O조)
             resultHtml = resultHtml.replace(/(법|영|규칙)?\s*(제[0-9]+(?:의[0-9]+)?조)/g, function(match, type, article) {
                 let targetLaw = parentLaw;
                 if (type === '법') {
