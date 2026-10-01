@@ -4,43 +4,133 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>안전법령 통합검색 플랫폼</title>
+    <!-- 현대적인 프리텐다드 폰트 적용 -->
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
     <style>
-        body { font-family: 'Malgun Gothic', sans-serif; background-color: #F8FAFC; margin: 0; padding: 15px; }
-        .container { max-width: 800px; margin: 0 auto; background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-        h1 { color: #0A3A8A; font-size: 26px; text-align: center; margin-bottom: 5px; font-weight: bold; }
-        p.subtitle { color: #4A5568; font-size: 14px; text-align: center; margin-bottom: 25px; }
-        .search-box { display: flex; gap: 10px; margin-bottom: 20px; }
-        input[type="text"] { flex: 1; padding: 14px; border: 2px solid #E2E8F0; border-radius: 8px; font-size: 16px; outline: none; }
-        input[type="text"]:focus { border-color: #0A3A8A; }
-        button { background-color: #0A3A8A; color: white; border: none; padding: 14px 24px; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; }
-        button:hover { background-color: #002D72; }
-        .result-count { color: #E53E3E; font-weight: bold; margin-bottom: 15px; font-size: 15px; }
+        body { 
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif; 
+            background-color: #f8f9fa; 
+            margin: 0; 
+            padding: 20px; 
+            color: #202124;
+        }
+        .container { 
+            max-width: 800px; 
+            margin: 60px auto 40px auto; 
+        }
         
-        /* 카드 디자인: 가독성 극대화 */
-        .card { background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 8px; padding: 20px; margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
-        .priority-1 { border-left: 6px solid #D69E2E; background-color: #FFFFF0; } /* 제목 일치 특별 디자인 */
-        .priority-2 { border-left: 6px solid #0A3A8A; }
+        /* 타이틀 디자인 */
+        .header { text-align: center; margin-bottom: 40px; }
+        .header h1 { 
+            color: #1a73e8; 
+            font-size: 34px; 
+            font-weight: 700; 
+            letter-spacing: -1px; 
+            margin: 0; 
+        }
+
+        /* 구글 스타일 검색창 */
+        .search-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 40px;
+        }
+        .search-box { 
+            display: flex; 
+            width: 100%;
+            max-width: 600px;
+            background: #fff; 
+            border: 1px solid #dfe1e5; 
+            border-radius: 24px; 
+            padding: 6px 8px 6px 20px; 
+            align-items: center;
+            transition: box-shadow 0.2s, border-color 0.2s;
+        }
+        .search-box:hover, .search-box:focus-within { 
+            box-shadow: 0 1px 6px rgba(32,33,36,0.28); 
+            border-color: rgba(223,225,229,0); 
+        }
+        input[type="text"] { 
+            flex: 1; 
+            border: none; 
+            font-size: 16px; 
+            outline: none; 
+            font-family: inherit;
+        }
+        button { 
+            background-color: #1a73e8; 
+            color: white; 
+            border: none; 
+            padding: 10px 24px; 
+            border-radius: 18px; 
+            font-size: 15px; 
+            font-weight: 600; 
+            cursor: pointer; 
+            transition: background-color 0.2s; 
+            font-family: inherit;
+        }
+        button:hover { background-color: #1557b0; }
         
-        .card-title { font-size: 18px; font-weight: bold; color: #1A365D; margin-bottom: 15px; border-bottom: 2px solid #E2E8F0; padding-bottom: 10px; display: flex; justify-content: space-between; align-items: center;}
-        .badge { font-size: 13px; background: #D69E2E; color: white; padding: 4px 8px; border-radius: 4px; font-weight:normal;}
+        .result-count { color: #70757a; font-size: 14px; margin-bottom: 20px; padding-left: 10px; }
         
-        /* 법령 원문의 줄바꿈과 띄어쓰기를 그대로 유지해주는 마법의 CSS */
-        .card-content { font-size: 15px; color: #2D3748; line-height: 1.8; white-space: pre-wrap; word-break: keep-all; }
+        /* 깔끔한 카드 디자인 */
+        .card { 
+            background: #FFFFFF; 
+            border: 1px solid #dfe1e5; 
+            border-radius: 12px; 
+            padding: 24px; 
+            margin-bottom: 20px; 
+            box-shadow: 0 1px 3px rgba(0,0,0,0.06); 
+        }
+        .priority-1 { border-top: 5px solid #f9ab00; } /* 제목 일치 조항 포인트 컬러 */
+        .priority-2 { border-top: 5px solid #1a73e8; }
         
-        .loading { text-align: center; color: #718096; padding: 20px; display: none; font-weight:bold; }
+        .card-title { 
+            font-size: 18px; 
+            font-weight: 700; 
+            color: #1a0dab; 
+            margin-bottom: 15px; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: flex-start;
+            line-height: 1.4;
+        }
+        .badge { 
+            font-size: 12px; 
+            background: #fef7e0; 
+            color: #b06000; 
+            padding: 4px 10px; 
+            border-radius: 12px; 
+            font-weight: 600;
+            white-space: nowrap;
+            margin-left: 10px;
+        }
+        
+        .card-content { 
+            font-size: 15px; 
+            color: #3c4043; 
+            line-height: 1.7; 
+            white-space: pre-wrap; 
+            word-break: keep-all; 
+        }
+        
+        .loading { text-align: center; color: #70757a; padding: 40px; display: none; font-size: 15px; }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>안전법령 통합검색 플랫폼</h1>
-        <p class="subtitle">제목 일치 최우선 정렬 및 조항별 원문 100% 표출</p>
+        <div class="header">
+            <h1>안전법령 통합검색 플랫폼</h1>
+        </div>
         
-        <div class="search-box">
-            <input type="text" id="searchInput" placeholder="예) 안전관리자, 위험성평가..." onkeypress="if(event.keyCode==13) searchLaw()">
-            <button onclick="searchLaw()">검색</button>
+        <div class="search-container">
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="예) 안전관리자, 위험성평가..." onkeypress="if(event.keyCode==13) searchLaw()">
+                <button onclick="searchLaw()">검색</button>
+            </div>
         </div>
 
-        <div id="loading" class="loading">🔍 관련 법령을 스캔하여 정렬 중입니다... ⏳</div>
+        <div id="loading" class="loading">검색어를 스캔 중입니다... ⏳</div>
         <div id="resultCount" class="result-count"></div>
         <div id="resultArea"></div>
     </div>
@@ -70,11 +160,11 @@
                 loading.style.display = 'none';
 
                 if(data.total === 0) {
-                    resultArea.innerHTML = '<div class="card"><div class="card-content">검색하신 단어가 포함된 조항이 없습니다.</div></div>';
+                    resultArea.innerHTML = '<div class="card"><div class="card-content" style="text-align:center; padding: 20px 0;">검색하신 단어가 포함된 조항이 없습니다.</div></div>';
                     return;
                 }
 
-                resultCount.innerHTML = `총 ${data.total}개의 조항이 검색되었습니다. (제목 일치 우선 정렬)`;
+                resultCount.innerHTML = `검색결과 약 ${data.total}개`;
 
                 let html = '';
                 data.results.forEach((item, index) => {
@@ -97,7 +187,7 @@
 
             } catch (error) {
                 loading.style.display = 'none';
-                resultArea.innerHTML = `<div class="card"><div class="card-title" style="color:red;">서버 통신 오류</div><div class="card-content">데이터를 처리하는 중 문제가 발생했습니다.</div></div>`;
+                resultArea.innerHTML = `<div class="card"><div class="card-title" style="color:#d93025;">서버 통신 오류</div><div class="card-content">데이터를 처리하는 중 문제가 발생했습니다.</div></div>`;
             }
         }
     </script>
