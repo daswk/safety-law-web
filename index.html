@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
@@ -31,13 +31,13 @@
             <button onclick="searchLaw()">검색</button>
         </div>
 
-        <div id="loading" class="loading">법령 데이터를 불러오는 중입니다... ?</div>
+        <div id="loading" class="loading">법령 데이터를 불러오는 중입니다... ⏳</div>
         <div id="resultCount" class="result-count"></div>
         <div id="resultArea"></div>
     </div>
 
     <script>
-        // 알려주신 Vercel 중계 서버 주소 연동 완료
+        // 서버 주소 적용 완료
         const vercelURL = 'https://safety-law-iy7acpzqh-jungbu04-6648.vercel.app'; 
 
         async function searchLaw() {
@@ -86,7 +86,7 @@
                             <div class="card-content">
                                 <b>시행일자:</b> ${law.시행일자}<br>
                                 <b>소관부처:</b> ${law.소관부처명}<br>
-                                <a href="${law.법령상세링크}" target="_blank" style="color: #3182CE; text-decoration: none; font-weight: bold; margin-top: 8px; display: inline-block;">?? 국가법령정보센터 원문 열기</a>
+                                <a href="${law.법령상세링크}" target="_blank" style="color: #3182CE; text-decoration: none; font-weight: bold; margin-top: 8px; display: inline-block;">👉 국가법령정보센터 원문 열기</a>
                             </div>
                         </div>
                     `;
