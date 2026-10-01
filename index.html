@@ -3,141 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    
-    <!-- 카카오톡 공유 시 나타나는 썸네일/미리보기 명함 태그 -->
     <meta property="og:title" content="안전법령 통합검색 플랫폼">
-    <meta property="og:description" content="산안법, 중처법, 건진법 등 핵심 안전법령 조항을 한 번에 빠르게 검색하세요.">
+    <meta property="og:description" content="핵심 안전법령을 1초 만에 찾아보세요.">
     <meta property="og:type" content="website">
-
     <title>안전법령 통합검색 플랫폼</title>
     <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
     <style>
-        body { 
-            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif; 
-            background-color: #f8f9fa; 
-            margin: 0; 
-            padding: 15px; 
-            color: #202124;
-        }
-        .container { 
-            max-width: 800px; 
-            margin: 40px auto 40px auto; 
-        }
-        
+        body { font-family: 'Pretendard', sans-serif; background-color: #f8f9fa; margin: 0; padding: 15px; color: #202124; }
+        .container { max-width: 800px; margin: 40px auto; }
         .header { text-align: center; margin-bottom: 30px; }
-        .header h1 { 
-            color: #1a73e8; 
-            font-size: 28px; 
-            font-weight: 700; 
-            letter-spacing: -1px; 
-            margin: 0; 
-            word-break: keep-all;
-        }
-
-        .search-container {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 30px;
-        }
-        .search-box { 
-            display: flex; 
-            width: 100%;
-            max-width: 600px;
-            background: #fff; 
-            border: 1px solid #dfe1e5; 
-            border-radius: 24px; 
-            padding: 6px 8px 6px 20px; 
-            align-items: center;
-            box-sizing: border-box; /* 모바일 화면 밖으로 삐져나감 방지 */
-            transition: box-shadow 0.2s, border-color 0.2s;
-        }
-        .search-box:hover, .search-box:focus-within { 
-            box-shadow: 0 1px 6px rgba(32,33,36,0.28); 
-            border-color: rgba(223,225,229,0); 
-        }
-        input[type="text"] { 
-            flex: 1; 
-            border: none; 
-            font-size: 16px; 
-            outline: none; 
-            font-family: inherit;
-            min-width: 0; /* 모바일에서 입력창이 버튼을 밀어내는 현상 방지 */
-        }
-        button { 
-            background-color: #1a73e8; 
-            color: white; 
-            border: none; 
-            padding: 10px 20px; 
-            border-radius: 18px; 
-            font-size: 15px; 
-            font-weight: 600; 
-            cursor: pointer; 
-            font-family: inherit;
-            white-space: nowrap; /* 글자 세로로 꺾임 방지 */
-            flex-shrink: 0; /* 버튼 크기 찌그러짐 100% 방지 */
-        }
+        .header h1 { color: #1a73e8; font-size: 28px; font-weight: 700; margin: 0; word-break: keep-all; }
+        .search-container { display: flex; justify-content: center; margin-bottom: 30px; }
+        .search-box { display: flex; width: 100%; max-width: 600px; background: #fff; border: 1px solid #dfe1e5; border-radius: 24px; padding: 6px 8px 6px 20px; align-items: center; box-sizing: border-box; }
+        .search-box:focus-within { box-shadow: 0 1px 6px rgba(32,33,36,0.28); border-color: rgba(223,225,229,0); }
+        input[type="text"] { flex: 1; border: none; font-size: 16px; outline: none; font-family: inherit; min-width: 0; }
+        button { background-color: #1a73e8; color: white; border: none; padding: 10px 20px; border-radius: 18px; font-size: 15px; font-weight: 600; cursor: pointer; white-space: nowrap; flex-shrink: 0; font-family: inherit;}
         button:hover { background-color: #1557b0; }
-        
         .result-count { color: #70757a; font-size: 14px; margin-bottom: 20px; padding-left: 10px; }
         
-        .card { 
-            background: #FFFFFF; 
-            border: 1px solid #dfe1e5; 
-            border-radius: 12px; 
-            padding: 20px; 
-            margin-bottom: 15px; 
-            box-shadow: 0 1px 3px rgba(0,0,0,0.06); 
-        }
+        .card { background: #FFFFFF; border: 1px solid #dfe1e5; border-radius: 12px; padding: 20px; margin-bottom: 15px; box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
         .priority-1 { border-top: 5px solid #f9ab00; } 
         .priority-2 { border-top: 5px solid #1a73e8; }
-        
-        .card-title { 
-            font-size: 17px; 
-            font-weight: 700; 
-            color: #1a0dab; 
-            margin-bottom: 12px; 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: flex-start;
-            line-height: 1.4;
-        }
-        .badge { 
-            font-size: 12px; 
-            background: #fef7e0; 
-            color: #b06000; 
-            padding: 4px 8px; 
-            border-radius: 12px; 
-            font-weight: 600;
-            white-space: nowrap;
-            margin-left: 10px;
-            flex-shrink: 0;
-        }
-        
-        .card-content { 
-            font-size: 15px; 
-            color: #3c4043; 
-            line-height: 1.7; 
-            white-space: pre-wrap; 
-            word-break: keep-all; 
-        }
-        
+        .card-title { font-size: 17px; font-weight: 700; color: #1a0dab; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: flex-start; line-height: 1.4; }
+        .badge { font-size: 12px; background: #fef7e0; color: #b06000; padding: 4px 8px; border-radius: 12px; font-weight: 600; white-space: nowrap; margin-left: 10px; flex-shrink: 0; }
+        .card-content { font-size: 15px; color: #3c4043; line-height: 1.7; white-space: pre-wrap; word-break: keep-all; }
         .loading { text-align: center; color: #70757a; padding: 40px; display: none; font-size: 15px; }
+
+        /* ★ 파란색 팝업 링크 디자인 추가 ★ */
+        .law-link { color: #1a0dab; text-decoration: underline; cursor: pointer; font-weight: 600; }
+        .law-link:hover { color: #1557b0; background-color: #f1f3f4; border-radius: 4px; }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="header">
-            <h1>안전법령 통합검색 플랫폼</h1>
-        </div>
-        
+        <div class="header"><h1>안전법령 통합검색 플랫폼</h1></div>
         <div class="search-container">
             <div class="search-box">
-                <input type="text" id="searchInput" placeholder="예) 안전관리자, 위험성평가..." onkeypress="if(event.keyCode==13) searchLaw()">
+                <input type="text" id="searchInput" placeholder="예) 위험성평가, 안전관리자..." onkeypress="if(event.keyCode==13) searchLaw()">
                 <button onclick="searchLaw()">검색</button>
             </div>
         </div>
-
-        <div id="loading" class="loading"> 검색어에 맞는 법령을 추출 중입니다... ⏳</div>
+        <div id="loading" class="loading">법령 데이터를 불러오고 있습니다... ⏳</div>
         <div id="resultCount" class="result-count"></div>
         <div id="resultArea"></div>
     </div>
@@ -145,16 +51,44 @@
     <script>
         const vercelURL = 'https://safety-law-api.vercel.app'; 
 
+        // ★ 국가법령정보센터 새 창(팝업) 띄우기 함수 ★
+        function openLawPopup(targetLawName) {
+            const url = `https://www.law.go.kr/법령/${encodeURIComponent(targetLawName)}`;
+            window.open(url, 'lawPopup', 'width=500,height=700,scrollbars=yes,resizable=yes');
+        }
+
+        // ★ 텍스트 안에서 대통령령, 고용노동부령을 찾아 파란 링크로 바꾸는 함수 ★
+        function applyBlueLinks(text, parentLaw) {
+            let decree = ""; // 시행령 (대통령령)
+            let rule = "";   // 시행규칙 (고용노동부/국토교통부령)
+            
+            if (parentLaw.includes("산업안전보건법")) { 
+                decree = "산업안전보건법 시행령"; rule = "산업안전보건법 시행규칙"; 
+            } else if (parentLaw.includes("중대재해")) { 
+                decree = "중대재해 처벌 등에 관한 법률 시행령"; 
+            } else if (parentLaw.includes("건설기술")) { 
+                decree = "건설기술 진흥법 시행령"; rule = "건설기술 진흥법 시행규칙"; 
+            }
+
+            let resultHtml = text;
+            if (decree) {
+                // '대통령령'이라는 단어를 찾아서 a 태그(클릭 버튼)로 변환
+                resultHtml = resultHtml.replace(/대통령령/g, `<span class="law-link" onclick="openLawPopup('${decree}')">대통령령</span>`);
+            }
+            if (rule) {
+                // '고용노동부령' 또는 '국토교통부령'을 찾아 변환
+                resultHtml = resultHtml.replace(/(고용노동부령|국토교통부령)/g, `<span class="law-link" onclick="openLawPopup('${rule}')">$1</span>`);
+            }
+            return resultHtml;
+        }
+
         async function searchLaw() {
             const query = document.getElementById('searchInput').value;
             const resultArea = document.getElementById('resultArea');
             const resultCount = document.getElementById('resultCount');
             const loading = document.getElementById('loading');
             
-            if(!query.trim()) {
-                alert("검색어를 입력해주세요.");
-                return;
-            }
+            if(!query.trim()) { alert("검색어를 입력해주세요."); return; }
 
             resultArea.innerHTML = '';
             resultCount.innerHTML = '';
@@ -167,11 +101,12 @@
                 loading.style.display = 'none';
 
                 if(data.total === 0) {
-                    resultArea.innerHTML = '<div class="card"><div class="card-content" style="text-align:center; padding: 20px 0;">검색하신 단어가 포함된 조항이 없습니다.</div></div>';
+                    resultArea.innerHTML = '<div class="card"><div class="card-content" style="text-align:center;">검색결과가 없습니다.</div></div>';
                     return;
                 }
 
-                resultCount.innerHTML = `검색결과 약 ${data.total}개`;
+                // ⚡ 캐싱 덕분에 첫 검색 이후로는 매우 빠르게 이 문구가 뜹니다!
+                resultCount.innerHTML = `검색결과 약 ${data.total}개 (초고속 스캔 완료)`;
 
                 let html = '';
                 data.results.forEach((item, index) => {
@@ -179,13 +114,16 @@
                     const badgeHtml = item.priority === 1 ? '<span class="badge">제목 일치</span>' : '';
                     const titleText = item.articleTitle ? `(${item.articleTitle})` : '';
 
+                    // 원문 텍스트에 파란 링크 적용
+                    const linkedContent = applyBlueLinks(item.content, item.lawName);
+
                     html += `
                         <div class="card ${priorityClass}">
                             <div class="card-title">
                                 <span>${index + 1}. [${item.lawName}] ${item.articleNo} ${titleText}</span>
                                 ${badgeHtml}
                             </div>
-                            <div class="card-content">${item.content}</div>
+                            <div class="card-content">${linkedContent}</div>
                         </div>
                     `;
                 });
@@ -194,7 +132,7 @@
 
             } catch (error) {
                 loading.style.display = 'none';
-                resultArea.innerHTML = `<div class="card"><div class="card-title" style="color:#d93025;">서버 통신 오류</div><div class="card-content">데이터를 처리하는 중 문제가 발생했습니다.</div></div>`;
+                resultArea.innerHTML = `<div class="card"><div style="color:red;">통신 오류 발생</div></div>`;
             }
         }
     </script>
