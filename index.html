@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta property="og:title" content="안전법령 통합검색 플랫폼">
-    <meta property="og:description" content="핵심 안전법령을 1초 만에 찾아보세요.">
+    <meta property="og:description" content="우리 현장에 딱 맞는 9대 핵심 안전법령을 1초 만에 찾아보세요.">
     <meta property="og:type" content="website">
     <title>안전법령 통합검색 플랫폼</title>
     <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
@@ -29,9 +29,12 @@
         .card-content { font-size: 15px; color: #3c4043; line-height: 1.7; white-space: pre-wrap; word-break: keep-all; }
         .loading { text-align: center; color: #70757a; padding: 40px; display: none; font-size: 15px; }
 
-        /* ★ 파란색 팝업 링크 디자인 추가 ★ */
+        /* 파란색 팝업 링크 디자인 */
         .law-link { color: #1a0dab; text-decoration: underline; cursor: pointer; font-weight: 600; }
         .law-link:hover { color: #1557b0; background-color: #f1f3f4; border-radius: 4px; }
+        
+        /* ★ 추가된 디자인: 검색어 빨간색 볼드체 강조 ★ */
+        .highlight-keyword { color: #d93025; font-weight: 900; }
     </style>
 </head>
 <body>
@@ -51,16 +54,14 @@
     <script>
         const vercelURL = 'https://safety-law-api.vercel.app'; 
 
-        // ★ 국가법령정보센터 새 창(팝업) 띄우기 함수 ★
         function openLawPopup(targetLawName) {
             const url = `https://www.law.go.kr/법령/${encodeURIComponent(targetLawName)}`;
             window.open(url, 'lawPopup', 'width=500,height=700,scrollbars=yes,resizable=yes');
         }
 
-        // ★ 텍스트 안에서 대통령령, 고용노동부령을 찾아 파란 링크로 바꾸는 함수 ★
         function applyBlueLinks(text, parentLaw) {
-            let decree = ""; // 시행령 (대통령령)
-            let rule = "";   // 시행규칙 (고용노동부/국토교통부령)
+            let decree = ""; 
+            let rule = "";   
             
             if (parentLaw.includes("산업안전보건법")) { 
                 decree = "산업안전보건법 시행령"; rule = "산업안전보건법 시행규칙"; 
@@ -72,14 +73,22 @@
 
             let resultHtml = text;
             if (decree) {
-                // '대통령령'이라는 단어를 찾아서 a 태그(클릭 버튼)로 변환
                 resultHtml = resultHtml.replace(/대통령령/g, `<span class="law-link" onclick="openLawPopup('${decree}')">대통령령</span>`);
             }
             if (rule) {
-                // '고용노동부령' 또는 '국토교통부령'을 찾아 변환
                 resultHtml = resultHtml.replace(/(고용노동부령|국토교통부령)/g, `<span class="law-link" onclick="openLawPopup('${rule}')">$1</span>`);
             }
             return resultHtml;
+        }
+
+        // ★ 검색어 하이라이트(빨간 볼드체) 처리 함수 ★
+        function highlightText(text, keyword) {
+            if (!keyword) return text;
+            // 특수문자로 인한 에러 방지
+            const escapedKeyword = keyword.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+            // HTML 태그 내부(예: span 클래스명 등)는 건드리지 않고 순수 텍스트만 찾아서 색칠합니다.
+            const regex = new RegExp(`(${escapedKeyword})(?![^<]*>)`, 'gi');
+            return text.replace(regex, '<span class="highlight-keyword">$1</span>');
         }
 
         async function searchLaw() {
@@ -105,17 +114,20 @@
                     return;
                 }
 
-                // ⚡ 캐싱 덕분에 첫 검색 이후로는 매우 빠르게 이 문구가 뜹니다!
                 resultCount.innerHTML = `검색결과 약 ${data.total}개 (초고속 스캔 완료)`;
 
                 let html = '';
                 data.results.forEach((item, index) => {
                     const priorityClass = item.priority === 1 ? 'priority-1' : 'priority-2';
                     const badgeHtml = item.priority === 1 ? '<span class="badge">제목 일치</span>' : '';
-                    const titleText = item.articleTitle ? `(${item.articleTitle})` : '';
+                    
+                    // 1. 조항 제목에 빨간 하이라이트 적용
+                    let titleText = item.articleTitle ? `(${item.articleTitle})` : '';
+                    titleText = highlightText(titleText, query);
 
-                    // 원문 텍스트에 파란 링크 적용
-                    const linkedContent = applyBlueLinks(item.content, item.lawName);
+                    // 2. 조항 본문에 파란 링크 먼저 적용 후 -> 빨간 하이라이트 적용
+                    let linkedContent = applyBlueLinks(item.content, item.lawName);
+                    linkedContent = highlightText(linkedContent, query);
 
                     html += `
                         <div class="card ${priorityClass}">
