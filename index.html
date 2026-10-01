@@ -2,38 +2,42 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <!-- 카카오톡 공유 시 나타나는 썸네일/미리보기 명함 태그 -->
+    <meta property="og:title" content="안전법령 통합검색 플랫폼">
+    <meta property="og:description" content="산안법, 중처법, 건진법 등 9대 핵심 안전법령 조항을 한 번에 빠르게 검색하세요.">
+    <meta property="og:type" content="website">
+
     <title>안전법령 통합검색 플랫폼</title>
-    <!-- 현대적인 프리텐다드 폰트 적용 -->
     <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
     <style>
         body { 
             font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif; 
             background-color: #f8f9fa; 
             margin: 0; 
-            padding: 20px; 
+            padding: 15px; 
             color: #202124;
         }
         .container { 
             max-width: 800px; 
-            margin: 60px auto 40px auto; 
+            margin: 40px auto 40px auto; 
         }
         
-        /* 타이틀 디자인 */
-        .header { text-align: center; margin-bottom: 40px; }
+        .header { text-align: center; margin-bottom: 30px; }
         .header h1 { 
             color: #1a73e8; 
-            font-size: 34px; 
+            font-size: 28px; 
             font-weight: 700; 
             letter-spacing: -1px; 
             margin: 0; 
+            word-break: keep-all;
         }
 
-        /* 구글 스타일 검색창 */
         .search-container {
             display: flex;
             justify-content: center;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
         }
         .search-box { 
             display: flex; 
@@ -44,6 +48,7 @@
             border-radius: 24px; 
             padding: 6px 8px 6px 20px; 
             align-items: center;
+            box-sizing: border-box; /* 모바일 화면 밖으로 삐져나감 방지 */
             transition: box-shadow 0.2s, border-color 0.2s;
         }
         .search-box:hover, .search-box:focus-within { 
@@ -56,40 +61,41 @@
             font-size: 16px; 
             outline: none; 
             font-family: inherit;
+            min-width: 0; /* 모바일에서 입력창이 버튼을 밀어내는 현상 방지 */
         }
         button { 
             background-color: #1a73e8; 
             color: white; 
             border: none; 
-            padding: 10px 24px; 
+            padding: 10px 20px; 
             border-radius: 18px; 
             font-size: 15px; 
             font-weight: 600; 
             cursor: pointer; 
-            transition: background-color 0.2s; 
             font-family: inherit;
+            white-space: nowrap; /* 글자 세로로 꺾임 방지 */
+            flex-shrink: 0; /* 버튼 크기 찌그러짐 100% 방지 */
         }
         button:hover { background-color: #1557b0; }
         
         .result-count { color: #70757a; font-size: 14px; margin-bottom: 20px; padding-left: 10px; }
         
-        /* 깔끔한 카드 디자인 */
         .card { 
             background: #FFFFFF; 
             border: 1px solid #dfe1e5; 
             border-radius: 12px; 
-            padding: 24px; 
-            margin-bottom: 20px; 
+            padding: 20px; 
+            margin-bottom: 15px; 
             box-shadow: 0 1px 3px rgba(0,0,0,0.06); 
         }
-        .priority-1 { border-top: 5px solid #f9ab00; } /* 제목 일치 조항 포인트 컬러 */
+        .priority-1 { border-top: 5px solid #f9ab00; } 
         .priority-2 { border-top: 5px solid #1a73e8; }
         
         .card-title { 
-            font-size: 18px; 
+            font-size: 17px; 
             font-weight: 700; 
             color: #1a0dab; 
-            margin-bottom: 15px; 
+            margin-bottom: 12px; 
             display: flex; 
             justify-content: space-between; 
             align-items: flex-start;
@@ -99,11 +105,12 @@
             font-size: 12px; 
             background: #fef7e0; 
             color: #b06000; 
-            padding: 4px 10px; 
+            padding: 4px 8px; 
             border-radius: 12px; 
             font-weight: 600;
             white-space: nowrap;
             margin-left: 10px;
+            flex-shrink: 0;
         }
         
         .card-content { 
@@ -130,7 +137,7 @@
             </div>
         </div>
 
-        <div id="loading" class="loading">검색어를 스캔 중입니다... ⏳</div>
+        <div id="loading" class="loading">9대 법령에서 조항을 추출 중입니다... ⏳</div>
         <div id="resultCount" class="result-count"></div>
         <div id="resultArea"></div>
     </div>
