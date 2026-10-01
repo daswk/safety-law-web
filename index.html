@@ -1,0 +1,104 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>안전법령 통합검색 플랫폼</title>
+    <style>
+        body { font-family: 'Malgun Gothic', sans-serif; background-color: #F8FAFC; margin: 0; padding: 15px; }
+        .container { max-width: 800px; margin: 0 auto; background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        h1 { color: #0A3A8A; font-size: 26px; text-align: center; margin-bottom: 5px; font-weight: bold; }
+        p.subtitle { color: #4A5568; font-size: 14px; text-align: center; margin-bottom: 25px; }
+        .search-box { display: flex; gap: 10px; margin-bottom: 20px; }
+        input[type="text"] { flex: 1; padding: 14px; border: 2px solid #E2E8F0; border-radius: 8px; font-size: 16px; outline: none; }
+        input[type="text"]:focus { border-color: #0A3A8A; }
+        button { background-color: #0A3A8A; color: white; border: none; padding: 14px 24px; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; }
+        button:hover { background-color: #002D72; }
+        .result-count { color: #E53E3E; font-weight: bold; margin-bottom: 10px; font-size: 15px; }
+        .card { background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 8px; padding: 15px; margin-bottom: 15px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); border-left: 5px solid #0A3A8A; }
+        .card-title { font-size: 16px; font-weight: bold; color: #2D3748; margin-bottom: 8px; }
+        .card-content { font-size: 14px; color: #4A5568; line-height: 1.5; }
+        .loading { text-align: center; color: #718096; padding: 20px; display: none; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>안전법령 통합검색 플랫폼</h1>
+        <p class="subtitle">키워드 입력 시 관련 법령 및 조항을 통합 검색하여 업무 효율성을 높입니다.</p>
+        
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="예) 안전관리자, 위험성평가, 작업중지 등" onkeypress="if(event.keyCode==13) searchLaw()">
+            <button onclick="searchLaw()">검색</button>
+        </div>
+
+        <div id="loading" class="loading">법령 데이터를 불러오는 중입니다... ?</div>
+        <div id="resultCount" class="result-count"></div>
+        <div id="resultArea"></div>
+    </div>
+
+    <script>
+        // 알려주신 Vercel 중계 서버 주소 연동 완료
+        const vercelURL = 'https://safety-law-iy7acpzqh-jungbu04-6648.vercel.app'; 
+
+        async function searchLaw() {
+            const query = document.getElementById('searchInput').value;
+            const resultArea = document.getElementById('resultArea');
+            const resultCount = document.getElementById('resultCount');
+            const loading = document.getElementById('loading');
+            
+            if(!query.trim()) {
+                alert("검색어를 입력해주세요.");
+                return;
+            }
+
+            // 초기화 및 로딩 표시
+            resultArea.innerHTML = '';
+            resultCount.innerHTML = '';
+            loading.style.display = 'block';
+            
+            try {
+                // 중계 서버(Vercel)로 API 요청
+                const response = await fetch(`${vercelURL}/api/search?query=${encodeURIComponent(query)}`);
+                const data = await response.json();
+                
+                loading.style.display = 'none';
+
+                // 검색 결과가 없는 경우
+                if(!data.LawSearch || data.LawSearch.totalCnt === "0") {
+                    resultArea.innerHTML = '<div class="card"><div class="card-content">검색 결과가 없습니다. 다른 키워드로 검색해 보세요.</div></div>';
+                    return;
+                }
+
+                // 결과 개수 표시
+                const total = data.LawSearch.totalCnt;
+                resultCount.innerHTML = `총 ${total}건의 관련 법령이 검색되었습니다.`;
+
+                // 법령 리스트 추출 (결과가 1개일 때는 객체, 여러 개일 때는 배열로 오므로 배열로 통일)
+                let laws = data.LawSearch.law;
+                if (!Array.isArray(laws)) laws = [laws];
+
+                // 결과를 카드 형태로 화면에 그리기
+                let html = '';
+                laws.forEach(law => {
+                    html += `
+                        <div class="card">
+                            <div class="card-title">[${law.법령명}]</div>
+                            <div class="card-content">
+                                <b>시행일자:</b> ${law.시행일자}<br>
+                                <b>소관부처:</b> ${law.소관부처명}<br>
+                                <a href="${law.법령상세링크}" target="_blank" style="color: #3182CE; text-decoration: none; font-weight: bold; margin-top: 8px; display: inline-block;">?? 국가법령정보센터 원문 열기</a>
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                resultArea.innerHTML = html;
+
+            } catch (error) {
+                loading.style.display = 'none';
+                resultArea.innerHTML = `<div class="card"><div class="card-title" style="color:red;">서버 통신 오류</div><div class="card-content">데이터를 불러오지 못했습니다. API 인증키 또는 서버 상태를 확인해 주세요.<br>(${error.message})</div></div>`;
+            }
+        }
+    </script>
+</body>
+</html>
