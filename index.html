@@ -15,23 +15,32 @@
         button { background-color: #0A3A8A; color: white; border: none; padding: 14px 24px; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; }
         button:hover { background-color: #002D72; }
         .result-count { color: #E53E3E; font-weight: bold; margin-bottom: 10px; font-size: 15px; }
-        .card { background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 8px; padding: 20px; margin-bottom: 15px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); border-left: 5px solid #0A3A8A; }
-        .card-title { font-size: 18px; font-weight: bold; color: #1A365D; margin-bottom: 15px; border-bottom: 2px solid #E2E8F0; padding-bottom: 10px;}
-        .card-content { font-size: 15px; color: #2D3748; line-height: 1.8; }
+        
+        /* 카드 디자인: 가독성 극대화 */
+        .card { background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 8px; padding: 20px; margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .priority-1 { border-left: 6px solid #D69E2E; background-color: #FFFFF0; } /* 제목 일치 최우선 카드 */
+        .priority-2 { border-left: 6px solid #0A3A8A; }
+        
+        .card-title { font-size: 18px; font-weight: bold; color: #1A365D; margin-bottom: 15px; border-bottom: 2px solid #E2E8F0; padding-bottom: 10px; display: flex; justify-content: space-between; align-items: center;}
+        .badge { font-size: 13px; background: #D69E2E; color: white; padding: 4px 8px; border-radius: 4px; font-weight:normal;}
+        
+        /* 법령 원문의 줄바꿈과 띄어쓰기를 그대로 유지해주는 마법의 CSS */
+        .card-content { font-size: 15px; color: #2D3748; line-height: 1.8; white-space: pre-wrap; word-break: keep-all; }
+        
         .loading { text-align: center; color: #718096; padding: 20px; display: none; font-weight:bold; }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>안전법령 통합검색 플랫폼</h1>
-        <p class="subtitle">산안법, 중처법, 건진법 핵심 조항 통합 검색</p>
+        <p class="subtitle">제목 일치 최우선 정렬 및 조항별 원문 100% 표출</p>
         
         <div class="search-box">
             <input type="text" id="searchInput" placeholder="예) 안전관리자, 위험성평가..." onkeypress="if(event.keyCode==13) searchLaw()">
             <button onclick="searchLaw()">검색</button>
         </div>
 
-        <div id="loading" class="loading">🔍 법령 원문을 스캔 중입니다... ⏳</div>
+        <div id="loading" class="loading">🔍 관련 법령을 스캔하여 정렬 중입니다... ⏳</div>
         <div id="resultCount" class="result-count"></div>
         <div id="resultArea"></div>
     </div>
@@ -58,30 +67,29 @@
                 const response = await fetch(`${vercelURL}/api/search?query=${encodeURIComponent(query)}`);
                 const data = await response.json();
                 
-                if (data.error) throw new Error(data.error + " - " + (data.details || ''));
                 loading.style.display = 'none';
 
                 if(data.total === 0) {
-                    resultArea.innerHTML = '<div class="card"><div class="card-content">검색하신 단어가 핵심 3대 법령 내에 존재하지 않습니다.</div></div>';
+                    resultArea.innerHTML = '<div class="card"><div class="card-content">검색하신 단어가 포함된 조항이 없습니다.</div></div>';
                     return;
                 }
 
-                resultCount.innerHTML = `총 ${data.total}개의 조항이 검색되었습니다.`;
+                resultCount.innerHTML = `총 ${data.total}개의 조항이 검색되었습니다. (제목 일치 우선 정렬)`;
 
                 let html = '';
-                data.results.forEach(item => {
-                    // 줄바꿈 문자를 화면용 <br> 태그로 변환하여 가독성 확보
-                    const formattedContent = item.content.replace(/\n/g, '<br>');
+                // 데이터 배열을 돌면서 화면에 찍어주기
+                data.results.forEach((item, index) => {
+                    const priorityClass = item.priority === 1 ? 'priority-1' : 'priority-2';
+                    const badgeHtml = item.priority === 1 ? '<span class="badge">제목 일치</span>' : '';
                     const titleText = item.articleTitle ? `(${item.articleTitle})` : '';
 
                     html += `
-                        <div class="card">
+                        <div class="card ${priorityClass}">
                             <div class="card-title">
-                                📘 [${item.lawName}] ${item.articleNo} ${titleText}
+                                <span>${index + 1}. [${item.lawName}] ${item.articleNo} ${titleText}</span>
+                                ${badgeHtml}
                             </div>
-                            <div class="card-content">
-                                ${formattedContent}
-                            </div>
+                            <div class="card-content">${item.content}</div>
                         </div>
                     `;
                 });
@@ -90,7 +98,7 @@
 
             } catch (error) {
                 loading.style.display = 'none';
-                resultArea.innerHTML = `<div class="card"><div class="card-title" style="color:red;">서버 통신 오류</div><div class="card-content">${error.message}</div></div>`;
+                resultArea.innerHTML = `<div class="card"><div class="card-title" style="color:red;">서버 통신 오류</div><div class="card-content">데이터를 처리하는 중 문제가 발생했습니다.</div></div>`;
             }
         }
     </script>
