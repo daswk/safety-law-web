@@ -24,21 +24,22 @@
 <body>
     <div class="container">
         <h1>안전법령 통합검색 플랫폼</h1>
-        <p class="subtitle">산안법, 중처법, 건진법 핵심 8대 법령 본문 통합 검색</p>
+        <p class="subtitle">산안법, 중처법, 건진법 핵심 조항 통합 검색</p>
         
         <div class="search-box">
             <input type="text" id="searchInput" placeholder="예) 안전관리자, 위험성평가..." onkeypress="if(event.keyCode==13) searchLaw()">
             <button onclick="searchLaw()">검색</button>
         </div>
 
-        <div id="loading" class="loading">🔍 8개 법령의 조항을 정밀 스캔 중입니다... ⏳</div>
+        <div id="loading" class="loading">🔍 실시간으로 법령을 스캔 중입니다... ⏳</div>
         <div id="resultCount" class="result-count"></div>
         <div id="resultArea"></div>
     </div>
 
     <script>
-        // ★★★ 여기에 1단계에서 찾은 본인의 API 짧은 고정 주소를 넣어주세요 ★★★
-        const vercelURL = '[https://safety-law-api.vercel.app](https://safety-law-api.vercel.app)';
+        // ★ 질문자님의 고정 Vercel 주소가 정확히 들어갔습니다. 
+        // 뒤에 /api/search 등이 붙지 않게 이대로 유지해 주세요!
+        const vercelURL = 'https://safety-law-api.vercel.app'; 
 
         async function searchLaw() {
             const query = document.getElementById('searchInput').value;
@@ -58,10 +59,16 @@
             try {
                 const response = await fetch(`${vercelURL}/api/search?query=${encodeURIComponent(query)}`);
                 const data = await response.json();
+                
+                // 만약 백엔드에서 에러를 보냈다면 화면에 띄움
+                if (data.error) {
+                    throw new Error(data.error + " - " + (data.details || ''));
+                }
+
                 loading.style.display = 'none';
 
                 if(data.total === 0) {
-                    resultArea.innerHTML = '<div class="card"><div class="card-content">검색하신 단어가 8대 법령 내에 존재하지 않습니다.</div></div>';
+                    resultArea.innerHTML = '<div class="card"><div class="card-content">검색하신 단어가 핵심 3대 법령 내에 존재하지 않습니다.</div></div>';
                     return;
                 }
 
@@ -74,7 +81,7 @@
                             <div class="card-title">📖 ${item.lawName}</div>
                             <div class="card-content">
                                 <b>${item.content}</b><br><br>
-                                <a href="${item.link}" target="_blank" style="color: #3182CE; text-decoration: none; font-weight: bold; display: inline-block; background:#EBF8FF; padding:8px 12px; border-radius:6px;">🔗 국가법령정보센터에서 법령 전체 보기</a>
+                                <a href="${item.link}" target="_blank" style="color: #3182CE; text-decoration: none; font-weight: bold; display: inline-block; background:#EBF8FF; padding:8px 12px; border-radius:6px;">🔗 국가법령정보센터 원문 보기</a>
                             </div>
                         </div>
                     `;
@@ -84,7 +91,7 @@
 
             } catch (error) {
                 loading.style.display = 'none';
-                resultArea.innerHTML = `<div class="card"><div class="card-title" style="color:red;">서버 통신 오류</div><div class="card-content">데이터를 불러오지 못했습니다. Vercel 주소를 다시 확인해 주세요.</div></div>`;
+                resultArea.innerHTML = `<div class="card"><div class="card-title" style="color:red;">서버 통신 오류</div><div class="card-content">${error.message}</div></div>`;
             }
         }
     </script>
