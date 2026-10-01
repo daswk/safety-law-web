@@ -16,29 +16,29 @@
         button:hover { background-color: #002D72; }
         .result-count { color: #E53E3E; font-weight: bold; margin-bottom: 10px; font-size: 15px; }
         .card { background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 8px; padding: 15px; margin-bottom: 15px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); border-left: 5px solid #0A3A8A; }
-        .card-title { font-size: 16px; font-weight: bold; color: #2D3748; margin-bottom: 8px; }
-        .card-content { font-size: 14px; color: #4A5568; line-height: 1.5; }
-        .loading { text-align: center; color: #718096; padding: 20px; display: none; }
+        .card-title { font-size: 18px; font-weight: bold; color: #2D3748; margin-bottom: 10px; border-bottom: 1px solid #E2E8F0; padding-bottom: 8px;}
+        .card-content { font-size: 14px; color: #4A5568; line-height: 1.6; }
+        .loading { text-align: center; color: #718096; padding: 20px; display: none; font-weight:bold; }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>안전법령 통합검색 플랫폼</h1>
-        <p class="subtitle">키워드 입력 시 관련 법령 및 조항을 통합 검색하여 업무 효율성을 높입니다.</p>
+        <p class="subtitle">산안법, 중처법, 건진법 핵심 8대 법령 본문 통합 검색</p>
         
         <div class="search-box">
-            <input type="text" id="searchInput" placeholder="예) 안전관리자, 위험성평가, 작업중지 등" onkeypress="if(event.keyCode==13) searchLaw()">
+            <input type="text" id="searchInput" placeholder="예) 안전관리자, 위험성평가..." onkeypress="if(event.keyCode==13) searchLaw()">
             <button onclick="searchLaw()">검색</button>
         </div>
 
-        <div id="loading" class="loading">법령 데이터를 불러오는 중입니다... ⏳</div>
+        <div id="loading" class="loading">🔍 8개 법령의 조항을 정밀 스캔 중입니다... ⏳</div>
         <div id="resultCount" class="result-count"></div>
         <div id="resultArea"></div>
     </div>
 
     <script>
-        // 서버 주소 적용 완료
-        const vercelURL = 'https://safety-law-iy7acpzqh-jungbu04-6648.vercel.app'; 
+        // ★★★ 여기에 1단계에서 찾은 본인의 API 짧은 고정 주소를 넣어주세요 ★★★
+        const vercelURL = '[https://safety-law-api.vercel.app](https://safety-law-api.vercel.app)';
 
         async function searchLaw() {
             const query = document.getElementById('searchInput').value;
@@ -51,42 +51,30 @@
                 return;
             }
 
-            // 초기화 및 로딩 표시
             resultArea.innerHTML = '';
             resultCount.innerHTML = '';
             loading.style.display = 'block';
             
             try {
-                // 중계 서버(Vercel)로 API 요청
                 const response = await fetch(`${vercelURL}/api/search?query=${encodeURIComponent(query)}`);
                 const data = await response.json();
-                
                 loading.style.display = 'none';
 
-                // 검색 결과가 없는 경우
-                if(!data.LawSearch || data.LawSearch.totalCnt === "0") {
-                    resultArea.innerHTML = '<div class="card"><div class="card-content">검색 결과가 없습니다. 다른 키워드로 검색해 보세요.</div></div>';
+                if(data.total === 0) {
+                    resultArea.innerHTML = '<div class="card"><div class="card-content">검색하신 단어가 8대 법령 내에 존재하지 않습니다.</div></div>';
                     return;
                 }
 
-                // 결과 개수 표시
-                const total = data.LawSearch.totalCnt;
-                resultCount.innerHTML = `총 ${total}건의 관련 법령이 검색되었습니다.`;
+                resultCount.innerHTML = `총 ${data.total}개의 조항에서 키워드가 발견되었습니다.`;
 
-                // 법령 리스트 추출 (결과가 1개일 때는 객체, 여러 개일 때는 배열로 오므로 배열로 통일)
-                let laws = data.LawSearch.law;
-                if (!Array.isArray(laws)) laws = [laws];
-
-                // 결과를 카드 형태로 화면에 그리기
                 let html = '';
-                laws.forEach(law => {
+                data.results.forEach(item => {
                     html += `
                         <div class="card">
-                            <div class="card-title">[${law.법령명}]</div>
+                            <div class="card-title">📖 ${item.lawName}</div>
                             <div class="card-content">
-                                <b>시행일자:</b> ${law.시행일자}<br>
-                                <b>소관부처:</b> ${law.소관부처명}<br>
-                                <a href="${law.법령상세링크}" target="_blank" style="color: #3182CE; text-decoration: none; font-weight: bold; margin-top: 8px; display: inline-block;">👉 국가법령정보센터 원문 열기</a>
+                                <b>${item.content}</b><br><br>
+                                <a href="${item.link}" target="_blank" style="color: #3182CE; text-decoration: none; font-weight: bold; display: inline-block; background:#EBF8FF; padding:8px 12px; border-radius:6px;">🔗 국가법령정보센터에서 법령 전체 보기</a>
                             </div>
                         </div>
                     `;
@@ -96,7 +84,7 @@
 
             } catch (error) {
                 loading.style.display = 'none';
-                resultArea.innerHTML = `<div class="card"><div class="card-title" style="color:red;">서버 통신 오류</div><div class="card-content">데이터를 불러오지 못했습니다. API 인증키 또는 서버 상태를 확인해 주세요.<br>(${error.message})</div></div>`;
+                resultArea.innerHTML = `<div class="card"><div class="card-title" style="color:red;">서버 통신 오류</div><div class="card-content">데이터를 불러오지 못했습니다. Vercel 주소를 다시 확인해 주세요.</div></div>`;
             }
         }
     </script>
