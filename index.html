@@ -3,16 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta property="og:title" content="안전법령 통합검색 플랫폼">
-    <meta property="og:description" content="우리 현장에 딱 맞는 15대 핵심 안전법령 및 고시를 1초 만에 찾아보세요.">
-    <meta property="og:type" content="website">
     <title>안전법령 통합검색 플랫폼</title>
     <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
     <style>
         body { font-family: 'Pretendard', sans-serif; background-color: #f8f9fa; margin: 0; padding: 15px; color: #202124; }
         .container { max-width: 800px; margin: 40px auto; position: relative; }
         
-        /* 햄버거 메뉴 (사이드바 토글) */
         .menu-btn { position: absolute; left: 0; top: 0; font-size: 24px; background: none; border: none; cursor: pointer; color: #5f6368; padding: 5px; }
         
         .header { text-align: center; margin-bottom: 30px; cursor: pointer; transition: opacity 0.2s; padding-top: 5px; }
@@ -24,9 +20,8 @@
         .search-box:focus-within { box-shadow: 0 1px 6px rgba(32,33,36,0.28); border-color: rgba(223,225,229,0); }
         input[type="text"] { flex: 1; border: none; font-size: 16px; outline: none; font-family: inherit; min-width: 0; }
         
-        /* 마이크(음성검색) 버튼 */
-        .mic-btn { background: none; border: none; font-size: 18px; cursor: pointer; padding: 0 10px; color: #70757a; }
         .search-btn { background-color: #1a73e8; color: white; border: none; padding: 10px 20px; border-radius: 18px; font-size: 15px; font-weight: 600; cursor: pointer; white-space: nowrap; flex-shrink: 0; font-family: inherit;}
+        button.search-btn:hover { background-color: #1557b0; }
         
         .keyword-section { text-align: center; margin-bottom: 30px; }
         .keyword-title { font-size: 13px; color: #70757a; margin-bottom: 10px; }
@@ -41,17 +36,15 @@
         .badge { font-size: 12px; background: #fef7e0; color: #b06000; padding: 4px 8px; border-radius: 12px; font-weight: 600; white-space: nowrap; margin-left: 10px; flex-shrink: 0; }
         .card-content { font-size: 15px; color: #3c4043; line-height: 1.7; white-space: pre-wrap; word-break: keep-all; }
         
-        /* 카드 우측 상단 액션 버튼 (복사, 북마크) */
         .card-actions { position: absolute; right: 15px; top: 18px; display: flex; gap: 8px; }
         .action-btn { background: #f1f3f4; border: none; border-radius: 50%; width: 32px; height: 32px; display: flex; justify-content: center; align-items: center; cursor: pointer; color: #5f6368; font-size: 16px; transition: background 0.2s;}
         .action-btn:hover { background: #e8eaed; }
-        .bm-active { color: #f9ab00; } /* 북마크 활성화 색상 */
+        .bm-active { color: #f9ab00; } 
 
         .loading { text-align: center; color: #70757a; padding: 40px; display: none; font-size: 15px; }
         .law-link { color: #1a0dab; text-decoration: underline; cursor: pointer; font-weight: 600; }
         .highlight-keyword { color: #d93025; font-weight: 900; }
 
-        /* ★ 왼쪽 사이드바 디자인 ★ */
         .sidebar-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 999; display: none; }
         .sidebar { position: fixed; top: 0; left: -280px; width: 280px; height: 100%; background: #fff; z-index: 1000; box-shadow: 2px 0 8px rgba(0,0,0,0.15); transition: left 0.3s ease; overflow-y: auto; }
         .sidebar-header { padding: 20px; font-size: 18px; font-weight: bold; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; color: #1a73e8; }
@@ -66,7 +59,6 @@
     </style>
 </head>
 <body>
-    <!-- 왼쪽 사이드바 영역 -->
     <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
     <div class="sidebar" id="sidebar">
         <div class="sidebar-header">
@@ -92,8 +84,7 @@
         <div class="search-container">
             <div class="search-box">
                 <input type="text" id="searchInput" placeholder="예) 위험성평가, 굴착공사..." onkeypress="if(event.keyCode==13) searchLaw()" oninput="checkEmpty()">
-                <!-- 마이크 버튼 -->
-                <button class="mic-btn" id="micBtn" onclick="startVoiceSearch()" title="음성 검색">🎙️</button>
+                <!-- 마이크 버튼 완전히 삭제 -->
                 <button class="search-btn" onclick="searchLaw()">검색</button>
             </div>
         </div>
@@ -109,7 +100,7 @@
             </div>
         </div>
 
-        <div id="loading" class="loading">법령 데이터를 스캔하고 있습니다... ⏳</div>
+        <div id="loading" class="loading">법령 데이터를 스캔하고 있습니다... ⏳<br><span style="font-size:12px; color:#aaa; margin-top:5px; display:block;">(서버 최적화 완료. 최대 5초 소요)</span></div>
         <div id="resultCount" class="result-count"></div>
         <div id="resultArea"></div>
     </div>
@@ -117,12 +108,10 @@
     <script>
         const vercelURL = 'https://safety-law-api.vercel.app'; 
         
-        // 메모리 저장소 초기화
         let currentResults = [];
         let recentSearches = JSON.parse(localStorage.getItem('recentSearches')) || [];
         let bookmarks = JSON.parse(localStorage.getItem('bookmarks')) || [];
 
-        // 화면 렌더링 시 사이드바 목록 업데이트
         function updateSidebarUI() {
             const recentUl = document.getElementById('recentSearchList');
             recentUl.innerHTML = recentSearches.length === 0 ? '<li style="color:#aaa;">최근 검색어가 없습니다.</li>' : '';
@@ -139,7 +128,6 @@
         }
         updateSidebarUI();
 
-        // 사이드바 열기/닫기
         function toggleSidebar() {
             const sb = document.getElementById('sidebar');
             const overlay = document.getElementById('sidebarOverlay');
@@ -153,33 +141,10 @@
             }
         }
 
-        // 음성 검색 (Web Speech API)
-        function startVoiceSearch() {
-            if (window.hasOwnProperty('webkitSpeechRecognition')) {
-                const recognition = new webkitSpeechRecognition();
-                recognition.continuous = false;
-                recognition.lang = "ko-KR";
-                document.getElementById('micBtn').innerText = '🔴';
-                
-                recognition.onresult = function(e) {
-                    document.getElementById('searchInput').value = e.results[0][0].transcript;
-                    document.getElementById('micBtn').innerText = '🎙️';
-                    searchLaw();
-                };
-                recognition.onerror = function() {
-                    alert("음성 인식에 실패했습니다.");
-                    document.getElementById('micBtn').innerText = '🎙️';
-                }
-                recognition.start();
-            } else {
-                alert("현재 브라우저는 음성 검색을 지원하지 않습니다. (크롬, 사파리 권장)");
-            }
-        }
-
         function saveRecentSearch(keyword) {
             if (!recentSearches.includes(keyword)) {
                 recentSearches.unshift(keyword);
-                if (recentSearches.length > 5) recentSearches.pop(); // 최근 5개 유지
+                if (recentSearches.length > 5) recentSearches.pop(); 
                 localStorage.setItem('recentSearches', JSON.stringify(recentSearches));
             }
         }
@@ -189,20 +154,17 @@
             updateSidebarUI();
         }
 
-        // 원클릭 복사 기능
         function copyArticle(idx) {
             const item = currentResults[idx];
             const titleText = item.articleTitle ? `(${item.articleTitle})` : '';
-            // HTML 태그 제거하여 깔끔한 텍스트로 복사
             const cleanContent = item.content.replace(/<[^>]+>/g, '').trim(); 
-            const textToCopy = `[${item.lawName}] ${item.articleNo} ${titleText}\n\n${cleanContent}\n\n- 안전법령 통합검색 앱에서 공유됨`;
+            const textToCopy = `[${item.lawName}] ${item.articleNo} ${titleText}\n\n${cleanContent}\n\n- 안전법령 통합검색 앱`;
             
             navigator.clipboard.writeText(textToCopy).then(() => {
-                alert("✅ 조항이 복사되었습니다. 카톡이나 밴드에 붙여넣기 하세요!");
+                alert("✅ 조항이 복사되었습니다. 카톡에 붙여넣기 하세요!");
             });
         }
 
-        // 북마크 토글 기능
         function toggleBookmark(idx) {
             const item = currentResults[idx];
             const uniqueKey = item.lawName + item.articleNo;
@@ -225,13 +187,12 @@
             updateSidebarUI();
         }
 
-        // 사이드바에서 북마크 클릭 시 해당 조항만 띄우기
         function viewBookmark(idx) {
             toggleSidebar();
             document.getElementById('homeState').style.display = 'none';
             document.getElementById('searchInput').value = '';
             
-            currentResults = [bookmarks[idx]]; // 검색 결과를 단 1개로 세팅
+            currentResults = [bookmarks[idx]]; 
             document.getElementById('resultCount').innerHTML = `⭐ 북마크에 저장된 조항입니다.`;
             renderCards('');
         }
@@ -295,7 +256,6 @@
             return text.replace(regex, '<span class="highlight-keyword">$1</span>');
         }
 
-        // 공통 카드 렌더링 함수
         function renderCards(keyword) {
             let html = '';
             currentResults.forEach((item, index) => {
@@ -304,7 +264,6 @@
                 let titleText = highlightText(item.articleTitle ? `(${item.articleTitle})` : '', keyword);
                 let linkedContent = highlightText(applyBlueLinks(item.content, item.lawName), keyword);
 
-                // 북마크 상태 확인
                 const isBookmarked = bookmarks.some(b => (b.lawName + b.articleNo) === (item.lawName + item.articleNo));
                 const starIcon = isBookmarked ? '★' : '☆';
                 const starClass = isBookmarked ? 'bm-active' : '';
@@ -330,7 +289,7 @@
             const query = document.getElementById('searchInput').value;
             if(!query.trim()) { alert("검색어를 입력해주세요."); return; }
 
-            saveRecentSearch(query); // 검색어 저장
+            saveRecentSearch(query);
 
             document.getElementById('homeState').style.display = 'none';
             document.getElementById('resultArea').innerHTML = '';
@@ -350,7 +309,6 @@
 
                 document.getElementById('resultCount').innerHTML = `검색결과 약 ${data.total}개`;
                 
-                // 검색결과를 전역 변수에 담아 복사/북마크 기능에 연결
                 currentResults = data.results; 
                 renderCards(query);
 
