@@ -3,9 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta property="og:title" content="안전법령 통합검색 플랫폼">
-    <meta property="og:description" content="우리 현장에 딱 맞는 30여 개 핵심 안전법령을 1초 만에 찾아보세요.">
-    <meta property="og:type" content="website">
     <title>안전법령 통합검색 플랫폼</title>
     <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
     <style>
@@ -48,23 +45,23 @@
         
         <div class="search-container">
             <div class="search-box">
-                <input type="text" id="searchInput" placeholder="예) 위험성평가, 굴착공사, 지게차..." onkeypress="if(event.keyCode==13) searchLaw()" oninput="checkEmpty()">
+                <input type="text" id="searchInput" placeholder="예) 위험성평가, 안전관리자..." onkeypress="if(event.keyCode==13) searchLaw()" oninput="checkEmpty()">
                 <button class="search-btn" onclick="searchLaw()">검색</button>
             </div>
         </div>
 
         <div id="homeState" class="keyword-section">
-            <div class="keyword-title">💡 현장 필수 안전 키워드</div>
+            <div class="keyword-title">💡 이번 주 주요 안전 키워드</div>
             <div class="keyword-chips">
-                <span class="chip" onclick="searchByChip('안전보건관리비')">#안전보건관리비</span>
                 <span class="chip" onclick="searchByChip('위험성평가')">#위험성평가</span>
-                <span class="chip" onclick="searchByChip('굴착공사')">#굴착공사</span>
-                <span class="chip" onclick="searchByChip('지하안전평가')">#지하안전평가</span>
-                <span class="chip" onclick="searchByChip('크레인')">#크레인</span>
+                <span class="chip" onclick="searchByChip('안전보건관리체계')">#안전보건관리체계</span>
+                <span class="chip" onclick="searchByChip('안전관리자')">#안전관리자</span>
+                <span class="chip" onclick="searchByChip('중대재해')">#중대재해</span>
+                <span class="chip" onclick="searchByChip('도급인')">#도급인</span>
             </div>
         </div>
 
-        <div id="loading" class="loading">수만 개의 법령 데이터를 스캔 중입니다... ⏳<br><span style="font-size:12px; color:#aaa; margin-top:5px; display:block;">(법령이 많아 최초 스캔 시 최대 10초가 소요될 수 있습니다)</span></div>
+        <div id="loading" class="loading">법령 데이터를 불러오고 있습니다... ⏳</div>
         <div id="resultCount" class="result-count"></div>
         <div id="resultArea"></div>
     </div>
@@ -91,43 +88,97 @@
 
         function openLawPopup(targetLawName, specificTarget = '') {
             let safeLawName = targetLawName.replace(/\s/g, '');
-            // ★ 고시/지침인 경우 '행정규칙' 팝업으로 연결하도록 수정 ★
-            let urlType = (safeLawName.includes('지침') || safeLawName.includes('기준')) ? '행정규칙' : '법령';
             let url = '';
-            
             if (specificTarget) {
                 let safeTarget = specificTarget.replace(/\s/g, '');
                 if (safeTarget.indexOf('별표') !== -1) {
                     url = `https://www.law.go.kr/법령별표서식/(${encodeURIComponent(safeLawName)},${encodeURIComponent(safeTarget)})`;
                 } else {
-                    url = `https://www.law.go.kr/${urlType}/${encodeURIComponent(safeLawName)}/${encodeURIComponent(safeTarget)}`;
+                    url = `https://www.law.go.kr/법령/${encodeURIComponent(safeLawName)}/${encodeURIComponent(safeTarget)}`;
                 }
             } else {
-                url = `https://www.law.go.kr/${urlType}/${encodeURIComponent(safeLawName)}`;
+                url = `https://www.law.go.kr/법령/${encodeURIComponent(safeLawName)}`;
             }
             window.open(url, 'lawPopup', 'width=800,height=900,scrollbars=yes,resizable=yes');
         }
 
         function applyBlueLinks(text, parentLaw) {
-            let baseLaw = parentLaw.replace(/\s*(시행령|시행규칙)$/, '').trim();
-            let decree = baseLaw + " 시행령";
-            let rule = baseLaw + " 시행규칙";
+            let decree = ""; let rule = "";   
+            if (parentLaw.includes("산업안전보건법")) { decree = "산업안전보건법 시행령"; rule = "산업안전보건법 시행규칙"; }
+            else if (parentLaw.includes("중대재해")) { decree = "중대재해 처벌 등에 관한 법률 시행령"; }
+            else if (parentLaw.includes("건설기술")) { decree = "건설기술 진흥법 시행령"; rule = "건설기술 진흥법 시행규칙"; }
 
             let resultHtml = text;
-            
             resultHtml = resultHtml.replace(/(?:\[)?(별표\s*[0-9]+(?:의[0-9]+)?)(?:\])?/g, function(match, p1) {
                 return `<span class="law-link" onclick="openLawPopup('${parentLaw}', '${p1}')">${match}</span>`;
             });
-
             resultHtml = resultHtml.replace(/(법|영|규칙)?\s*(제[0-9]+(?:의[0-9]+)?조)/g, function(match, type, article) {
                 let targetLaw = parentLaw;
-                if (type === '법') targetLaw = baseLaw;
-                else if (type === '영') targetLaw = decree;
-                else if (type === '규칙') targetLaw = rule;
-                
+                if (type === '법') {
+                    if (parentLaw.includes("산업안전보건")) targetLaw = "산업안전보건법";
+                    else if (parentLaw.includes("중대재해")) targetLaw = "중대재해 처벌 등에 관한 법률";
+                    else if (parentLaw.includes("건설기술")) targetLaw = "건설기술 진흥법";
+                } else if (type === '영') { if (decree) targetLaw = decree; } 
+                else if (type === '규칙') { if (rule) targetLaw = rule; }
                 return `<span class="law-link" onclick="openLawPopup('${targetLaw}', '${article}')">${match}</span>`;
             });
             return resultHtml;
         }
 
-        function highlightText(
+        function highlightText(text, keyword) {
+            if (!keyword) return text;
+            const escapedKeyword = keyword.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+            const regex = new RegExp(`(${escapedKeyword})(?![^<]*>)`, 'gi');
+            return text.replace(regex, '<span class="highlight-keyword">$1</span>');
+        }
+
+        async function searchLaw() {
+            const query = document.getElementById('searchInput').value;
+            if(!query.trim()) { alert("검색어를 입력해주세요."); return; }
+
+            document.getElementById('homeState').style.display = 'none';
+            document.getElementById('resultArea').innerHTML = '';
+            document.getElementById('resultCount').innerHTML = '';
+            document.getElementById('loading').style.display = 'block';
+            
+            try {
+                const response = await fetch(`${vercelURL}/api/search?query=${encodeURIComponent(query)}`);
+                const data = await response.json();
+                
+                document.getElementById('loading').style.display = 'none';
+
+                if(data.total === 0) {
+                    document.getElementById('resultArea').innerHTML = '<div class="card"><div class="card-content" style="text-align:center;">검색결과가 없습니다.</div></div>';
+                    return;
+                }
+
+                document.getElementById('resultCount').innerHTML = `검색결과 약 ${data.total}개 (초고속 스캔 완료)`;
+
+                let html = '';
+                data.results.forEach((item, index) => {
+                    const priorityClass = item.priority === 1 ? 'priority-1' : 'priority-2';
+                    const badgeHtml = item.priority === 1 ? '<span class="badge">제목 일치</span>' : '';
+                    let titleText = highlightText(item.articleTitle ? `(${item.articleTitle})` : '', query);
+                    let linkedContent = highlightText(applyBlueLinks(item.content, item.lawName), query);
+
+                    html += `
+                        <div class="card ${priorityClass}">
+                            <div class="card-title">
+                                <span>${index + 1}. [${item.lawName}] ${item.articleNo} ${titleText}</span>
+                                ${badgeHtml}
+                            </div>
+                            <div class="card-content">${linkedContent}</div>
+                        </div>
+                    `;
+                });
+                
+                document.getElementById('resultArea').innerHTML = html;
+
+            } catch (error) {
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('resultArea').innerHTML = `<div class="card"><div style="color:red; text-align:center; padding:10px;">서버 통신 오류 발생</div></div>`;
+            }
+        }
+    </script>
+</body>
+</html>
