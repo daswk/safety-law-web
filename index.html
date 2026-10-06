@@ -64,7 +64,7 @@
             </div>
         </div>
 
-        <div id="loading" class="loading">법령 데이터를 불러오고 있습니다... ⏳<br><span style="font-size:12px; color:#aaa; margin-top:5px; display:block;">(법령이 많아 최초 스캔 시 최대 10초가 소요될 수 있습니다)</span></div>
+        <div id="loading" class="loading">수만 개의 법령 데이터를 스캔 중입니다... ⏳<br><span style="font-size:12px; color:#aaa; margin-top:5px; display:block;">(법령이 많아 최초 스캔 시 최대 10초가 소요될 수 있습니다)</span></div>
         <div id="resultCount" class="result-count"></div>
         <div id="resultArea"></div>
     </div>
@@ -91,35 +91,34 @@
 
         function openLawPopup(targetLawName, specificTarget = '') {
             let safeLawName = targetLawName.replace(/\s/g, '');
+            // ★ 고시/지침인 경우 '행정규칙' 팝업으로 연결하도록 수정 ★
+            let urlType = (safeLawName.includes('지침') || safeLawName.includes('기준')) ? '행정규칙' : '법령';
             let url = '';
+            
             if (specificTarget) {
                 let safeTarget = specificTarget.replace(/\s/g, '');
                 if (safeTarget.indexOf('별표') !== -1) {
                     url = `https://www.law.go.kr/법령별표서식/(${encodeURIComponent(safeLawName)},${encodeURIComponent(safeTarget)})`;
                 } else {
-                    url = `https://www.law.go.kr/법령/${encodeURIComponent(safeLawName)}/${encodeURIComponent(safeTarget)}`;
+                    url = `https://www.law.go.kr/${urlType}/${encodeURIComponent(safeLawName)}/${encodeURIComponent(safeTarget)}`;
                 }
             } else {
-                url = `https://www.law.go.kr/법령/${encodeURIComponent(safeLawName)}`;
+                url = `https://www.law.go.kr/${urlType}/${encodeURIComponent(safeLawName)}`;
             }
             window.open(url, 'lawPopup', 'width=800,height=900,scrollbars=yes,resizable=yes');
         }
 
         function applyBlueLinks(text, parentLaw) {
-            // ★ 모든 법령에 대응하는 만능 추출 엔진 ★
-            // '시행령', '시행규칙' 글자를 떼어내어 기본 법(모법) 이름을 자동으로 파악합니다.
             let baseLaw = parentLaw.replace(/\s*(시행령|시행규칙)$/, '').trim();
             let decree = baseLaw + " 시행령";
             let rule = baseLaw + " 시행규칙";
 
             let resultHtml = text;
             
-            // 별표 링크
             resultHtml = resultHtml.replace(/(?:\[)?(별표\s*[0-9]+(?:의[0-9]+)?)(?:\])?/g, function(match, p1) {
                 return `<span class="law-link" onclick="openLawPopup('${parentLaw}', '${p1}')">${match}</span>`;
             });
 
-            // 조문(법, 영, 규칙) 링크
             resultHtml = resultHtml.replace(/(법|영|규칙)?\s*(제[0-9]+(?:의[0-9]+)?조)/g, function(match, type, article) {
                 let targetLaw = parentLaw;
                 if (type === '법') targetLaw = baseLaw;
@@ -131,60 +130,4 @@
             return resultHtml;
         }
 
-        function highlightText(text, keyword) {
-            if (!keyword) return text;
-            const escapedKeyword = keyword.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-            const regex = new RegExp(`(${escapedKeyword})(?![^<]*>)`, 'gi');
-            return text.replace(regex, '<span class="highlight-keyword">$1</span>');
-        }
-
-        async function searchLaw() {
-            const query = document.getElementById('searchInput').value;
-            if(!query.trim()) { alert("검색어를 입력해주세요."); return; }
-
-            document.getElementById('homeState').style.display = 'none';
-            document.getElementById('resultArea').innerHTML = '';
-            document.getElementById('resultCount').innerHTML = '';
-            document.getElementById('loading').style.display = 'block';
-            
-            try {
-                const response = await fetch(`${vercelURL}/api/search?query=${encodeURIComponent(query)}`);
-                const data = await response.json();
-                
-                document.getElementById('loading').style.display = 'none';
-
-                if(data.total === 0) {
-                    document.getElementById('resultArea').innerHTML = '<div class="card"><div class="card-content" style="text-align:center;">검색결과가 없습니다.</div></div>';
-                    return;
-                }
-
-                document.getElementById('resultCount').innerHTML = `검색결과 약 ${data.total}개 (초고속 스캔 완료)`;
-
-                let html = '';
-                data.results.forEach((item, index) => {
-                    const priorityClass = item.priority === 1 ? 'priority-1' : 'priority-2';
-                    const badgeHtml = item.priority === 1 ? '<span class="badge">제목 일치</span>' : '';
-                    let titleText = highlightText(item.articleTitle ? `(${item.articleTitle})` : '', query);
-                    let linkedContent = highlightText(applyBlueLinks(item.content, item.lawName), query);
-
-                    html += `
-                        <div class="card ${priorityClass}">
-                            <div class="card-title">
-                                <span>${index + 1}. [${item.lawName}] ${item.articleNo} ${titleText}</span>
-                                ${badgeHtml}
-                            </div>
-                            <div class="card-content">${linkedContent}</div>
-                        </div>
-                    `;
-                });
-                
-                document.getElementById('resultArea').innerHTML = html;
-
-            } catch (error) {
-                document.getElementById('loading').style.display = 'none';
-                document.getElementById('resultArea').innerHTML = `<div class="card"><div style="color:red; text-align:center; padding:10px;">서버 통신 오류 (또는 첫 로딩 지연)</div><div style="font-size:13px; color:#555; text-align:center;">무료 서버 특성상 너무 많은 법령을 10초 안에 불러오지 못해 멈춘 것일 수 있습니다.<br>잠시 후 다시 검색해 주세요!</div></div>`;
-            }
-        }
-    </script>
-</body>
-</html>
+        function highlightText(
