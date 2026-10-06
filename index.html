@@ -4,19 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta property="og:title" content="안전법령 통합검색 플랫폼">
-    <meta property="og:description" content="우리 현장에 딱 맞는 9대 핵심 안전법령을 1초 만에 찾아보세요.">
+    <meta property="og:description" content="우리 현장에 딱 맞는 30여 개 핵심 안전법령을 1초 만에 찾아보세요.">
     <meta property="og:type" content="website">
     <title>안전법령 통합검색 플랫폼</title>
     <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
     <style>
         body { font-family: 'Pretendard', sans-serif; background-color: #f8f9fa; margin: 0; padding: 15px; color: #202124; }
         .container { max-width: 800px; margin: 40px auto; }
-        
-        /* 제목을 누르면 홈으로 가게끔 마우스 포인터 추가 */
         .header { text-align: center; margin-bottom: 30px; cursor: pointer; transition: opacity 0.2s; }
         .header:hover { opacity: 0.8; }
         .header h1 { color: #1a73e8; font-size: 28px; font-weight: 700; margin: 0; word-break: keep-all; }
-        
         .search-container { display: flex; justify-content: center; margin-bottom: 20px; }
         .search-box { display: flex; width: 100%; max-width: 600px; background: #fff; border: 1px solid #dfe1e5; border-radius: 24px; padding: 6px 8px 6px 20px; align-items: center; box-sizing: border-box; }
         .search-box:focus-within { box-shadow: 0 1px 6px rgba(32,33,36,0.28); border-color: rgba(223,225,229,0); }
@@ -24,7 +21,6 @@
         button.search-btn { background-color: #1a73e8; color: white; border: none; padding: 10px 20px; border-radius: 18px; font-size: 15px; font-weight: 600; cursor: pointer; white-space: nowrap; flex-shrink: 0; font-family: inherit;}
         button.search-btn:hover { background-color: #1557b0; }
         
-        /* ★ 주요 키워드 추천 영역 디자인 ★ */
         .keyword-section { text-align: center; margin-bottom: 30px; }
         .keyword-title { font-size: 13px; color: #70757a; margin-bottom: 10px; }
         .keyword-chips { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
@@ -46,32 +42,29 @@
 </head>
 <body>
     <div class="container">
-        <!-- 타이틀을 누르면 resetToHome() 함수 실행 -->
         <div class="header" onclick="resetToHome()">
             <h1>안전법령 통합검색 플랫폼</h1>
         </div>
         
         <div class="search-container">
             <div class="search-box">
-                <!-- oninput 이벤트를 통해 글자가 다 지워지면 감지 -->
-                <input type="text" id="searchInput" placeholder="예) 위험성평가, 안전관리자..." onkeypress="if(event.keyCode==13) searchLaw()" oninput="checkEmpty()">
+                <input type="text" id="searchInput" placeholder="예) 위험성평가, 굴착공사, 지게차..." onkeypress="if(event.keyCode==13) searchLaw()" oninput="checkEmpty()">
                 <button class="search-btn" onclick="searchLaw()">검색</button>
             </div>
         </div>
 
-        <!-- ★ 초기화면에만 보이는 주요 키워드 영역 ★ -->
         <div id="homeState" class="keyword-section">
-            <div class="keyword-title">💡 이번 주 주요 안전 키워드</div>
+            <div class="keyword-title">💡 현장 필수 안전 키워드</div>
             <div class="keyword-chips">
+                <span class="chip" onclick="searchByChip('안전보건관리비')">#안전보건관리비</span>
                 <span class="chip" onclick="searchByChip('위험성평가')">#위험성평가</span>
-                <span class="chip" onclick="searchByChip('안전관리계획서')">#안전관리계획서</span>
-                <span class="chip" onclick="searchByChip('안전관리자')">#안전관리자</span>
-                <span class="chip" onclick="searchByChip('중대재해')">#중대재해</span>
-                <span class="chip" onclick="searchByChip('도급인')">#도급인</span>
+                <span class="chip" onclick="searchByChip('굴착공사')">#굴착공사</span>
+                <span class="chip" onclick="searchByChip('지하안전평가')">#지하안전평가</span>
+                <span class="chip" onclick="searchByChip('크레인')">#크레인</span>
             </div>
         </div>
 
-        <div id="loading" class="loading">법령 데이터를 불러오고 있습니다... ⏳</div>
+        <div id="loading" class="loading">수만 개의 법령 데이터를 스캔 중입니다... ⏳<br><span style="font-size:12px; color:#aaa; margin-top:5px; display:block;">(법령이 많아 최초 스캔 시 최대 10초가 소요될 수 있습니다)</span></div>
         <div id="resultCount" class="result-count"></div>
         <div id="resultArea"></div>
     </div>
@@ -79,24 +72,18 @@
     <script>
         const vercelURL = 'https://safety-law-api.vercel.app'; 
 
-        // ★ 로고 클릭 시 초기화면으로 복귀 ★
         function resetToHome() {
             document.getElementById('searchInput').value = '';
             document.getElementById('resultArea').innerHTML = '';
             document.getElementById('resultCount').innerHTML = '';
             document.getElementById('loading').style.display = 'none';
-            document.getElementById('homeState').style.display = 'block'; // 키워드 다시 보이기
+            document.getElementById('homeState').style.display = 'block';
         }
 
-        // ★ 검색창 글자가 빈칸이 되면 자동으로 초기화면 복귀 ★
         function checkEmpty() {
-            const query = document.getElementById('searchInput').value;
-            if (query.trim() === '') {
-                resetToHome();
-            }
+            if (document.getElementById('searchInput').value.trim() === '') resetToHome();
         }
 
-        // ★ 추천 키워드 클릭 시 바로 검색 실행 ★
         function searchByChip(keyword) {
             document.getElementById('searchInput').value = keyword;
             searchLaw();
@@ -105,7 +92,6 @@
         function openLawPopup(targetLawName, specificTarget = '') {
             let safeLawName = targetLawName.replace(/\s/g, '');
             let url = '';
-            
             if (specificTarget) {
                 let safeTarget = specificTarget.replace(/\s/g, '');
                 if (safeTarget.indexOf('별표') !== -1) {
@@ -120,23 +106,26 @@
         }
 
         function applyBlueLinks(text, parentLaw) {
-            let decree = ""; let rule = "";   
-            if (parentLaw.includes("산업안전보건법")) { decree = "산업안전보건법 시행령"; rule = "산업안전보건법 시행규칙"; }
-            else if (parentLaw.includes("중대재해")) { decree = "중대재해 처벌 등에 관한 법률 시행령"; }
-            else if (parentLaw.includes("건설기술")) { decree = "건설기술 진흥법 시행령"; rule = "건설기술 진흥법 시행규칙"; }
+            // ★ 모든 법령에 대응하는 만능 추출 엔진 ★
+            // '시행령', '시행규칙' 글자를 떼어내어 기본 법(모법) 이름을 자동으로 파악합니다.
+            let baseLaw = parentLaw.replace(/\s*(시행령|시행규칙)$/, '').trim();
+            let decree = baseLaw + " 시행령";
+            let rule = baseLaw + " 시행규칙";
 
             let resultHtml = text;
+            
+            // 별표 링크
             resultHtml = resultHtml.replace(/(?:\[)?(별표\s*[0-9]+(?:의[0-9]+)?)(?:\])?/g, function(match, p1) {
                 return `<span class="law-link" onclick="openLawPopup('${parentLaw}', '${p1}')">${match}</span>`;
             });
+
+            // 조문(법, 영, 규칙) 링크
             resultHtml = resultHtml.replace(/(법|영|규칙)?\s*(제[0-9]+(?:의[0-9]+)?조)/g, function(match, type, article) {
                 let targetLaw = parentLaw;
-                if (type === '법') {
-                    if (parentLaw.includes("산업안전보건")) targetLaw = "산업안전보건법";
-                    else if (parentLaw.includes("중대재해")) targetLaw = "중대재해 처벌 등에 관한 법률";
-                    else if (parentLaw.includes("건설기술")) targetLaw = "건설기술 진흥법";
-                } else if (type === '영') { if (decree) targetLaw = decree; } 
-                else if (type === '규칙') { if (rule) targetLaw = rule; }
+                if (type === '법') targetLaw = baseLaw;
+                else if (type === '영') targetLaw = decree;
+                else if (type === '규칙') targetLaw = rule;
+                
                 return `<span class="law-link" onclick="openLawPopup('${targetLaw}', '${article}')">${match}</span>`;
             });
             return resultHtml;
@@ -153,7 +142,6 @@
             const query = document.getElementById('searchInput').value;
             if(!query.trim()) { alert("검색어를 입력해주세요."); return; }
 
-            // 검색 시작 시 초기화면 키워드 숨기기
             document.getElementById('homeState').style.display = 'none';
             document.getElementById('resultArea').innerHTML = '';
             document.getElementById('resultCount').innerHTML = '';
@@ -194,7 +182,7 @@
 
             } catch (error) {
                 document.getElementById('loading').style.display = 'none';
-                document.getElementById('resultArea').innerHTML = `<div class="card"><div style="color:red;">통신 오류 발생</div></div>`;
+                document.getElementById('resultArea').innerHTML = `<div class="card"><div style="color:red; text-align:center; padding:10px;">서버 통신 오류 (또는 첫 로딩 지연)</div><div style="font-size:13px; color:#555; text-align:center;">무료 서버 특성상 너무 많은 법령을 10초 안에 불러오지 못해 멈춘 것일 수 있습니다.<br>잠시 후 다시 검색해 주세요!</div></div>`;
             }
         }
     </script>
