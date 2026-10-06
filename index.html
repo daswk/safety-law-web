@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta property="og:title" content="한국도로공사 안전법령 통합검색 플랫폼">
-    <meta property="og:description" content="우리 현장에 딱 맞는 15대 핵심 안전법령 및 고시를 1초 만에 찾아보세요.">
+    <meta property="og:description" content="우리 현장에 딱 맞는 핵심 안전법령을 즉시 찾아보세요.">
     <meta property="og:type" content="website">
     <title>한국도로공사 안전법령 통합검색 플랫폼</title>
     <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
@@ -12,11 +12,13 @@
         body { font-family: 'Pretendard', sans-serif; background-color: #f8f9fa; margin: 0; padding: 15px; color: #202124; }
         .container { max-width: 800px; margin: 40px auto; position: relative; }
         
-        .menu-btn { position: absolute; left: 0; top: 0; font-size: 24px; background: none; border: none; cursor: pointer; color: #5f6368; padding: 5px; }
+        /* ★ 메뉴 버튼 터치 영역 대폭 확대 (패딩을 크게 주어 대충 눌러도 인식되게 함) ★ */
+        .menu-btn { position: absolute; left: -10px; top: -15px; font-size: 28px; background: none; border: none; cursor: pointer; color: #5f6368; padding: 20px; z-index: 50; }
         
-        .header { text-align: center; margin-bottom: 30px; cursor: pointer; transition: opacity 0.2s; padding-top: 5px; }
+        .header { text-align: center; margin-bottom: 30px; cursor: pointer; transition: opacity 0.2s; padding-top: 15px; }
         .header:hover { opacity: 0.8; }
-        .header h1 { color: #1a73e8; font-size: 26px; font-weight: 700; margin: 0; word-break: keep-all; letter-spacing: 0.5px; }
+        /* ★ 타이틀 글자 크기 조정하여 로고와 밸런스 맞춤 ★ */
+        .header h1 { color: #1a73e8; font-size: 23px; font-weight: 700; margin: 0; word-break: keep-all; letter-spacing: 0.5px; }
         
         .search-container { display: flex; justify-content: center; margin-bottom: 20px; }
         .search-box { display: flex; width: 100%; max-width: 600px; background: #fff; border: 1px solid #dfe1e5; border-radius: 24px; padding: 6px 8px 6px 20px; align-items: center; box-sizing: border-box; }
@@ -79,9 +81,11 @@
     </div>
 
     <div class="container">
+        <!-- 터치 영역이 넓어진 메뉴 버튼 -->
         <button class="menu-btn" onclick="toggleSidebar()">☰</button>
         <div class="header" onclick="resetToHome()">
-            <img src="./logo.png" alt="한국도로공사 로고" style="height: 26px; margin-bottom: 12px; display: inline-block;">
+            <!-- ★ 로고 크기를 살짝 키워 글씨와 밸런스를 완벽하게 맞춤 ★ -->
+            <img src="./logo.png" alt="한국도로공사 로고" style="height: 31px; margin-bottom: 10px; display: inline-block;">
             <h1>안전법령 통합검색 플랫폼</h1>
         </div>
         
@@ -93,7 +97,7 @@
         </div>
 
         <div id="homeState" class="keyword-section">
-            <div class="keyword-title">💡 금주의 필수안전키워드</div>
+            <div class="keyword-title">💡 금주의 필수 안전키워드</div>
             <div class="keyword-chips">
                 <span class="chip" onclick="searchByChip('위험성평가')">#위험성평가</span>
                 <span class="chip" onclick="searchByChip('작업계획서')">#작업계획서</span>
@@ -103,7 +107,7 @@
             </div>
         </div>
 
-        <div id="loading" class="loading">법령 데이터를 스캔하고 있습니다... ⏳<br><span style="font-size:12px; color:#aaa; margin-top:5px; display:block;">(서버 최적화 완료. 최대 5초 소요)</span></div>
+        <div id="loading" class="loading">법령 데이터를 스캔하고 있습니다... ⏳<br><span style="font-size:12px; color:#aaa; margin-top:5px; display:block;">(첫 검색 시 최대 5~10초 소요)</span></div>
         <div id="resultCount" class="result-count"></div>
         <div id="resultArea"></div>
     </div>
@@ -115,7 +119,6 @@
         let recentSearches = [];
         let bookmarks = [];
 
-        // ★ 이전 테스트 데이터 찌꺼기로 인한 먹통 현상 완벽 방어 로직 ★
         try {
             const savedRS = JSON.parse(localStorage.getItem('recentSearches'));
             if(Array.isArray(savedRS)) recentSearches = savedRS;
@@ -143,7 +146,6 @@
             });
         }
         
-        // 페이지 로드 시 즉시 UI 업데이트
         updateSidebarUI();
 
         function toggleSidebar() {
@@ -180,7 +182,7 @@
             const textToCopy = `[${item.lawName}] ${item.articleNo} ${titleText}\n\n${cleanContent}\n\n- 한국도로공사 안전법령 통합검색 앱`;
             
             navigator.clipboard.writeText(textToCopy).then(() => {
-                alert("✅ 조항이 복사되었습니다. 카톡에 붙여넣기 하세요!");
+                alert("✅ 조항이 복사되었습니다.");
             });
         }
 
