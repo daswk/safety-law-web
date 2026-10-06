@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta property="og:title" content="한국도로공사 안전법령 통합검색 플랫폼">
-    <meta property="og:description" content="우리 현장에 딱 맞는 핵심 안전법령을 즉시 찾아보세요.">
+    <meta property="og:description" content="우리 현장에 딱 맞는 안전법령을 즉시 찾아보세요.">
     <meta property="og:type" content="website">
     <title>한국도로공사 안전법령 통합검색 플랫폼</title>
     <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
@@ -16,7 +16,9 @@
         
         .header { text-align: center; margin-bottom: 30px; cursor: pointer; transition: opacity 0.2s; padding-top: 5px; }
         .header:hover { opacity: 0.8; }
-        .header h1 { color: #1a73e8; font-size: 22px; font-weight: 700; margin: 0; word-break: keep-all; letter-spacing: -0.5px; }
+        
+        /* ★ 타이틀 글자 크기(26px) 및 자간(0.5px) 확대 조정 ★ */
+        .header h1 { color: #1a73e8; font-size: 26px; font-weight: 700; margin: 0; word-break: keep-all; letter-spacing: 0.5px; }
         
         .search-container { display: flex; justify-content: center; margin-bottom: 20px; }
         .search-box { display: flex; width: 100%; max-width: 600px; background: #fff; border: 1px solid #dfe1e5; border-radius: 24px; padding: 6px 8px 6px 20px; align-items: center; box-sizing: border-box; }
@@ -81,8 +83,8 @@
     <div class="container">
         <button class="menu-btn" onclick="toggleSidebar()">☰</button>
         <div class="header" onclick="resetToHome()">
-            <!-- ★ 한글 파일명 오류를 피하기 위해 logo.png 로 고정 ★ -->
-            <img src="./logo.png" alt="한국도로공사 로고" style="height: 35px; margin-bottom: 8px; display: inline-block;">
+            <!-- ★ 로고 크기를 살짝 줄이고, 여백을 줘서 글씨와 밸런스를 맞춤 ★ -->
+            <img src="./logo.png" alt="한국도로공사 로고" style="height: 26px; margin-bottom: 12px; display: inline-block;">
             <h1>안전법령 통합검색 플랫폼</h1>
         </div>
         
@@ -104,7 +106,7 @@
             </div>
         </div>
 
-        <div id="loading" class="loading">법령 데이터를 스캔하고 있습니다... ⏳<br><span style="font-size:12px; color:#aaa; margin-top:5px; display:block;">(첫 검색시 최대 10초 소요, 이후 즉시 표출)</span></div>
+        <div id="loading" class="loading">법령 데이터를 스캔하고 있습니다... ⏳<br><span style="font-size:12px; color:#aaa; margin-top:5px; display:block;">(첫 검색 시 5~10초 소요)</span></div>
         <div id="resultCount" class="result-count"></div>
         <div id="resultArea"></div>
     </div>
@@ -165,7 +167,7 @@
             const textToCopy = `[${item.lawName}] ${item.articleNo} ${titleText}\n\n${cleanContent}\n\n- 한국도로공사 안전법령 통합검색 앱`;
             
             navigator.clipboard.writeText(textToCopy).then(() => {
-                alert("✅ 복사가 완료되었습니다.");
+                alert("✅ 조항이 복사되었습니다.");
             });
         }
 
@@ -240,87 +242,4 @@
             let rule = baseLaw + " 시행규칙";
             let resultHtml = text;
             
-            resultHtml = resultHtml.replace(/(?:\[)?(별표\s*[0-9]+(?:의[0-9]+)?)(?:\])?/g, function(match, p1) {
-                return `<span class="law-link" onclick="openLawPopup('${parentLaw}', '${p1}')">${match}</span>`;
-            });
-            resultHtml = resultHtml.replace(/(법|영|규칙)?\s*(제[0-9]+(?:의[0-9]+)?조)/g, function(match, type, article) {
-                let targetLaw = parentLaw;
-                if (type === '법') targetLaw = baseLaw;
-                else if (type === '영') targetLaw = decree;
-                else if (type === '규칙') targetLaw = rule;
-                return `<span class="law-link" onclick="openLawPopup('${targetLaw}', '${article}')">${match}</span>`;
-            });
-            return resultHtml;
-        }
-
-        function highlightText(text, keyword) {
-            if (!keyword) return text;
-            const escapedKeyword = keyword.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-            const regex = new RegExp(`(${escapedKeyword})(?![^<]*>)`, 'gi');
-            return text.replace(regex, '<span class="highlight-keyword">$1</span>');
-        }
-
-        function renderCards(keyword) {
-            let html = '';
-            currentResults.forEach((item, index) => {
-                const priorityClass = item.priority === 1 ? 'priority-1' : 'priority-2';
-                const badgeHtml = item.priority === 1 ? '<span class="badge">제목 일치</span>' : '';
-                let titleText = highlightText(item.articleTitle ? `(${item.articleTitle})` : '', keyword);
-                let linkedContent = highlightText(applyBlueLinks(item.content, item.lawName), keyword);
-
-                const isBookmarked = bookmarks.some(b => (b.lawName + b.articleNo) === (item.lawName + item.articleNo));
-                const starIcon = isBookmarked ? '★' : '☆';
-                const starClass = isBookmarked ? 'bm-active' : '';
-
-                html += `
-                    <div class="card ${priorityClass}">
-                        <div class="card-actions">
-                            <button id="bm-btn-${index}" class="action-btn ${starClass}" onclick="toggleBookmark(${index})" title="북마크 저장">${starIcon}</button>
-                            <button class="action-btn" onclick="copyArticle(${index})" title="조항 복사">📋</button>
-                        </div>
-                        <div class="card-title">
-                            <span>${index + 1}. [${item.lawName}] ${item.articleNo} ${titleText}</span>
-                            ${badgeHtml}
-                        </div>
-                        <div class="card-content">${linkedContent}</div>
-                    </div>
-                `;
-            });
-            document.getElementById('resultArea').innerHTML = html;
-        }
-
-        async function searchLaw() {
-            const query = document.getElementById('searchInput').value;
-            if(!query.trim()) { alert("검색어를 입력해주세요."); return; }
-
-            saveRecentSearch(query);
-
-            document.getElementById('homeState').style.display = 'none';
-            document.getElementById('resultArea').innerHTML = '';
-            document.getElementById('resultCount').innerHTML = '';
-            document.getElementById('loading').style.display = 'block';
-            
-            try {
-                const response = await fetch(`${vercelURL}/api/search?query=${encodeURIComponent(query)}`);
-                const data = await response.json();
-                
-                document.getElementById('loading').style.display = 'none';
-
-                if(data.total === 0) {
-                    document.getElementById('resultArea').innerHTML = '<div class="card"><div class="card-content" style="text-align:center; color:#555;">검색결과가 없습니다. 정확한 키워드로 다시 검색해주세요.</div></div>';
-                    return;
-                }
-
-                document.getElementById('resultCount').innerHTML = `검색결과 약 ${data.total}개`;
-                
-                currentResults = data.results; 
-                renderCards(query);
-
-            } catch (error) {
-                document.getElementById('loading').style.display = 'none';
-                document.getElementById('resultArea').innerHTML = `<div class="card"><div style="color:red; text-align:center; padding:10px;">서버 통신 오류</div><div style="font-size:13px; color:#555; text-align:center;">새로고침 후 다시 시도해 주세요.</div></div>`;
-            }
-        }
-    </script>
-</body>
-</html>
+            resultHtml = resultHtml.replace(/(?:\[)?(별표\s*[0-9]+(?:의[0-9]+)?)(?:\])?/g, function(match, p1)
