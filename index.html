@@ -81,8 +81,8 @@
     <div class="container">
         <button class="menu-btn" onclick="toggleSidebar()">☰</button>
         <div class="header" onclick="resetToHome()">
-            <!-- ★ 외부 공식 URL을 사용하여 이미지 깨짐 완벽 방지 ★ -->
-            <img src="https://upload.wikimedia.org/wikipedia/commons/4/4b/Korea_Expressway_Corporation_logo.svg" alt="한국도로공사 로고" style="height: 35px; margin-bottom: 8px; display: inline-block;">
+            <!-- ★ 이중 방어막 로고: 로컬 파일 실패 시 외부 백업 이미지로 자동 전환 ★ -->
+            <img src="./getImage.png" onerror="this.onerror=null; this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Korea_Expressway_Corporation_logo.svg/800px-Korea_Expressway_Corporation_logo.svg.png';" alt="한국도로공사 로고" style="height: 35px; margin-bottom: 8px; display: inline-block;">
             <h1>안전법령 통합검색 플랫폼</h1>
         </div>
         
