@@ -4,73 +4,237 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta property="og:title" content="안전법령 통합검색 플랫폼">
-    <meta property="og:description" content="우리 현장에 딱 맞는 핵심 안전법령을 찾아보세요.">
+    <meta property="og:description" content="우리 현장에 딱 맞는 15대 핵심 안전법령 및 고시를 1초 만에 찾아보세요.">
     <meta property="og:type" content="website">
     <title>안전법령 통합검색 플랫폼</title>
     <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
     <style>
         body { font-family: 'Pretendard', sans-serif; background-color: #f8f9fa; margin: 0; padding: 15px; color: #202124; }
-        .container { max-width: 800px; margin: 40px auto; }
-        .header { text-align: center; margin-bottom: 30px; cursor: pointer; transition: opacity 0.2s; }
+        .container { max-width: 800px; margin: 40px auto; position: relative; }
+        
+        /* 햄버거 메뉴 (사이드바 토글) */
+        .menu-btn { position: absolute; left: 0; top: 0; font-size: 24px; background: none; border: none; cursor: pointer; color: #5f6368; padding: 5px; }
+        
+        .header { text-align: center; margin-bottom: 30px; cursor: pointer; transition: opacity 0.2s; padding-top: 5px; }
         .header:hover { opacity: 0.8; }
-        .header h1 { color: #1a73e8; font-size: 28px; font-weight: 700; margin: 0; word-break: keep-all; }
+        .header h1 { color: #1a73e8; font-size: 24px; font-weight: 700; margin: 0; word-break: keep-all; }
+        
         .search-container { display: flex; justify-content: center; margin-bottom: 20px; }
         .search-box { display: flex; width: 100%; max-width: 600px; background: #fff; border: 1px solid #dfe1e5; border-radius: 24px; padding: 6px 8px 6px 20px; align-items: center; box-sizing: border-box; }
         .search-box:focus-within { box-shadow: 0 1px 6px rgba(32,33,36,0.28); border-color: rgba(223,225,229,0); }
         input[type="text"] { flex: 1; border: none; font-size: 16px; outline: none; font-family: inherit; min-width: 0; }
-        button.search-btn { background-color: #1a73e8; color: white; border: none; padding: 10px 20px; border-radius: 18px; font-size: 15px; font-weight: 600; cursor: pointer; white-space: nowrap; flex-shrink: 0; font-family: inherit;}
-        button.search-btn:hover { background-color: #1557b0; }
+        
+        /* 마이크(음성검색) 버튼 */
+        .mic-btn { background: none; border: none; font-size: 18px; cursor: pointer; padding: 0 10px; color: #70757a; }
+        .search-btn { background-color: #1a73e8; color: white; border: none; padding: 10px 20px; border-radius: 18px; font-size: 15px; font-weight: 600; cursor: pointer; white-space: nowrap; flex-shrink: 0; font-family: inherit;}
         
         .keyword-section { text-align: center; margin-bottom: 30px; }
         .keyword-title { font-size: 13px; color: #70757a; margin-bottom: 10px; }
         .keyword-chips { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
-        .chip { background-color: #e8f0fe; color: #1a73e8; border: 1px solid #d2e3fc; padding: 6px 14px; border-radius: 16px; font-size: 14px; font-weight: 500; cursor: pointer; transition: all 0.2s; }
-        .chip:hover { background-color: #d2e3fc; }
-
+        .chip { background-color: #e8f0fe; color: #1a73e8; border: 1px solid #d2e3fc; padding: 6px 14px; border-radius: 16px; font-size: 14px; font-weight: 500; cursor: pointer; }
+        
         .result-count { color: #70757a; font-size: 14px; margin-bottom: 20px; padding-left: 10px; }
-        .card { background: #FFFFFF; border: 1px solid #dfe1e5; border-radius: 12px; padding: 20px; margin-bottom: 15px; box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
+        .card { background: #FFFFFF; border: 1px solid #dfe1e5; border-radius: 12px; padding: 20px; margin-bottom: 15px; box-shadow: 0 1px 3px rgba(0,0,0,0.06); position: relative;}
         .priority-1 { border-top: 5px solid #f9ab00; } 
         .priority-2 { border-top: 5px solid #1a73e8; }
-        .card-title { font-size: 17px; font-weight: 700; color: #1a0dab; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: flex-start; line-height: 1.4; }
+        .card-title { font-size: 17px; font-weight: 700; color: #1a0dab; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: flex-start; line-height: 1.4; padding-right: 70px;}
         .badge { font-size: 12px; background: #fef7e0; color: #b06000; padding: 4px 8px; border-radius: 12px; font-weight: 600; white-space: nowrap; margin-left: 10px; flex-shrink: 0; }
         .card-content { font-size: 15px; color: #3c4043; line-height: 1.7; white-space: pre-wrap; word-break: keep-all; }
+        
+        /* 카드 우측 상단 액션 버튼 (복사, 북마크) */
+        .card-actions { position: absolute; right: 15px; top: 18px; display: flex; gap: 8px; }
+        .action-btn { background: #f1f3f4; border: none; border-radius: 50%; width: 32px; height: 32px; display: flex; justify-content: center; align-items: center; cursor: pointer; color: #5f6368; font-size: 16px; transition: background 0.2s;}
+        .action-btn:hover { background: #e8eaed; }
+        .bm-active { color: #f9ab00; } /* 북마크 활성화 색상 */
+
         .loading { text-align: center; color: #70757a; padding: 40px; display: none; font-size: 15px; }
         .law-link { color: #1a0dab; text-decoration: underline; cursor: pointer; font-weight: 600; }
-        .law-link:hover { color: #1557b0; background-color: #f1f3f4; border-radius: 4px; }
         .highlight-keyword { color: #d93025; font-weight: 900; }
+
+        /* ★ 왼쪽 사이드바 디자인 ★ */
+        .sidebar-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 999; display: none; }
+        .sidebar { position: fixed; top: 0; left: -280px; width: 280px; height: 100%; background: #fff; z-index: 1000; box-shadow: 2px 0 8px rgba(0,0,0,0.15); transition: left 0.3s ease; overflow-y: auto; }
+        .sidebar-header { padding: 20px; font-size: 18px; font-weight: bold; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; color: #1a73e8; }
+        .close-btn { background: none; border: none; font-size: 20px; cursor: pointer; color: #5f6368; }
+        .sidebar-section { padding: 15px 20px; border-bottom: 1px solid #f1f3f4; }
+        .sidebar-sec-title { font-size: 13px; color: #70757a; margin-bottom: 10px; font-weight: 600; }
+        .sidebar-list { list-style: none; padding: 0; margin: 0; }
+        .sidebar-list li { padding: 10px 0; font-size: 14px; color: #3c4043; cursor: pointer; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed #f1f3f4;}
+        .sidebar-list li:hover { color: #1a73e8; font-weight: 600; }
+        .sidebar-list li:last-child { border-bottom: none; }
+        .del-btn { font-size: 12px; color: #9aa0a6; cursor: pointer; padding: 5px; }
     </style>
 </head>
 <body>
+    <!-- 왼쪽 사이드바 영역 -->
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <span>메뉴</span>
+            <button class="close-btn" onclick="toggleSidebar()">✕</button>
+        </div>
+        <div class="sidebar-section">
+            <div class="sidebar-sec-title">🕒 최근 검색어</div>
+            <ul class="sidebar-list" id="recentSearchList"></ul>
+        </div>
+        <div class="sidebar-section">
+            <div class="sidebar-sec-title">⭐ 내 북마크 (즐겨찾기)</div>
+            <ul class="sidebar-list" id="bookmarkList"></ul>
+        </div>
+    </div>
+
     <div class="container">
+        <button class="menu-btn" onclick="toggleSidebar()">☰</button>
         <div class="header" onclick="resetToHome()">
-            <h1>안전법령 통합검색 플랫폼</h1>
+            <h1>안전법령 통합검색</h1>
         </div>
         
         <div class="search-container">
             <div class="search-box">
-                <input type="text" id="searchInput" placeholder="예) 위험성평가, 안전보건관리비..." onkeypress="if(event.keyCode==13) searchLaw()" oninput="checkEmpty()">
+                <input type="text" id="searchInput" placeholder="예) 위험성평가, 굴착공사..." onkeypress="if(event.keyCode==13) searchLaw()" oninput="checkEmpty()">
+                <!-- 마이크 버튼 -->
+                <button class="mic-btn" id="micBtn" onclick="startVoiceSearch()" title="음성 검색">🎙️</button>
                 <button class="search-btn" onclick="searchLaw()">검색</button>
             </div>
         </div>
 
         <div id="homeState" class="keyword-section">
-            <div class="keyword-title">💡 이번 주 주요 안전 키워드</div>
+            <div class="keyword-title">💡 현장 필수 안전 키워드</div>
             <div class="keyword-chips">
-                <span class="chip" onclick="searchByChip('산업안전보건관리비')">#산업안전보건관리비</span>
+                <span class="chip" onclick="searchByChip('안전보건관리비')">#안전보건관리비</span>
                 <span class="chip" onclick="searchByChip('위험성평가')">#위험성평가</span>
-                <span class="chip" onclick="searchByChip('안전보건조정자')">#안전보건조정자</span>
                 <span class="chip" onclick="searchByChip('굴착공사')">#굴착공사</span>
-                <span class="chip" onclick="searchByChip('안전관리계획서')">#안전관리계획서</span>
+                <span class="chip" onclick="searchByChip('터널공사')">#터널공사</span>
+                <span class="chip" onclick="searchByChip('안전관리자')">#안전관리자</span>
             </div>
         </div>
 
-        <div id="loading" class="loading">법령 및 고시 데이터를 스캔하고 있습니다... ⏳<br><span style="font-size:12px; color:#aaa; margin-top:5px; display:block;">(최초 검색 시 서버 작동을 위해 최대 5~10초 소요될 수 있습니다)</span></div>
+        <div id="loading" class="loading">법령 데이터를 스캔하고 있습니다... ⏳</div>
         <div id="resultCount" class="result-count"></div>
         <div id="resultArea"></div>
     </div>
 
     <script>
         const vercelURL = 'https://safety-law-api.vercel.app'; 
+        
+        // 메모리 저장소 초기화
+        let currentResults = [];
+        let recentSearches = JSON.parse(localStorage.getItem('recentSearches')) || [];
+        let bookmarks = JSON.parse(localStorage.getItem('bookmarks')) || [];
+
+        // 화면 렌더링 시 사이드바 목록 업데이트
+        function updateSidebarUI() {
+            const recentUl = document.getElementById('recentSearchList');
+            recentUl.innerHTML = recentSearches.length === 0 ? '<li style="color:#aaa;">최근 검색어가 없습니다.</li>' : '';
+            recentSearches.forEach((kwd, idx) => {
+                recentUl.innerHTML += `<li onclick="searchByChip('${kwd}')"><span>🔍 ${kwd}</span> <span class="del-btn" onclick="event.stopPropagation(); removeRecent(${idx})">✕</span></li>`;
+            });
+
+            const bmUl = document.getElementById('bookmarkList');
+            bmUl.innerHTML = bookmarks.length === 0 ? '<li style="color:#aaa;">저장된 북마크가 없습니다.</li>' : '';
+            bookmarks.forEach((bm, idx) => {
+                let shortTitle = `[${bm.lawName.substring(0,6)}..] ${bm.articleNo}`;
+                bmUl.innerHTML += `<li onclick="viewBookmark(${idx})"><span>⭐ ${shortTitle}</span> <span class="del-btn" onclick="event.stopPropagation(); toggleBookmarkObj(${idx})">✕</span></li>`;
+            });
+        }
+        updateSidebarUI();
+
+        // 사이드바 열기/닫기
+        function toggleSidebar() {
+            const sb = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+            if (sb.style.left === '0px') {
+                sb.style.left = '-280px';
+                overlay.style.display = 'none';
+            } else {
+                updateSidebarUI();
+                sb.style.left = '0px';
+                overlay.style.display = 'block';
+            }
+        }
+
+        // 음성 검색 (Web Speech API)
+        function startVoiceSearch() {
+            if (window.hasOwnProperty('webkitSpeechRecognition')) {
+                const recognition = new webkitSpeechRecognition();
+                recognition.continuous = false;
+                recognition.lang = "ko-KR";
+                document.getElementById('micBtn').innerText = '🔴';
+                
+                recognition.onresult = function(e) {
+                    document.getElementById('searchInput').value = e.results[0][0].transcript;
+                    document.getElementById('micBtn').innerText = '🎙️';
+                    searchLaw();
+                };
+                recognition.onerror = function() {
+                    alert("음성 인식에 실패했습니다.");
+                    document.getElementById('micBtn').innerText = '🎙️';
+                }
+                recognition.start();
+            } else {
+                alert("현재 브라우저는 음성 검색을 지원하지 않습니다. (크롬, 사파리 권장)");
+            }
+        }
+
+        function saveRecentSearch(keyword) {
+            if (!recentSearches.includes(keyword)) {
+                recentSearches.unshift(keyword);
+                if (recentSearches.length > 5) recentSearches.pop(); // 최근 5개 유지
+                localStorage.setItem('recentSearches', JSON.stringify(recentSearches));
+            }
+        }
+        function removeRecent(idx) {
+            recentSearches.splice(idx, 1);
+            localStorage.setItem('recentSearches', JSON.stringify(recentSearches));
+            updateSidebarUI();
+        }
+
+        // 원클릭 복사 기능
+        function copyArticle(idx) {
+            const item = currentResults[idx];
+            const titleText = item.articleTitle ? `(${item.articleTitle})` : '';
+            // HTML 태그 제거하여 깔끔한 텍스트로 복사
+            const cleanContent = item.content.replace(/<[^>]+>/g, '').trim(); 
+            const textToCopy = `[${item.lawName}] ${item.articleNo} ${titleText}\n\n${cleanContent}\n\n- 안전법령 통합검색 앱에서 공유됨`;
+            
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                alert("✅ 조항이 복사되었습니다. 카톡이나 밴드에 붙여넣기 하세요!");
+            });
+        }
+
+        // 북마크 토글 기능
+        function toggleBookmark(idx) {
+            const item = currentResults[idx];
+            const uniqueKey = item.lawName + item.articleNo;
+            const existsIdx = bookmarks.findIndex(b => (b.lawName + b.articleNo) === uniqueKey);
+            
+            const btn = document.getElementById(`bm-btn-${idx}`);
+            if (existsIdx > -1) {
+                bookmarks.splice(existsIdx, 1);
+                if(btn) { btn.innerText = '☆'; btn.classList.remove('bm-active'); }
+            } else {
+                bookmarks.push(item);
+                if(btn) { btn.innerText = '★'; btn.classList.add('bm-active'); }
+            }
+            localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
+        }
+
+        function toggleBookmarkObj(idx) {
+            bookmarks.splice(idx, 1);
+            localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
+            updateSidebarUI();
+        }
+
+        // 사이드바에서 북마크 클릭 시 해당 조항만 띄우기
+        function viewBookmark(idx) {
+            toggleSidebar();
+            document.getElementById('homeState').style.display = 'none';
+            document.getElementById('searchInput').value = '';
+            
+            currentResults = [bookmarks[idx]]; // 검색 결과를 단 1개로 세팅
+            document.getElementById('resultCount').innerHTML = `⭐ 북마크에 저장된 조항입니다.`;
+            renderCards('');
+        }
 
         function resetToHome() {
             document.getElementById('searchInput').value = '';
@@ -80,12 +244,10 @@
             document.getElementById('homeState').style.display = 'block';
         }
 
-        function checkEmpty() {
-            if (document.getElementById('searchInput').value.trim() === '') resetToHome();
-        }
-
+        function checkEmpty() { if (document.getElementById('searchInput').value.trim() === '') resetToHome(); }
         function searchByChip(keyword) {
             document.getElementById('searchInput').value = keyword;
+            if(document.getElementById('sidebar').style.left === '0px') toggleSidebar();
             searchLaw();
         }
 
@@ -111,19 +273,16 @@
             let baseLaw = parentLaw.replace(/\s*(시행령|시행규칙)$/, '').trim();
             let decree = baseLaw + " 시행령";
             let rule = baseLaw + " 시행규칙";
-
             let resultHtml = text;
             
             resultHtml = resultHtml.replace(/(?:\[)?(별표\s*[0-9]+(?:의[0-9]+)?)(?:\])?/g, function(match, p1) {
                 return `<span class="law-link" onclick="openLawPopup('${parentLaw}', '${p1}')">${match}</span>`;
             });
-
             resultHtml = resultHtml.replace(/(법|영|규칙)?\s*(제[0-9]+(?:의[0-9]+)?조)/g, function(match, type, article) {
                 let targetLaw = parentLaw;
                 if (type === '법') targetLaw = baseLaw;
                 else if (type === '영') targetLaw = decree;
                 else if (type === '규칙') targetLaw = rule;
-                
                 return `<span class="law-link" onclick="openLawPopup('${targetLaw}', '${article}')">${match}</span>`;
             });
             return resultHtml;
@@ -136,9 +295,42 @@
             return text.replace(regex, '<span class="highlight-keyword">$1</span>');
         }
 
+        // 공통 카드 렌더링 함수
+        function renderCards(keyword) {
+            let html = '';
+            currentResults.forEach((item, index) => {
+                const priorityClass = item.priority === 1 ? 'priority-1' : 'priority-2';
+                const badgeHtml = item.priority === 1 ? '<span class="badge">제목 일치</span>' : '';
+                let titleText = highlightText(item.articleTitle ? `(${item.articleTitle})` : '', keyword);
+                let linkedContent = highlightText(applyBlueLinks(item.content, item.lawName), keyword);
+
+                // 북마크 상태 확인
+                const isBookmarked = bookmarks.some(b => (b.lawName + b.articleNo) === (item.lawName + item.articleNo));
+                const starIcon = isBookmarked ? '★' : '☆';
+                const starClass = isBookmarked ? 'bm-active' : '';
+
+                html += `
+                    <div class="card ${priorityClass}">
+                        <div class="card-actions">
+                            <button id="bm-btn-${index}" class="action-btn ${starClass}" onclick="toggleBookmark(${index})" title="북마크 저장">${starIcon}</button>
+                            <button class="action-btn" onclick="copyArticle(${index})" title="조항 복사">📋</button>
+                        </div>
+                        <div class="card-title">
+                            <span>${index + 1}. [${item.lawName}] ${item.articleNo} ${titleText}</span>
+                            ${badgeHtml}
+                        </div>
+                        <div class="card-content">${linkedContent}</div>
+                    </div>
+                `;
+            });
+            document.getElementById('resultArea').innerHTML = html;
+        }
+
         async function searchLaw() {
             const query = document.getElementById('searchInput').value;
             if(!query.trim()) { alert("검색어를 입력해주세요."); return; }
+
+            saveRecentSearch(query); // 검색어 저장
 
             document.getElementById('homeState').style.display = 'none';
             document.getElementById('resultArea').innerHTML = '';
@@ -156,27 +348,11 @@
                     return;
                 }
 
-                document.getElementById('resultCount').innerHTML = `검색결과 약 ${data.total}개 (초고속 스캔 완료)`;
-
-                let html = '';
-                data.results.forEach((item, index) => {
-                    const priorityClass = item.priority === 1 ? 'priority-1' : 'priority-2';
-                    const badgeHtml = item.priority === 1 ? '<span class="badge">제목 일치</span>' : '';
-                    let titleText = highlightText(item.articleTitle ? `(${item.articleTitle})` : '', query);
-                    let linkedContent = highlightText(applyBlueLinks(item.content, item.lawName), query);
-
-                    html += `
-                        <div class="card ${priorityClass}">
-                            <div class="card-title">
-                                <span>${index + 1}. [${item.lawName}] ${item.articleNo} ${titleText}</span>
-                                ${badgeHtml}
-                            </div>
-                            <div class="card-content">${linkedContent}</div>
-                        </div>
-                    `;
-                });
+                document.getElementById('resultCount').innerHTML = `검색결과 약 ${data.total}개`;
                 
-                document.getElementById('resultArea').innerHTML = html;
+                // 검색결과를 전역 변수에 담아 복사/북마크 기능에 연결
+                currentResults = data.results; 
+                renderCards(query);
 
             } catch (error) {
                 document.getElementById('loading').style.display = 'none';
