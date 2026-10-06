@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta property="og:title" content="안전법령 통합검색 플랫폼">
-    <meta property="og:description" content="우리 현장에 딱 맞는 핵심 안전법령과 고시를 1초 만에 찾아보세요.">
+    <meta property="og:description" content="우리 현장에 딱 맞는 핵심 안전법령을 즉시 찾아보세요.">
     <meta property="og:type" content="website">
     <title>안전법령 통합검색 플랫폼</title>
     <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
@@ -54,17 +54,17 @@
         </div>
 
         <div id="homeState" class="keyword-section">
-            <div class="keyword-title">💡 이번 주 주요 안전 키워드</div>
+            <div class="keyword-title">💡 주요 안전 키워드</div>
             <div class="keyword-chips">
-                <span class="chip" onclick="searchByChip('안전보건관리비')">#안전보건관리비</span>
+                <span class="chip" onclick="searchByChip('산업안전보건관리비')">#산업안전보건관리비</span>
                 <span class="chip" onclick="searchByChip('위험성평가')">#위험성평가</span>
                 <span class="chip" onclick="searchByChip('굴착공사')">#굴착공사</span>
                 <span class="chip" onclick="searchByChip('안전관리자')">#안전관리자</span>
-                <span class="chip" onclick="searchByChip('도급인')">#도급인</span>
+                <span class="chip" onclick="searchByChip('안전관리계획서')">#안전관리계획서</span>
             </div>
         </div>
 
-        <div id="loading" class="loading">법령 및 고시 데이터를 불러오고 있습니다... ⏳<br><span style="font-size:12px; color:#aaa; margin-top:5px; display:block;">(최초 스캔 시 최대 5초 정도 소요될 수 있습니다)</span></div>
+        <div id="loading" class="loading">법령 및 고시 데이터를 불러오고 있습니다... ⏳<br><span style="font-size:12px; color:#aaa; margin-top:5px; display:block;">(최초 스캔 시 최대 10초 정도 소요될 수 있습니다)</span></div>
         <div id="resultCount" class="result-count"></div>
         <div id="resultArea"></div>
     </div>
