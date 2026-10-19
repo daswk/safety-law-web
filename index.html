@@ -10,7 +10,7 @@
     <meta name="theme-color" content="#f8f9fa">
     
     <meta property="og:title" content="한국도로공사 안전법령 통합검색 플랫폼">
-    <meta property="og:description" content="우리 현장에 딱 맞는 15대 핵심 안전법령 및 고시를 1초 만에 찾아보세요.">
+    <meta property="og:description" content="우리 현장에 딱 맞는 핵심 안전법령 및 고시를 1초 만에 찾아보세요.">
     <meta property="og:type" content="website">
     <title>한국도로공사 안전법령 통합검색 플랫폼</title>
     <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
@@ -120,7 +120,7 @@
             </div>
         </div>
 
-        <div id="loading" class="loading">법령 데이터를 스캔하고 있습니다... ⏳<br><span style="font-size:12px; color:#aaa; margin-top:5px; display:block;">(서버 최적화 완료. 최대 5초 소요)</span></div>
+        <div id="loading" class="loading">법령 데이터를 스캔하고 있습니다... ⏳<br><span style="font-size:12px; color:#aaa; margin-top:5px; display:block;">(초고속 스캔 엔진 작동 중)</span></div>
         <div id="resultCount" class="result-count"></div>
         <div id="resultArea"></div>
     </div>
@@ -143,6 +143,12 @@
             localStorage.removeItem('recentSearches');
             localStorage.removeItem('bookmarks');
         }
+
+        // ★ 백그라운드 서버 미리 예열 (Cache Warmup) 로직 ★
+        // 사용자가 접속하자마자 더미 요청을 보내 15대 법령 스캔을 미리 끝내둡니다.
+        window.addEventListener('DOMContentLoaded', () => {
+            fetch(`${vercelURL}/api/search?query=안전`).catch(() => {});
+        });
 
         function updateSidebarUI() {
             const recentUl = document.getElementById('recentSearchList');
@@ -195,7 +201,7 @@
             const textToCopy = `[${item.lawName}] ${item.articleNo} ${titleText}\n\n${cleanContent}\n\n- 한국도로공사 안전법령 통합검색 앱`;
             
             navigator.clipboard.writeText(textToCopy).then(() => {
-                alert("✅ 조항이 복사되었습니다. 카톡에 붙여넣기 하세요!");
+                alert("✅ 조항이 복사되었습니다.");
             });
         }
 
@@ -262,7 +268,6 @@
                 url = `https://www.law.go.kr/${urlType}/${encodeURIComponent(safeLawName)}`;
             }
             
-            // ★ 앱 모드(PWA) 팝업 차단 우회 로직 ★
             const a = document.createElement('a');
             a.href = url;
             a.target = '_blank';
@@ -272,7 +277,7 @@
         }
 
         function applyBlueLinks(text, parentLaw) {
-            let baseLaw = parentLaw.replace(/\s*(시행령|시행규칙)$/, '').trim();
+            let baseLaw = parentLaw.replace(/\s*(시행령|시행규칙)\$/, '').trim();
             let decree = baseLaw + " 시행령";
             let rule = baseLaw + " 시행규칙";
             let resultHtml = text;
@@ -292,9 +297,9 @@
 
         function highlightText(text, keyword) {
             if (!keyword) return text;
-            const escapedKeyword = keyword.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+            const escapedKeyword = keyword.replace(/[.*+?^\${}()|[\]\\]/g, '\\$&');
             const regex = new RegExp(`(${escapedKeyword})(?![^<]*>)`, 'gi');
-            return text.replace(regex, '<span class="highlight-keyword">$1</span>');
+            return text.replace(regex, '<span class="highlight-keyword">\$1</span>');
         }
 
         function renderCards(keyword) {
