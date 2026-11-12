@@ -94,6 +94,16 @@
         .std-tags { display: flex; flex-wrap: wrap; gap: 6px; margin: -2px 0 12px; }
         .std-tag { font-size: 12px; background: #f1f3f4; color: #5f6368; padding: 3px 9px; border-radius: 10px; }
         .page-img-link { display: block; margin-bottom: 8px; }
+        .slider { position: relative; margin: 4px -4px 0; }
+        .slides { display: flex; align-items: flex-start; overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; overscroll-behavior-x: contain; }
+        .slides::-webkit-scrollbar { display: none; }
+        .slide { flex: 0 0 100%; scroll-snap-align: start; box-sizing: border-box; padding: 0 4px; }
+        .slide-head { display: flex; align-items: center; gap: 6px; margin-bottom: 8px; min-height: 24px; padding-right: 62px; }
+        .slide-title { font-size: 13px; font-weight: 600; color: #5f6368; background: #f1f3f4; padding: 3px 10px; border-radius: 10px; word-break: keep-all; }
+        .hit-badge { font-size: 11px; font-weight: 700; color: #d93025; background: #fce8e6; padding: 3px 8px; border-radius: 10px; white-space: nowrap; flex-shrink: 0; }
+        .nav { position: absolute; top: 45%; transform: translateY(-50%); width: 36px; height: 36px; border-radius: 50%; border: none; background: rgba(32,33,36,0.55); color: #fff; font-size: 24px; line-height: 34px; cursor: pointer; z-index: 2; padding: 0; }
+        .nav.prev { left: 6px; } .nav.next { right: 6px; }
+        .slide-count { position: absolute; top: 2px; right: 8px; font-size: 12px; font-weight: 700; color: #fff; background: rgba(32,33,36,0.6); padding: 3px 9px; border-radius: 10px; }
         .more-btn { width: 100%; padding: 12px; margin: 0 0 15px; border: 1px solid #ceead6; background: #f6fbf7; color: #188038; font-weight: 700; font-size: 14px; border-radius: 12px; cursor: pointer; font-family: inherit; }
         .page-img { width: 100%; height: auto; display: block; border: 1px solid #dadce0; border-radius: 8px; background: #fff; }
         .img-hint { font-size: 12px; color: #9aa0a6; text-align: center; margin: 6px 0 4px; }
@@ -196,7 +206,7 @@
             bmUl.innerHTML = bookmarks.length === 0 ? '<li style="color:#aaa;">저장된 북마크가 없습니다.</li>' : '';
             bookmarks.forEach((bm, idx) => {
                 let shortTitle = bm.isStandard
-                    ? `🏢 ${bm.articleNo}`
+                    ? `🏢 ${(bm.lawName || '').substring(0, 14)}`
                     : `[${bm.lawName.substring(0,6)}..] ${bm.articleNo}`;
                 bmUl.innerHTML += `<li onclick="viewBookmark(${idx})"><span>⭐ ${shortTitle}</span> <span class="del-btn" onclick="event.stopPropagation(); toggleBookmarkObj(${idx})">✕</span></li>`;
             });
@@ -349,63 +359,81 @@
             const tokens = query.split(/\s+/).map(normalize).filter(t => t.length >= 2);
             if (!q) return [];
 
-            const scored = [];
-            STANDARDS.forEach(st => {
+            // 1) 쪽(항목)별 점수 : 주제 키워드 일치 >> 제목 일치 > 본문에 언급
+            const byDoc = {};
+            STANDARDS.forEach((st, idx) => {
                 const kws = (st.keywords || []).map(normalize);
                 const title = normalize(st.title);
                 const body = normalize(st.content);
                 let score = 0;
-                if (kws.includes(q)) score = 100;                                       // 키워드 정확히 일치
+                if (kws.includes(q)) score = 100;                                       // 키워드 정확히 일치 (방침의 주제)
                 else if (kws.some(k => k.length >= 2 && (k.includes(q) || q.includes(k)))) score = 60; // 키워드 부분 일치
-                if (title.includes(q)) score += 30;                                     // 제목 일치
-                if (body.includes(q)) score += 10 + Math.min(body.split(q).length - 1, 10) * 2; // 본문 일치(많이 나올수록 가점)
-                if (score === 0 && tokens.length > 1 && tokens.every(t => kws.some(k => k.includes(t)) || title.includes(t) || body.includes(t))) score = 20; // 여러 단어 검색
-                if (score > 0) scored.push({ st, score: score + (st.boost || 0) });
+                if (title.includes(q)) score += 30;                                     // 쪽 제목 일치
+                if (body.includes(q)) score += 10 + Math.min(body.split(q).length - 1, 10) * 2; // 본문 언급(많을수록 가점)
+                if (score === 0 && tokens.length > 1 && tokens.every(t => kws.some(k => k.includes(t)) || title.includes(t) || body.includes(t))) score = 20;
+                if (score > 0) score += (st.boost || 0);
+                (byDoc[st.doc] = byDoc[st.doc] || []).push({ st, idx, score });
             });
-            scored.sort((a, b) => b.score - a.score);
 
-            // 같은 문서·같은 쪽(이미지 등록된 쪽)은 카드 1장으로 묶음
+            // 2) 방침 1개 = 카드 1장. 검색어가 나온 쪽을 앞에, 나머지 핵심 쪽은 뒤에(좌우로 넘겨보기)
             const groups = [];
-            const byKey = {};
-            scored.forEach(({ st, score }) => {
-                const d = STANDARD_DOCS[st.doc] || {};
-                const pg = (d.pages && st.page && d.pages[st.page]) ? d.pages[st.page] : null;
-                const key = pg ? `${st.doc}#${st.page}` : `${st.doc}@${st.title}`;
-                let g = byKey[key];
-                if (!g) {
-                    g = byKey[key] = {
-                        isStandard: true,
-                        lawName: d.name || '자체기준',
-                        org: d.org || '',
-                        docDate: d.effective || d.date || '',
-                        docUrl: d.full
-                            ? `viewer.html?f=${encodeURIComponent(d.full.file)}&from=${d.full.from}&to=${d.full.to}&t=${encodeURIComponent(d.name || '')}`
-                            : (d.file ? `${d.file}${st.page ? '#page=' + st.page : ''}` : ''),
-                        docFull: !!d.full,
-                        img: pg ? pg.img : '',
-                        imgs: pg ? (pg.imgs || [pg.img]) : [],
-                        articleNo: pg ? pg.title : st.title,
-                        articleTitle: '',
-                        grades: [],
-                        items: [],
-                        content: '',
-                        best: 0
-                    };
-                    groups.push(g);
-                }
-                g.best += score;
-                if (st.grade && !g.grades.includes(st.grade)) g.grades.push(st.grade);
-                g.items.push(st.title);
-                (g._idx = g._idx || []).push(STANDARDS.indexOf(st));
-                g.content += (g.content ? '\n\n' : '') + (pg ? `【${st.title}】\n` : '') + st.content;
-            });
-            groups.forEach(g => {
-                g.grades.sort((a, b) => 'SABC'.indexOf(a) - 'SABC'.indexOf(b));
-                g.items = g.items.map((t, i) => [t, g._idx[i]]).sort((a, b) => a[1] - b[1]).map(x => x[0]);
-                delete g._idx;
+            Object.entries(byDoc).forEach(([docId, list]) => {
+                const hits = list.filter(x => x.score > 0).sort((a, b) => (b.score - a.score) || (a.idx - b.idx));
+                if (!hits.length) return;
+                const rest = list.filter(x => x.score === 0).sort((a, b) => a.idx - b.idx);
+                const d = STANDARD_DOCS[docId] || {};
+                const slides = [];
+                const seenPage = new Set();
+                const addSlides = (x, hit) => {
+                    const pg = (d.pages && x.st.page && d.pages[x.st.page]) ? d.pages[x.st.page] : null;
+                    if (pg) {
+                        if (seenPage.has(x.st.page)) return; seenPage.add(x.st.page);
+                        const imgs = pg.imgs || [pg.img];
+                        imgs.forEach((src, i) => slides.push({ title: pg.title + (imgs.length > 1 ? ` (${i + 1}/${imgs.length})` : ''), img: src, hit }));
+                    } else {
+                        slides.push({ title: x.st.title, text: x.st.content, hit });
+                    }
+                };
+                hits.forEach(x => addSlides(x, true));
+                rest.forEach(x => addSlides(x, false));
+                const grades = [];
+                hits.forEach(x => { if (x.st.grade && !grades.includes(x.st.grade)) grades.push(x.st.grade); });
+                grades.sort((a, b) => 'SABC'.indexOf(a) - 'SABC'.indexOf(b));
+                groups.push({
+                    isStandard: true,
+                    lawName: d.name || '자체기준',
+                    articleNo: '',
+                    articleTitle: '',
+                    org: d.org || '',
+                    docDate: d.effective || d.date || '',
+                    docUrl: d.full
+                        ? `viewer.html?f=${encodeURIComponent(d.full.file)}&from=${d.full.from}&to=${d.full.to}&t=${encodeURIComponent(d.name || '')}`
+                        : (d.file || ''),
+                    docFull: !!d.full,
+                    grades,
+                    slides,
+                    hitCount: hits.length,
+                    content: hits.map(x => `【${x.st.title}】\n${x.st.content}`).join('\n\n'),
+                    // 방침 점수 = 가장 관련 높은 쪽 점수 + 관련 쪽 수 가점(최대 5쪽)
+                    best: hits[0].score + Math.min(hits.length - 1, 5) * 3
+                });
             });
             groups.sort((a, b) => b.best - a.best);
             return groups;
+        }
+
+        // ★ 카드 안 좌우 슬라이드 ★
+        function slideBy(i, dir) {
+            const el = document.getElementById(`slides-${i}`);
+            if (el) el.scrollBy({ left: dir * el.clientWidth, behavior: 'smooth' });
+        }
+        function onSlideScroll(el, i, total) {
+            const n = Math.min(total, Math.round(el.scrollLeft / Math.max(1, el.clientWidth)) + 1);
+            const c = document.getElementById(`sc-${i}`);
+            if (c) c.textContent = `${n} / ${total}`;
+            const prev = document.getElementById(`sp-${i}`), next = document.getElementById(`sn-${i}`);
+            if (prev) prev.style.visibility = n <= 1 ? 'hidden' : 'visible';
+            if (next) next.style.visibility = n >= total ? 'hidden' : 'visible';
         }
 
         const STD_LIMIT = 6;
@@ -433,28 +461,46 @@
                     if (index === STD_LIMIT && keyword) html += `<button class="more-btn" onclick="showMoreStd(this)">🏢 자체기준 ${stdCount - STD_LIMIT}건 더보기 ▼</button><div class="std-more" style="display:none">`;
                     const grades = item.grades || (item.grade ? [item.grade] : []);
                     const gradeHtml = grades.length ? `<span class="grade-wrap">${grades.map(g => `<span class="grade grade-${g}">${g}</span>`).join('')}</span>` : '';
-                    const content = highlightText(escapeHtml(item.content), keyword);
-                    const tagsHtml = (item.img && item.items && item.items.length > 1)
-                        ? `<div class="std-tags">${item.items.map(t => `<span class="std-tag">${highlightText(escapeHtml(t), keyword)}</span>`).join('')}</div>` : '';
-                    const imgList = (item.imgs && item.imgs.length) ? item.imgs : (item.img ? [item.img] : []);
-                    const bodyHtml = imgList.length
-                        ? `${imgList.map(src => `<a href="${src}" target="_blank" rel="noopener" class="page-img-link"><img class="page-img" src="${src}" alt="${escapeHtml(item.articleNo)} 원문" loading="lazy"></a>`).join('')}
-                           <div class="img-hint">🔍 이미지를 누르면 크게 볼 수 있어요</div>
-                           <details class="std-text"><summary>📝 텍스트로 보기</summary><div class="card-content">${content}</div></details>`
-                        : `<div class="card-content">${content}</div>`;
+                    // 예전 북마크(쪽 단위) 호환
+                    let slides = item.slides;
+                    if (!slides) {
+                        const imgs = (item.imgs && item.imgs.length) ? item.imgs : (item.img ? [item.img] : []);
+                        slides = imgs.length ? imgs.map(src => ({ title: item.articleNo, img: src, hit: true })) : [{ title: item.articleNo, text: item.content, hit: true }];
+                    }
+                    const total = slides.length;
+                    const slideHtml = slides.map((sl, k) => `
+                            <div class="slide">
+                                <div class="slide-head">
+                                    <span class="slide-title">${highlightText(escapeHtml(sl.title), keyword)}</span>
+                                    ${sl.hit && keyword ? '<span class="hit-badge">🔍 검색어</span>' : ''}
+                                </div>
+                                ${sl.img
+                                    ? `<a href="${sl.img}" target="_blank" rel="noopener" class="page-img-link"><img class="page-img" src="${sl.img}" alt="${escapeHtml(sl.title)} 원문" loading="${k < 2 ? 'eager' : 'lazy'}"></a>`
+                                    : `<div class="card-content">${highlightText(escapeHtml(sl.text || ''), keyword)}</div>`}
+                            </div>`).join('');
+                    const navHtml = total > 1 ? `
+                            <button class="nav prev" id="sp-${index}" style="visibility:hidden" onclick="slideBy(${index},-1)" aria-label="이전">‹</button>
+                            <button class="nav next" id="sn-${index}" onclick="slideBy(${index},1)" aria-label="다음">›</button>
+                            <div class="slide-count" id="sc-${index}">1 / ${total}</div>` : '';
+                    const hint = total > 1 ? '👆 좌우로 넘겨보세요 · 이미지를 누르면 크게 볼 수 있어요' : '🔍 이미지를 누르면 크게 볼 수 있어요';
+                    const content = highlightText(escapeHtml(item.content || ''), keyword);
                     const linkHtml = item.docUrl ? (item.docFull
                         ? `<a class="doc-link" href="${item.docUrl}">📄 원문 보기 (배경~붙임 전체)</a>`
                         : `<a class="doc-link" href="${item.docUrl}" target="_blank" rel="noopener">📄 원문 PDF 전체 보기</a>`) : '';
                     html += `
                     <div class="card priority-std">
                         ${actions}
-                        <div class="std-source">${escapeHtml(item.org)} · ${escapeHtml(item.lawName)} (${escapeHtml(item.docDate)})</div>
+                        <div class="std-source">${escapeHtml(item.org)}${item.docDate ? ' · ' + escapeHtml(item.docDate) : ''}</div>
                         <div class="card-title">
-                            <span>${highlightText(escapeHtml(item.articleNo), keyword)}</span>
+                            <span>${highlightText(escapeHtml(item.lawName), keyword)}</span>
                             ${gradeHtml}
                         </div>
-                        ${tagsHtml}
-                        ${bodyHtml}
+                        <div class="slider">
+                            <div class="slides" id="slides-${index}" onscroll="onSlideScroll(this, ${index}, ${total})">${slideHtml}
+                            </div>${navHtml}
+                        </div>
+                        <div class="img-hint">${hint}</div>
+                        ${item.content ? `<details class="std-text"><summary>📝 텍스트로 보기</summary><div class="card-content">${content}</div></details>` : ''}
                         ${linkHtml}
                     </div>`;
                     if (keyword && stdCount > STD_LIMIT && index === stdCount - 1) html += `</div>`;
