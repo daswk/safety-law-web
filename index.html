@@ -95,6 +95,9 @@
         .std-tag { font-size: 12px; background: #f1f3f4; color: #5f6368; padding: 3px 9px; border-radius: 10px; }
         .page-img-link { display: block; margin-bottom: 8px; }
         .slider { position: relative; margin: 4px -4px 0; }
+        .jump { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: #d93025; margin: 2px 0 10px; }
+        .jump-btn { border: 1px solid #f5c6c2; background: #fce8e6; color: #d93025; font-weight: 700; font-size: 13px; padding: 4px 10px; border-radius: 12px; cursor: pointer; font-family: inherit; }
+        .jump-btn:hover { background: #fad2cf; }
         .slides { display: flex; align-items: flex-start; overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; overscroll-behavior-x: contain; }
         .slides::-webkit-scrollbar { display: none; }
         .slide { flex: 0 0 100%; scroll-snap-align: start; box-sizing: border-box; padding: 0 4px; }
@@ -397,8 +400,18 @@
                         slides.push({ title: x.st.title, text: x.st.content, hit });
                     }
                 };
-                hits.forEach(x => addSlides(x, true));
-                rest.forEach(x => addSlides(x, false));
+                if (d.seq && d.seq.length) {
+                    // 갑지~마지막 붙임까지 전 쪽을 순서대로, 검색어가 있는 쪽에 표시
+                    const hitImgs = new Set();
+                    hits.forEach(x => {
+                        const pg = d.pages && d.pages[x.st.page];
+                        (pg ? (pg.imgs || [pg.img]) : []).forEach(src => hitImgs.add(src));
+                    });
+                    d.seq.forEach(sq => slides.push({ title: sq.title, img: sq.img, hit: hitImgs.has(sq.img) }));
+                } else {
+                    hits.forEach(x => addSlides(x, true));
+                    rest.forEach(x => addSlides(x, false));
+                }
                 const grades = [];
                 hits.forEach(x => { if (x.st.grade && !grades.includes(x.st.grade)) grades.push(x.st.grade); });
                 grades.sort((a, b) => 'SABC'.indexOf(a) - 'SABC'.indexOf(b));
@@ -413,6 +426,7 @@
                         ? `viewer.html?f=${encodeURIComponent(d.full.file)}&from=${d.full.from}&to=${d.full.to}&t=${encodeURIComponent(d.name || '')}`
                         : (d.file || ''),
                     docFull: !!d.full,
+                    allPages: !!(d.seq && d.seq.length),
                     grades,
                     slides,
                     hitCount: hits.length,
@@ -429,6 +443,10 @@
         function slideBy(i, dir) {
             const el = document.getElementById(`slides-${i}`);
             if (el) el.scrollBy({ left: dir * el.clientWidth, behavior: 'smooth' });
+        }
+        function goSlide(i, k) {
+            const el = document.getElementById(`slides-${i}`);
+            if (el) el.scrollTo({ left: k * el.clientWidth, behavior: 'smooth' });
         }
         function onSlideScroll(el, i, total) {
             const n = Math.min(total, Math.round(el.scrollLeft / Math.max(1, el.clientWidth)) + 1);
@@ -485,9 +503,12 @@
                             <button class="nav prev" id="sp-${index}" style="visibility:hidden" onclick="slideBy(${index},-1)" aria-label="이전">‹</button>
                             <button class="nav next" id="sn-${index}" onclick="slideBy(${index},1)" aria-label="다음">›</button>
                             <div class="slide-count" id="sc-${index}">1 / ${total}</div>` : '';
+                    const hitIdx = slides.map((sl, k) => sl.hit ? k : -1).filter(k => k >= 0);
+                    const jumpHtml = (keyword && hitIdx.length && total > 1)
+                        ? `<div class="jump">🔍 검색어 있는 쪽 ${hitIdx.slice(0, 10).map(k => `<button class="jump-btn" onclick="goSlide(${index},${k})">${k + 1}쪽</button>`).join('')}${hitIdx.length > 10 ? ' …' : ''}</div>` : '';
                     const hint = total > 1 ? '👆 좌우로 넘겨보세요 · 이미지를 누르면 크게 볼 수 있어요' : '🔍 이미지를 누르면 크게 볼 수 있어요';
                     const content = highlightText(escapeHtml(item.content || ''), keyword);
-                    const linkHtml = item.docUrl ? (item.docFull
+                    const linkHtml = (item.docUrl && !item.allPages) ? (item.docFull
                         ? `<a class="doc-link" href="${item.docUrl}">📄 원문 보기 (배경~붙임 전체)</a>`
                         : `<a class="doc-link" href="${item.docUrl}" target="_blank" rel="noopener">📄 원문 PDF 전체 보기</a>`) : '';
                     html += `
@@ -498,6 +519,7 @@
                             <span>${highlightText(escapeHtml(item.lawName), keyword)}</span>
                             ${gradeHtml}
                         </div>
+                        ${jumpHtml}
                         <div class="slider">
                             <div class="slides" id="slides-${index}" onscroll="onSlideScroll(this, ${index}, ${total})">${slideHtml}
                             </div>${navHtml}

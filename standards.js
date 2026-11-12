@@ -12,7 +12,8 @@
  *       - page     : (선택) 원문 PDF 쪽수 → 해당 페이지로 바로 열림
  *       - boost    : (선택) 숫자가 클수록 검색결과 위쪽에 표시
  *       - content  : 본문 (검색용 · '텍스트로 보기'에 표시)
- *    4) (선택) 원문 페이지를 이미지로 보여주려면 docs/문서폴더/p쪽수.jpg 를 올리고
+ *    4) (선택) seq 에 전체 쪽 이미지를 순서대로 등록하면 카드에서 갑지~마지막 붙임까지 좌우로 넘겨봄
+ *       원문 페이지를 이미지로 보여주려면 docs/문서폴더/p쪽수.jpg 를 올리고
  *       STANDARD_DOCS 의 pages 에 등록 → 같은 쪽 항목들은 이미지 카드 1장으로 묶여 표시
  *
  *  ▶ 입력 원칙 : 실제로 현장에서 지켜야 할 내용만 넣습니다.
@@ -27,6 +28,18 @@ const STANDARD_DOCS = {
     date: '2024. 4.',
     effective: '2024.04.30. 시행',
     file: 'docs/risk-grade-2024.pdf',
+    // 카드에서 좌우로 넘겨보는 전체 쪽 (갑지~마지막 붙임)
+    seq: [
+      { p: 1, title: '갑지 · 작업장 위험공종 관리방안', img: 'docs/risk-grade-2024/p1.jpg' },
+      { p: 2, title: 'Ⅰ 목적 · Ⅱ 추진경위',           img: 'docs/risk-grade-2024/p2.jpg' },
+      { p: 3, title: 'Ⅲ 현실태 및 문제점',             img: 'docs/risk-grade-2024/p3.jpg' },
+      { p: 4, title: 'Ⅳ 추진방안 · Ⅴ 기타사항',        img: 'docs/risk-grade-2024/p4.jpg' },
+      { p: 5, title: '붙임#1 공사감독원 현장상주 범위', img: 'docs/risk-grade-2024/p5.jpg' },
+      { p: 6, title: '붙임#2 위험등급별 세부 작업내용', img: 'docs/risk-grade-2024/p6.jpg' },
+      { p: 7, title: '붙임#3 작업 전 현장확인 및 교육결과(양식)', img: 'docs/risk-grade-2024/p7.jpg' },
+      { p: 8, title: '붙임#3 사진대지(양식)',           img: 'docs/risk-grade-2024/p8.jpg' },
+      { p: 9, title: '붙임#4 작업일보 위험등급 표기',   img: 'docs/risk-grade-2024/p9.jpg' }
+    ],
     // 원문 페이지 이미지 (PDF 쪽수: { 제목, 이미지 })
     pages: {
       4: { title: '추진방안 (등급조정 · 현장관리)',   img: 'docs/risk-grade-2024/p4.jpg' },

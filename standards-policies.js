@@ -6,7 +6,14 @@ Object.assign(STANDARD_DOCS, {
   "date": "2026.10.13.",
   "effective": "2026.10.13.",
   "file": "",
-  "full": {
+  "seq": [
+   {
+    "p": 1,
+    "title": "갑지 · 「안전 준법경영 절차서」 5차 개정",
+    "img": "docs/policies/1-1/p1.jpg"
+   }
+  ],
+  "_full": {
    "file": "docs/policies/source-2026-1.pdf",
    "from": 1,
    "to": 1
@@ -27,7 +34,114 @@ Object.assign(STANDARD_DOCS, {
   "date": "2026.09.16.",
   "effective": "2026.09.16.",
   "file": "",
-  "full": {
+  "seq": [
+   {
+    "p": 2,
+    "title": "갑지 · Ⅱ 특별교육의 이해",
+    "img": "docs/policies/1-2/p2.jpg"
+   },
+   {
+    "p": 3,
+    "title": "Ⅱ 특별교육의 이해 (계속)",
+    "img": "docs/policies/1-2/p3.jpg"
+   },
+   {
+    "p": 4,
+    "title": "Ⅲ 현황 및 보완 필요사항",
+    "img": "docs/policies/1-2/p4.jpg"
+   },
+   {
+    "p": 5,
+    "title": "Ⅳ 관리방안",
+    "img": "docs/policies/1-2/p5.jpg"
+   },
+   {
+    "p": 6,
+    "title": "Ⅳ 관리방안 (계속)",
+    "img": "docs/policies/1-2/p6.jpg"
+   },
+   {
+    "p": 7,
+    "title": "Ⅴ 기타사항",
+    "img": "docs/policies/1-2/p7.jpg"
+   },
+   {
+    "p": 8,
+    "title": "붙임1 특별교육 대상작업 및 교육내용",
+    "img": "docs/policies/1-2/p8.jpg"
+   },
+   {
+    "p": 9,
+    "title": "붙임1 특별교육 대상작업 및 교육내용 (계속)",
+    "img": "docs/policies/1-2/p9.jpg"
+   },
+   {
+    "p": 10,
+    "title": "붙임1 특별교육 대상작업 및 교육내용 (계속)",
+    "img": "docs/policies/1-2/p10.jpg"
+   },
+   {
+    "p": 11,
+    "title": "붙임1 특별교육 대상작업 및 교육내용 (계속)",
+    "img": "docs/policies/1-2/p11.jpg"
+   },
+   {
+    "p": 12,
+    "title": "붙임1 특별교육 대상작업 및 교육내용 (계속)",
+    "img": "docs/policies/1-2/p12.jpg"
+   },
+   {
+    "p": 13,
+    "title": "붙임1 특별교육 대상작업 및 교육내용 (계속)",
+    "img": "docs/policies/1-2/p13.jpg"
+   },
+   {
+    "p": 14,
+    "title": "붙임1 특별교육 대상작업 및 교육내용 (계속)",
+    "img": "docs/policies/1-2/p14.jpg"
+   },
+   {
+    "p": 15,
+    "title": "붙임1 특별교육 대상작업 및 교육내용 (계속)",
+    "img": "docs/policies/1-2/p15.jpg"
+   },
+   {
+    "p": 16,
+    "title": "붙임1 특별교육 대상작업 및 교육내용 (계속)",
+    "img": "docs/policies/1-2/p16.jpg"
+   },
+   {
+    "p": 17,
+    "title": "붙임1 특별교육 대상작업 및 교육내용 (계속)",
+    "img": "docs/policies/1-2/p17.jpg"
+   },
+   {
+    "p": 18,
+    "title": "붙임2 특별교육 면제 조건",
+    "img": "docs/policies/1-2/p18.jpg"
+   },
+   {
+    "p": 19,
+    "title": "붙임3 안전보건교육 강사 기준",
+    "img": "docs/policies/1-2/p19.jpg"
+   },
+   {
+    "p": 20,
+    "title": "붙임3 안전보건교육 강사 기준 (계속)",
+    "img": "docs/policies/1-2/p20.jpg"
+   },
+   {
+    "p": 21,
+    "title": "붙임4 특별교육 실시 확인 Check List",
+    "img": "docs/policies/1-2/p21.jpg"
+   },
+   {
+    "p": 22,
+    "title": "붙임5 특별교육 관련 주요 Q&A",
+    "img": "docs/policies/1-2/p22.jpg"
+   }
+  ],
+  "_full": {
    "file": "docs/policies/source-2026-1.pdf",
    "from": 2,
    "to": 22
@@ -97,7 +211,14 @@ Object.assign(STANDARD_DOCS, {
   "date": "2026.08.26.",
   "effective": "2026.08.26.",
   "file": "",
-  "full": {
+  "seq": [
+   {
+    "p": 23,
+    "title": "갑지 · 작업장 안전보건관리 매뉴얼 제8차 개정",
+    "img": "docs/policies/1-3/p23.jpg"
+   }
+  ],
+  "_full": {
    "file": "docs/policies/source-2026-1.pdf",
    "from": 23,
    "to": 23
@@ -118,7 +239,14 @@ Object.assign(STANDARD_DOCS, {
   "date": "2026.08.19.",
   "effective": "2026.08.19.",
   "file": "",
-  "full": {
+  "seq": [
+   {
+    "p": 24,
+    "title": "갑지 · 안전보건경영시스템(ISO 45001) 매뉴얼 제정",
+    "img": "docs/policies/1-4/p24.jpg"
+   }
+  ],
+  "_full": {
    "file": "docs/policies/source-2026-1.pdf",
    "from": 24,
    "to": 24
@@ -139,7 +267,104 @@ Object.assign(STANDARD_DOCS, {
   "date": "2026.06.24.",
   "effective": "2026.06.24.",
   "file": "",
-  "full": {
+  "seq": [
+   {
+    "p": 25,
+    "title": "갑지 · Ⅰ 추진배경",
+    "img": "docs/policies/1-5/p25.jpg"
+   },
+   {
+    "p": 26,
+    "title": "Ⅰ 추진배경 (계속)",
+    "img": "docs/policies/1-5/p26.jpg"
+   },
+   {
+    "p": 27,
+    "title": "Ⅰ 추진배경 (계속)",
+    "img": "docs/policies/1-5/p27.jpg"
+   },
+   {
+    "p": 28,
+    "title": "Ⅳ 추진 방향",
+    "img": "docs/policies/1-5/p28.jpg"
+   },
+   {
+    "p": 29,
+    "title": "Ⅴ 주요 추진(법적사항 이행) 내용",
+    "img": "docs/policies/1-5/p29.jpg"
+   },
+   {
+    "p": 30,
+    "title": "Ⅴ 주요 추진(법적사항 이행) 내용 (계속)",
+    "img": "docs/policies/1-5/p30.jpg"
+   },
+   {
+    "p": 31,
+    "title": "Ⅴ 주요 추진(법적사항 이행) 내용 (계속)",
+    "img": "docs/policies/1-5/p31.jpg"
+   },
+   {
+    "p": 32,
+    "title": "Ⅴ 주요 추진(법적사항 이행) 내용 (계속)",
+    "img": "docs/policies/1-5/p32.jpg"
+   },
+   {
+    "p": 33,
+    "title": "붙임 1 「산업안전보건기준에 관한 규칙」 신구조문 대비표",
+    "img": "docs/policies/1-5/p33.jpg"
+   },
+   {
+    "p": 34,
+    "title": "붙임 1 「산업안전보건기준에 관한 규칙」 신구조문 대비표 (계속)",
+    "img": "docs/policies/1-5/p34.jpg"
+   },
+   {
+    "p": 35,
+    "title": "붙임 1 「산업안전보건기준에 관한 규칙」 신구조문 대비표 (계속)",
+    "img": "docs/policies/1-5/p35.jpg"
+   },
+   {
+    "p": 36,
+    "title": "붙임 1 「산업안전보건기준에 관한 규칙」 신구조문 대비표 (계속)",
+    "img": "docs/policies/1-5/p36.jpg"
+   },
+   {
+    "p": 37,
+    "title": "붙임 2 2026년 온열질환 예방지침(고용노동부) _ 휴게시설내 비치",
+    "img": "docs/policies/1-5/p37.jpg"
+   },
+   {
+    "p": 38,
+    "title": "붙임 2 2026년 온열질환 예방지침(고용노동부) _ 휴게시설내 비치 (계속)",
+    "img": "docs/policies/1-5/p38.jpg"
+   },
+   {
+    "p": 39,
+    "title": "붙임 3 휴게시설 설치 관련 산업안전보건법 관련 내용",
+    "img": "docs/policies/1-5/p39.jpg"
+   },
+   {
+    "p": 40,
+    "title": "붙임 3 휴게시설 설치 관련 산업안전보건법 관련 내용 (계속)",
+    "img": "docs/policies/1-5/p40.jpg"
+   },
+   {
+    "p": 41,
+    "title": "붙임 4 자연그늘 및 차량 휴게시설 관련 유권해석 내용",
+    "img": "docs/policies/1-5/p41.jpg"
+   },
+   {
+    "p": 42,
+    "title": "붙임 5 보냉장구 제품 현황",
+    "img": "docs/policies/1-5/p42.jpg"
+   },
+   {
+    "p": 43,
+    "title": "붙임 6 폭염 대응능력 향상 교육 및 훈련 결과보고(양식)",
+    "img": "docs/policies/1-5/p43.jpg"
+   }
+  ],
+  "_full": {
    "file": "docs/policies/source-2026-1.pdf",
    "from": 25,
    "to": 43
@@ -195,7 +420,49 @@ Object.assign(STANDARD_DOCS, {
   "date": "2026.06.08.",
   "effective": "2026.06.08.",
   "file": "",
-  "full": {
+  "seq": [
+   {
+    "p": 44,
+    "title": "갑지 · Ⅰ 추진배경",
+    "img": "docs/policies/1-6/p44.jpg"
+   },
+   {
+    "p": 45,
+    "title": "Ⅲ 관리계획",
+    "img": "docs/policies/1-6/p45.jpg"
+   },
+   {
+    "p": 46,
+    "title": "Ⅲ 관리계획 (계속)",
+    "img": "docs/policies/1-6/p46.jpg"
+   },
+   {
+    "p": 47,
+    "title": "Ⅲ 관리계획 (계속)",
+    "img": "docs/policies/1-6/p47.jpg"
+   },
+   {
+    "p": 48,
+    "title": "붙임1 오송 지하차도 사고 관련 수사결과",
+    "img": "docs/policies/1-6/p48.jpg"
+   },
+   {
+    "p": 49,
+    "title": "붙임2 우리 공사 공중이용시설 현황 (2026. 5월 기준)",
+    "img": "docs/policies/1-6/p49.jpg"
+   },
+   {
+    "p": 50,
+    "title": "붙임3 안전계획 양식 (중대재해처벌법 해설, 국토부)",
+    "img": "docs/policies/1-6/p50.jpg"
+   },
+   {
+    "p": 51,
+    "title": "붙임3 안전계획 양식 (중대재해처벌법 해설, 국토부) (계속)",
+    "img": "docs/policies/1-6/p51.jpg"
+   }
+  ],
+  "_full": {
    "file": "docs/policies/source-2026-1.pdf",
    "from": 44,
    "to": 51
@@ -230,7 +497,104 @@ Object.assign(STANDARD_DOCS, {
   "date": "2026.04.21.",
   "effective": "2026.04.21.",
   "file": "",
-  "full": {
+  "seq": [
+   {
+    "p": 68,
+    "title": "갑지 · Ⅰ. 추진목적",
+    "img": "docs/policies/1-8/p68.jpg"
+   },
+   {
+    "p": 69,
+    "title": "Ⅲ. 추진여건 및 운영현황",
+    "img": "docs/policies/1-8/p69.jpg"
+   },
+   {
+    "p": 70,
+    "title": "Ⅲ. 추진여건 및 운영현황 (계속)",
+    "img": "docs/policies/1-8/p70.jpg"
+   },
+   {
+    "p": 71,
+    "title": "Ⅳ. 운영방안",
+    "img": "docs/policies/1-8/p71.jpg"
+   },
+   {
+    "p": 72,
+    "title": "Ⅳ. 운영방안 (계속)",
+    "img": "docs/policies/1-8/p72.jpg"
+   },
+   {
+    "p": 73,
+    "title": "Ⅳ. 운영방안 (계속)",
+    "img": "docs/policies/1-8/p73.jpg"
+   },
+   {
+    "p": 74,
+    "title": "Ⅳ. 운영방안 (계속)",
+    "img": "docs/policies/1-8/p74.jpg"
+   },
+   {
+    "p": 75,
+    "title": "Ⅴ. 기타사항",
+    "img": "docs/policies/1-8/p75.jpg"
+   },
+   {
+    "p": 76,
+    "title": "붙임 1 불이익 방지 확약서(양식)",
+    "img": "docs/policies/1-8/p76.jpg"
+   },
+   {
+    "p": 77,
+    "title": "붙임 1 불이익 방지 확약서(양식)",
+    "img": "docs/policies/1-8/p77.jpg"
+   },
+   {
+    "p": 78,
+    "title": "붙임 1 불이익 방지 확약서(양식) (계속)",
+    "img": "docs/policies/1-8/p78.jpg"
+   },
+   {
+    "p": 79,
+    "title": "붙임 2 유지관리평가‘안전관리 노력도’지표 개정(안)",
+    "img": "docs/policies/1-8/p79.jpg"
+   },
+   {
+    "p": 80,
+    "title": "붙임 3 안전신문고 및 작업중지권 안내 포스터",
+    "img": "docs/policies/1-8/p80.jpg"
+   },
+   {
+    "p": 81,
+    "title": "붙임 3 안전신문고 및 작업중지권 안내 포스터 (계속)",
+    "img": "docs/policies/1-8/p81.jpg"
+   },
+   {
+    "p": 82,
+    "title": "붙임 4 안전신문고 및 작업중지권 홍보실적(양식)",
+    "img": "docs/policies/1-8/p82.jpg"
+   },
+   {
+    "p": 83,
+    "title": "붙임 4 안전신문고 및 작업중지권 홍보실적(양식) (계속)",
+    "img": "docs/policies/1-8/p83.jpg"
+   },
+   {
+    "p": 84,
+    "title": "붙임 5 안전신문고 및 작업중지권 교육실적(양식)",
+    "img": "docs/policies/1-8/p84.jpg"
+   },
+   {
+    "p": 85,
+    "title": "붙임 5 안전신문고 및 작업중지권 교육실적(양식) (계속)",
+    "img": "docs/policies/1-8/p85.jpg"
+   },
+   {
+    "p": 86,
+    "title": "붙임 5 안전신문고 및 작업중지권 교육실적(양식) (계속)",
+    "img": "docs/policies/1-8/p86.jpg"
+   }
+  ],
+  "_full": {
    "file": "docs/policies/source-2026-1.pdf",
    "from": 52,
    "to": 70
@@ -280,7 +644,34 @@ Object.assign(STANDARD_DOCS, {
   "date": "2026.03.05.",
   "effective": "2026.03.05.",
   "file": "",
-  "full": {
+  "seq": [
+   {
+    "p": 87,
+    "title": "갑지 · Ⅰ 추진배경",
+    "img": "docs/policies/1-9/p87.jpg"
+   },
+   {
+    "p": 88,
+    "title": "Ⅲ 추진방안",
+    "img": "docs/policies/1-9/p88.jpg"
+   },
+   {
+    "p": 89,
+    "title": "Ⅲ 추진방안 (계속)",
+    "img": "docs/policies/1-9/p89.jpg"
+   },
+   {
+    "p": 90,
+    "title": "Ⅲ 추진방안 (계속)",
+    "img": "docs/policies/1-9/p90.jpg"
+   },
+   {
+    "p": 91,
+    "title": "Ⅲ 추진방안 (계속)",
+    "img": "docs/policies/1-9/p91.jpg"
+   }
+  ],
+  "_full": {
    "file": "docs/policies/source-2026-1.pdf",
    "from": 71,
    "to": 75
@@ -322,7 +713,14 @@ Object.assign(STANDARD_DOCS, {
   "date": "2026.01.19.",
   "effective": "2026.01.19.",
   "file": "",
-  "full": {
+  "seq": [
+   {
+    "p": 92,
+    "title": "갑지 · 가시설물 안전관리 표준계획서(2차) 개정",
+    "img": "docs/policies/1-10/p92.jpg"
+   }
+  ],
+  "_full": {
    "file": "docs/policies/source-2026-1.pdf",
    "from": 76,
    "to": 76
@@ -343,7 +741,24 @@ Object.assign(STANDARD_DOCS, {
   "date": "2026.10.21.",
   "effective": "2026.10.21.",
   "file": "",
-  "full": {
+  "seq": [
+   {
+    "p": 93,
+    "title": "갑지 · 고속도로 건설공사 안전점검 수행기관 지정기준 개정",
+    "img": "docs/policies/1-11/p93.jpg"
+   },
+   {
+    "p": 94,
+    "title": "고속도로 건설공사 안전점검 수행기관 지정기준 개정 (계속)",
+    "img": "docs/policies/1-11/p94.jpg"
+   },
+   {
+    "p": 95,
+    "title": "고속도로 건설공사 안전점검 수행기관 지정기준 개정 (계속)",
+    "img": "docs/policies/1-11/p95.jpg"
+   }
+  ],
+  "_full": {
    "file": "docs/policies/source-2026-1.pdf",
    "from": 77,
    "to": 79
@@ -378,7 +793,14 @@ Object.assign(STANDARD_DOCS, {
   "date": "2025.11.10.",
   "effective": "2025.11.10.",
   "file": "",
-  "full": {
+  "seq": [
+   {
+    "p": 96,
+    "title": "갑지 · 건설장비 표준 안전매뉴얼 배포",
+    "img": "docs/policies/1-12/p96.jpg"
+   }
+  ],
+  "_full": {
    "file": "docs/policies/source-2026-1.pdf",
    "from": 80,
    "to": 80
@@ -399,7 +821,14 @@ Object.assign(STANDARD_DOCS, {
   "date": "2025.09.01.",
   "effective": "2025.09.01.",
   "file": "",
-  "full": {
+  "seq": [
+   {
+    "p": 97,
+    "title": "갑지 · 작업중지 안내서 배포",
+    "img": "docs/policies/1-13/p97.jpg"
+   }
+  ],
+  "_full": {
    "file": "docs/policies/source-2026-1.pdf",
    "from": 81,
    "to": 81
@@ -420,7 +849,34 @@ Object.assign(STANDARD_DOCS, {
   "date": "2025.07.10.",
   "effective": "2025.07.10.",
   "file": "",
-  "full": {
+  "seq": [
+   {
+    "p": 98,
+    "title": "갑지 · Ⅰ 추 진 배 경",
+    "img": "docs/policies/1-14/p98.jpg"
+   },
+   {
+    "p": 99,
+    "title": "Ⅲ 기존 운영방안",
+    "img": "docs/policies/1-14/p99.jpg"
+   },
+   {
+    "p": 100,
+    "title": "Ⅳ 만족도 조사 분석결과",
+    "img": "docs/policies/1-14/p100.jpg"
+   },
+   {
+    "p": 101,
+    "title": "Ⅴ 개 선 방 안",
+    "img": "docs/policies/1-14/p101.jpg"
+   },
+   {
+    "p": 102,
+    "title": "Ⅴ 개 선 방 안 (계속)",
+    "img": "docs/policies/1-14/p102.jpg"
+   }
+  ],
+  "_full": {
    "file": "docs/policies/source-2026-1.pdf",
    "from": 82,
    "to": 86
@@ -448,7 +904,74 @@ Object.assign(STANDARD_DOCS, {
   "date": "2025.06.10.",
   "effective": "2025.06.10.",
   "file": "",
-  "full": {
+  "seq": [
+   {
+    "p": 103,
+    "title": "갑지 · Ⅰ 추진배경",
+    "img": "docs/policies/1-15/p103.jpg"
+   },
+   {
+    "p": 104,
+    "title": "Ⅲ 운영현황 및 문제점",
+    "img": "docs/policies/1-15/p104.jpg"
+   },
+   {
+    "p": 105,
+    "title": "Ⅳ 내실화 방안",
+    "img": "docs/policies/1-15/p105.jpg"
+   },
+   {
+    "p": 106,
+    "title": "Ⅳ 내실화 방안 (계속)",
+    "img": "docs/policies/1-15/p106.jpg"
+   },
+   {
+    "p": 107,
+    "title": "Ⅳ 내실화 방안 (계속)",
+    "img": "docs/policies/1-15/p107.jpg"
+   },
+   {
+    "p": 108,
+    "title": "Ⅳ 내실화 방안 (계속)",
+    "img": "docs/policies/1-15/p108.jpg"
+   },
+   {
+    "p": 109,
+    "title": "Ⅴ 행정사항 (계속)",
+    "img": "docs/policies/1-15/p109.jpg"
+   },
+   {
+    "p": 110,
+    "title": "붙임 1 안전보건조정자 관련 법령",
+    "img": "docs/policies/1-15/p110.jpg"
+   },
+   {
+    "p": 111,
+    "title": "붙임 1 안전보건조정자 관련 법령 (계속)",
+    "img": "docs/policies/1-15/p111.jpg"
+   },
+   {
+    "p": 112,
+    "title": "붙임 2 안전보건조정자 제도(요약)",
+    "img": "docs/policies/1-15/p112.jpg"
+   },
+   {
+    "p": 113,
+    "title": "붙임 3 복합공종 조정협의체 세부 운영방법",
+    "img": "docs/policies/1-15/p113.jpg"
+   },
+   {
+    "p": 114,
+    "title": "붙임 4 복합공종 조정협의체 회의록(양식) <현 행>",
+    "img": "docs/policies/1-15/p114.jpg"
+   },
+   {
+    "p": 115,
+    "title": "붙임 4 복합공종 조정협의체 회의록(양식) <개 선>",
+    "img": "docs/policies/1-15/p115.jpg"
+   }
+  ],
+  "_full": {
    "file": "docs/policies/source-2026-1.pdf",
    "from": 87,
    "to": 99
@@ -504,7 +1027,99 @@ Object.assign(STANDARD_DOCS, {
   "date": "2025.05.22.",
   "effective": "2025.05.22.",
   "file": "",
-  "full": {
+  "seq": [
+   {
+    "p": 116,
+    "title": "갑지 · Ⅰ 추진배경",
+    "img": "docs/policies/1-16/p116.jpg"
+   },
+   {
+    "p": 117,
+    "title": "Ⅲ 작성현황 및 문제점",
+    "img": "docs/policies/1-16/p117.jpg"
+   },
+   {
+    "p": 118,
+    "title": "Ⅳ 개 선 방 안",
+    "img": "docs/policies/1-16/p118.jpg"
+   },
+   {
+    "p": 119,
+    "title": "Ⅴ 기 타 사 항",
+    "img": "docs/policies/1-16/p119.jpg"
+   },
+   {
+    "p": 120,
+    "title": "붙임 1 안전관리계획서 관련 법령",
+    "img": "docs/policies/1-16/p120.jpg"
+   },
+   {
+    "p": 121,
+    "title": "붙임 1 안전관리계획서 관련 법령 (계속)",
+    "img": "docs/policies/1-16/p121.jpg"
+   },
+   {
+    "p": 122,
+    "title": "붙임 1 안전관리계획서 관련 법령 (계속)",
+    "img": "docs/policies/1-16/p122.jpg"
+   },
+   {
+    "p": 123,
+    "title": "붙임 2 안전관리계획서 수립기준",
+    "img": "docs/policies/1-16/p123.jpg"
+   },
+   {
+    "p": 124,
+    "title": "붙임 2 안전관리계획서 수립기준 (계속)",
+    "img": "docs/policies/1-16/p124.jpg"
+   },
+   {
+    "p": 125,
+    "title": "붙임 2 안전관리계획서 수립기준 (계속)",
+    "img": "docs/policies/1-16/p125.jpg"
+   },
+   {
+    "p": 126,
+    "title": "붙임 2 안전관리계획서 수립기준 (계속)",
+    "img": "docs/policies/1-16/p126.jpg"
+   },
+   {
+    "p": 127,
+    "title": "붙임 3 고위험공종(취약공종) 안전관리계획서",
+    "img": "docs/policies/1-16/p127.jpg"
+   },
+   {
+    "p": 128,
+    "title": "붙임 3 고위험공종(취약공종) 안전관리계획서 (계속)",
+    "img": "docs/policies/1-16/p128.jpg"
+   },
+   {
+    "p": 129,
+    "title": "붙임 3 고위험공종(취약공종) 안전관리계획서 (계속)",
+    "img": "docs/policies/1-16/p129.jpg"
+   },
+   {
+    "p": 130,
+    "title": "붙임 3 고위험공종(취약공종) 안전관리계획서 (계속)",
+    "img": "docs/policies/1-16/p130.jpg"
+   },
+   {
+    "p": 131,
+    "title": "붙임 3 고위험공종(취약공종) 안전관리계획서 (계속)",
+    "img": "docs/policies/1-16/p131.jpg"
+   },
+   {
+    "p": 132,
+    "title": "붙임 3 고위험공종(취약공종) 안전관리계획서 (계속)",
+    "img": "docs/policies/1-16/p132.jpg"
+   },
+   {
+    "p": 133,
+    "title": "붙임 3 고위험공종(취약공종) 안전관리계획서 (계속)",
+    "img": "docs/policies/1-16/p133.jpg"
+   }
+  ],
+  "_full": {
    "file": "docs/policies/source-2026-1.pdf",
    "from": 100,
    "to": 117
@@ -525,7 +1140,34 @@ Object.assign(STANDARD_DOCS, {
   "date": "2025.01.07.",
   "effective": "2025.01.07.",
   "file": "",
-  "full": {
+  "seq": [
+   {
+    "p": 134,
+    "title": "갑지 · Ⅰ. 추진배경",
+    "img": "docs/policies/1-17/p134.jpg"
+   },
+   {
+    "p": 135,
+    "title": "Ⅲ. 추진내용",
+    "img": "docs/policies/1-17/p135.jpg"
+   },
+   {
+    "p": 136,
+    "title": "Ⅴ. 기타사항",
+    "img": "docs/policies/1-17/p136.jpg"
+   },
+   {
+    "p": 137,
+    "title": "붙임 1 고속도로 작업장 중대재해 현황(최근 5년간, 발생기준)",
+    "img": "docs/policies/1-17/p137.jpg"
+   },
+   {
+    "p": 138,
+    "title": "붙임 2 건설기계 점검 결과 보고 양식",
+    "img": "docs/policies/1-17/p138.jpg"
+   }
+  ],
+  "_full": {
    "file": "docs/policies/source-2026-1.pdf",
    "from": 118,
    "to": 122
@@ -546,7 +1188,114 @@ Object.assign(STANDARD_DOCS, {
   "date": "2024.10.15.",
   "effective": "2024.10.15.",
   "file": "",
-  "full": {
+  "seq": [
+   {
+    "p": 139,
+    "title": "갑지 · Ⅰ 추진배경",
+    "img": "docs/policies/1-18/p139.jpg"
+   },
+   {
+    "p": 140,
+    "title": "Ⅲ 기술지도 운영현황",
+    "img": "docs/policies/1-18/p140.jpg"
+   },
+   {
+    "p": 141,
+    "title": "Ⅴ 개선방안",
+    "img": "docs/policies/1-18/p141.jpg"
+   },
+   {
+    "p": 142,
+    "title": "Ⅴ 개선방안 (계속)",
+    "img": "docs/policies/1-18/p142.jpg"
+   },
+   {
+    "p": 143,
+    "title": "Ⅴ 개선방안 (계속)",
+    "img": "docs/policies/1-18/p143.jpg"
+   },
+   {
+    "p": 144,
+    "title": "Ⅴ 개선방안 (계속)",
+    "img": "docs/policies/1-18/p144.jpg"
+   },
+   {
+    "p": 145,
+    "title": "붙임 1 재해예방 기술지도 제도(요약)",
+    "img": "docs/policies/1-18/p145.jpg"
+   },
+   {
+    "p": 146,
+    "title": "붙임 2 계약문서 추가 반영내용(안)",
+    "img": "docs/policies/1-18/p146.jpg"
+   },
+   {
+    "p": 147,
+    "title": "붙임 3 기술지도 결과보고서(양식)",
+    "img": "docs/policies/1-18/p147.jpg"
+   },
+   {
+    "p": 148,
+    "title": "붙임 3 기술지도 결과보고서(양식) (계속)",
+    "img": "docs/policies/1-18/p148.jpg"
+   },
+   {
+    "p": 149,
+    "title": "붙임 3 기술지도 결과보고서(양식) (계속)",
+    "img": "docs/policies/1-18/p149.jpg"
+   },
+   {
+    "p": 150,
+    "title": "붙임 3 기술지도 결과보고서(양식) (계속)",
+    "img": "docs/policies/1-18/p150.jpg"
+   },
+   {
+    "p": 151,
+    "title": "붙임 3 기술지도 결과보고서(양식) (계속)",
+    "img": "docs/policies/1-18/p151.jpg"
+   },
+   {
+    "p": 152,
+    "title": "붙임 1 이전 기술지도 사항 이행결과 사진현황",
+    "img": "docs/policies/1-18/p152.jpg"
+   },
+   {
+    "p": 153,
+    "title": "붙임 2 금회 기술지도 지적사항 사진현황",
+    "img": "docs/policies/1-18/p153.jpg"
+   },
+   {
+    "p": 154,
+    "title": "붙임 4 기술지도 개선지도 불이행 사항 통보서(양식)",
+    "img": "docs/policies/1-18/p154.jpg"
+   },
+   {
+    "p": 155,
+    "title": "붙임 4 기술지도 개선지도 불이행 사항 통보서(양식) (계속)",
+    "img": "docs/policies/1-18/p155.jpg"
+   },
+   {
+    "p": 156,
+    "title": "붙임 4 기술지도 개선지도 불이행 사항 통보서(양식) (계속)",
+    "img": "docs/policies/1-18/p156.jpg"
+   },
+   {
+    "p": 157,
+    "title": "붙임 5 재해예방 기술지도 사후평가표(양식)",
+    "img": "docs/policies/1-18/p157.jpg"
+   },
+   {
+    "p": 158,
+    "title": "붙임 5 재해예방 기술지도 사후평가표(양식) (계속)",
+    "img": "docs/policies/1-18/p158.jpg"
+   },
+   {
+    "p": 159,
+    "title": "붙임 6 2024년 건설재해예방 전문지도기관 평가결과",
+    "img": "docs/policies/1-18/p159.jpg"
+   }
+  ],
+  "_full": {
    "file": "docs/policies/source-2026-1.pdf",
    "from": 123,
    "to": 143
@@ -595,7 +1344,29 @@ Object.assign(STANDARD_DOCS, {
   "date": "2024.09.12.",
   "effective": "2024.09.12.",
   "file": "",
-  "full": {
+  "seq": [
+   {
+    "p": 160,
+    "title": "갑지 · Ⅰ 추진배경",
+    "img": "docs/policies/1-19/p160.jpg"
+   },
+   {
+    "p": 161,
+    "title": "Ⅲ 감사결과 요약",
+    "img": "docs/policies/1-19/p161.jpg"
+   },
+   {
+    "p": 162,
+    "title": "Ⅳ 강화방안",
+    "img": "docs/policies/1-19/p162.jpg"
+   },
+   {
+    "p": 163,
+    "title": "참 고 건설업 산업안전 보건관리비 해설 (고용노동부, 2024.01.)",
+    "img": "docs/policies/1-19/p163.jpg"
+   }
+  ],
+  "_full": {
    "file": "docs/policies/source-2026-1.pdf",
    "from": 144,
    "to": 147
@@ -616,7 +1387,99 @@ Object.assign(STANDARD_DOCS, {
   "date": "2024.07.18.",
   "effective": "2024.07.18.",
   "file": "",
-  "full": {
+  "seq": [
+   {
+    "p": 164,
+    "title": "갑지 · Ⅰ. 추진배경",
+    "img": "docs/policies/1-20/p164.jpg"
+   },
+   {
+    "p": 165,
+    "title": "Ⅲ. 문제점",
+    "img": "docs/policies/1-20/p165.jpg"
+   },
+   {
+    "p": 166,
+    "title": "Ⅳ. 개선 방안",
+    "img": "docs/policies/1-20/p166.jpg"
+   },
+   {
+    "p": 167,
+    "title": "Ⅳ. 개선 방안 (계속)",
+    "img": "docs/policies/1-20/p167.jpg"
+   },
+   {
+    "p": 168,
+    "title": "Ⅴ. 향후계획",
+    "img": "docs/policies/1-20/p168.jpg"
+   },
+   {
+    "p": 169,
+    "title": "붙임1 산재예방 조치능력 평가 절차(개선)",
+    "img": "docs/policies/1-20/p169.jpg"
+   },
+   {
+    "p": 170,
+    "title": "붙임1 산재예방 조치능력 평가 절차(개선)",
+    "img": "docs/policies/1-20/p170.jpg"
+   },
+   {
+    "p": 171,
+    "title": "붙임1 산재예방 조치능력 평가 절차(개선) (계속)",
+    "img": "docs/policies/1-20/p171.jpg"
+   },
+   {
+    "p": 172,
+    "title": "붙임1 산재예방 조치능력 평가 절차(개선) (계속)",
+    "img": "docs/policies/1-20/p172.jpg"
+   },
+   {
+    "p": 173,
+    "title": "붙임2 합동안전·보건점검 점검 일지(변경)",
+    "img": "docs/policies/1-20/p173.jpg"
+   },
+   {
+    "p": 174,
+    "title": "붙임2 합동안전·보건점검 점검 일지(변경) (계속)",
+    "img": "docs/policies/1-20/p174.jpg"
+   },
+   {
+    "p": 175,
+    "title": "붙임3 산재예방 조치능력 평가 항목(개선)",
+    "img": "docs/policies/1-20/p175.jpg"
+   },
+   {
+    "p": 176,
+    "title": "붙임3 산재예방 조치능력 평가 항목(개선) (계속)",
+    "img": "docs/policies/1-20/p176.jpg"
+   },
+   {
+    "p": 177,
+    "title": "붙임3 산재예방 조치능력 평가 항목(개선) (계속)",
+    "img": "docs/policies/1-20/p177.jpg"
+   },
+   {
+    "p": 178,
+    "title": "붙임4 공동계약 평가기준 개선 세부내용",
+    "img": "docs/policies/1-20/p178.jpg"
+   },
+   {
+    "p": 179,
+    "title": "붙임5 공동계약 평가방법 질의회신",
+    "img": "docs/policies/1-20/p179.jpg"
+   },
+   {
+    "p": 180,
+    "title": "붙임5 공동계약 평가방법 질의회신 (계속)",
+    "img": "docs/policies/1-20/p180.jpg"
+   },
+   {
+    "p": 181,
+    "title": "붙임6 입찰공고문 변경(예시)",
+    "img": "docs/policies/1-20/p181.jpg"
+   }
+  ],
+  "_full": {
    "file": "docs/policies/source-2026-1.pdf",
    "from": 148,
    "to": 165
@@ -686,7 +1549,64 @@ Object.assign(STANDARD_DOCS, {
   "date": "2024.05.16.",
   "effective": "2024.05.16.",
   "file": "",
-  "full": {
+  "seq": [
+   {
+    "p": 182,
+    "title": "갑지 · Ⅰ 추진배경",
+    "img": "docs/policies/1-21/p182.jpg"
+   },
+   {
+    "p": 183,
+    "title": "Ⅱ 현 실태 및 문제점 (계속)",
+    "img": "docs/policies/1-21/p183.jpg"
+   },
+   {
+    "p": 184,
+    "title": "Ⅲ 관리방향",
+    "img": "docs/policies/1-21/p184.jpg"
+   },
+   {
+    "p": 185,
+    "title": "Ⅳ 관리대책 (계속)",
+    "img": "docs/policies/1-21/p185.jpg"
+   },
+   {
+    "p": 186,
+    "title": "Ⅳ 관리대책 (계속)",
+    "img": "docs/policies/1-21/p186.jpg"
+   },
+   {
+    "p": 187,
+    "title": "붙 임 1 건설사업단 고위험(고령 및 기저질환자) 근로자 현황",
+    "img": "docs/policies/1-21/p187.jpg"
+   },
+   {
+    "p": 188,
+    "title": "붙 임 2,3 고속도로 작업장 내 질병 사망 사고 현황(3년간)",
+    "img": "docs/policies/1-21/p188.jpg"
+   },
+   {
+    "p": 189,
+    "title": "붙 임 4 스마트밴드 시범운영 결과(2023년)",
+    "img": "docs/policies/1-21/p189.jpg"
+   },
+   {
+    "p": 190,
+    "title": "붙 임 5 스마트밴드 관리(분출 및 반납) 대장 양식",
+    "img": "docs/policies/1-21/p190.jpg"
+   },
+   {
+    "p": 191,
+    "title": "붙 임 6 자동심장충격기 자체점검 체크리스트 양식",
+    "img": "docs/policies/1-21/p191.jpg"
+   },
+   {
+    "p": 192,
+    "title": "붙 임 7 스마트밴드 제품 현황",
+    "img": "docs/policies/1-21/p192.jpg"
+   }
+  ],
+  "_full": {
    "file": "docs/policies/source-2026-1.pdf",
    "from": 166,
    "to": 176
@@ -721,7 +1641,124 @@ Object.assign(STANDARD_DOCS, {
   "date": "2024.08.21.",
   "effective": "2024.08.21.",
   "file": "",
-  "full": {
+  "seq": [
+   {
+    "p": 193,
+    "title": "갑지 · Ⅰ 추진배경",
+    "img": "docs/policies/1-22/p193.jpg"
+   },
+   {
+    "p": 194,
+    "title": "Ⅱ 관련기준",
+    "img": "docs/policies/1-22/p194.jpg"
+   },
+   {
+    "p": 195,
+    "title": "Ⅱ 관련기준 (계속)",
+    "img": "docs/policies/1-22/p195.jpg"
+   },
+   {
+    "p": 196,
+    "title": "Ⅲ 신호수·유도자 관리방안",
+    "img": "docs/policies/1-22/p196.jpg"
+   },
+   {
+    "p": 197,
+    "title": "Ⅲ 신호수·유도자 관리방안 (계속)",
+    "img": "docs/policies/1-22/p197.jpg"
+   },
+   {
+    "p": 198,
+    "title": "Ⅲ 신호수·유도자 관리방안 (계속)",
+    "img": "docs/policies/1-22/p198.jpg"
+   },
+   {
+    "p": 199,
+    "title": "Ⅲ 신호수·유도자 관리방안 (계속)",
+    "img": "docs/policies/1-22/p199.jpg"
+   },
+   {
+    "p": 200,
+    "title": "참 고 안전 관리강화 T/F 운영",
+    "img": "docs/policies/1-22/p200.jpg"
+   },
+   {
+    "p": 201,
+    "title": "붙임 1 공사주체별 역할 명확화",
+    "img": "docs/policies/1-22/p201.jpg"
+   },
+   {
+    "p": 202,
+    "title": "붙임 1 공사주체별 역할 명확화 (계속)",
+    "img": "docs/policies/1-22/p202.jpg"
+   },
+   {
+    "p": 203,
+    "title": "붙임 2 안전관리계획서 작성 대상",
+    "img": "docs/policies/1-22/p203.jpg"
+   },
+   {
+    "p": 204,
+    "title": "붙임 2 안전관리계획서 작성 대상 (계속)",
+    "img": "docs/policies/1-22/p204.jpg"
+   },
+   {
+    "p": 205,
+    "title": "붙임 3 안전관리비 사용실적 양식",
+    "img": "docs/policies/1-22/p205.jpg"
+   },
+   {
+    "p": 206,
+    "title": "붙임 3 안전관리비 사용실적 양식 (계속)",
+    "img": "docs/policies/1-22/p206.jpg"
+   },
+   {
+    "p": 207,
+    "title": "붙임 3 안전관리비 사용실적 양식 (계속)",
+    "img": "docs/policies/1-22/p207.jpg"
+   },
+   {
+    "p": 208,
+    "title": "붙임 3 안전관리비 사용실적 양식 (계속)",
+    "img": "docs/policies/1-22/p208.jpg"
+   },
+   {
+    "p": 209,
+    "title": "붙임 3 안전관리비 사용실적 양식 (계속)",
+    "img": "docs/policies/1-22/p209.jpg"
+   },
+   {
+    "p": 210,
+    "title": "붙임 3 안전관리비 사용실적 양식 (계속)",
+    "img": "docs/policies/1-22/p210.jpg"
+   },
+   {
+    "p": 211,
+    "title": "붙임 3 안전관리비 사용실적 양식 (계속)",
+    "img": "docs/policies/1-22/p211.jpg"
+   },
+   {
+    "p": 212,
+    "title": "붙임 4 안전관리계획서 신호수 배치 수량산정(안)",
+    "img": "docs/policies/1-22/p212.jpg"
+   },
+   {
+    "p": 213,
+    "title": "붙임 4 안전관리계획서 신호수 배치 수량산정(안) (계속)",
+    "img": "docs/policies/1-22/p213.jpg"
+   },
+   {
+    "p": 214,
+    "title": "참 고 안전관리비(신호수 인건비) 정산 시 유의사항",
+    "img": "docs/policies/1-22/p214.jpg"
+   },
+   {
+    "p": 215,
+    "title": "참 고 신호수 안전을 위한 5대 준칙",
+    "img": "docs/policies/1-22/p215.jpg"
+   }
+  ],
+  "_full": {
    "file": "docs/policies/source-2026-1.pdf",
    "from": 177,
    "to": 199
@@ -819,7 +1856,114 @@ Object.assign(STANDARD_DOCS, {
   "date": "2023.08.21.",
   "effective": "2023.08.21.",
   "file": "",
-  "full": {
+  "seq": [
+   {
+    "p": 216,
+    "title": "갑지 · Ⅰ 추진배경",
+    "img": "docs/policies/1-23/p216.jpg"
+   },
+   {
+    "p": 217,
+    "title": "Ⅱ 관련기준 및 현황 (계속)",
+    "img": "docs/policies/1-23/p217.jpg"
+   },
+   {
+    "p": 218,
+    "title": "Ⅲ 사고원인 분석",
+    "img": "docs/policies/1-23/p218.jpg"
+   },
+   {
+    "p": 219,
+    "title": "Ⅳ 신호수 안전관리 종합대책",
+    "img": "docs/policies/1-23/p219.jpg"
+   },
+   {
+    "p": 220,
+    "title": "Ⅳ 신호수 안전관리 종합대책 (계속)",
+    "img": "docs/policies/1-23/p220.jpg"
+   },
+   {
+    "p": 221,
+    "title": "Ⅳ 신호수 안전관리 종합대책 (계속)",
+    "img": "docs/policies/1-23/p221.jpg"
+   },
+   {
+    "p": 222,
+    "title": "Ⅳ 신호수 안전관리 종합대책 (계속)",
+    "img": "docs/policies/1-23/p222.jpg"
+   },
+   {
+    "p": 223,
+    "title": "Ⅴ 향후 추진계획",
+    "img": "docs/policies/1-23/p223.jpg"
+   },
+   {
+    "p": 224,
+    "title": "붙임 1 「신호」에 관한 관련법령",
+    "img": "docs/policies/1-23/p224.jpg"
+   },
+   {
+    "p": 225,
+    "title": "붙임 1 「신호」에 관한 관련법령",
+    "img": "docs/policies/1-23/p225.jpg"
+   },
+   {
+    "p": 226,
+    "title": "붙임 1 「신호」에 관한 관련법령 (계속)",
+    "img": "docs/policies/1-23/p226.jpg"
+   },
+   {
+    "p": 227,
+    "title": "붙임 2 신호수(유도자)의 정의",
+    "img": "docs/policies/1-23/p227.jpg"
+   },
+   {
+    "p": 228,
+    "title": "붙임 3 스마트 안전기술 설명자료",
+    "img": "docs/policies/1-23/p228.jpg"
+   },
+   {
+    "p": 229,
+    "title": "붙임 3 스마트 안전기술 설명자료 (계속)",
+    "img": "docs/policies/1-23/p229.jpg"
+   },
+   {
+    "p": 230,
+    "title": "붙임 4 신호수 자격이수 교육",
+    "img": "docs/policies/1-23/p230.jpg"
+   },
+   {
+    "p": 231,
+    "title": "붙임 5 계약문서(현장설명서) 신호수교육 의무화 명기 예시",
+    "img": "docs/policies/1-23/p231.jpg"
+   },
+   {
+    "p": 232,
+    "title": "붙임 5 계약문서(현장설명서) 신호수교육 의무화 명기 예시 (계속)",
+    "img": "docs/policies/1-23/p232.jpg"
+   },
+   {
+    "p": 233,
+    "title": "붙임 6 CCTV 현황",
+    "img": "docs/policies/1-23/p233.jpg"
+   },
+   {
+    "p": 234,
+    "title": "붙임 6 CCTV 현황 (계속)",
+    "img": "docs/policies/1-23/p234.jpg"
+   },
+   {
+    "p": 235,
+    "title": "붙임 7 산업재해 사망사고 감소대책(국토부 건설안전과-1535(‘18.2",
+    "img": "docs/policies/1-23/p235.jpg"
+   },
+   {
+    "p": 236,
+    "title": "붙임 7 산업재해 사망사고 감소대책(국토부 건설안전과-1535(‘18.2 (계속)",
+    "img": "docs/policies/1-23/p236.jpg"
+   }
+  ],
+  "_full": {
    "file": "docs/policies/source-2026-1.pdf",
    "from": 200,
    "to": 220
@@ -868,7 +2012,49 @@ Object.assign(STANDARD_DOCS, {
   "date": "2023.08.21.",
   "effective": "2023.08.21.",
   "file": "",
-  "full": {
+  "seq": [
+   {
+    "p": 237,
+    "title": "갑지 · 재발방지대책 수립 및 이행 관련 보완사항",
+    "img": "docs/policies/1-24/p237.jpg"
+   },
+   {
+    "p": 238,
+    "title": "붙임1 고용노동부 질의회신 (2023.02.22.)",
+    "img": "docs/policies/1-24/p238.jpg"
+   },
+   {
+    "p": 239,
+    "title": "붙임2 재발방지대책 작성 양식",
+    "img": "docs/policies/1-24/p239.jpg"
+   },
+   {
+    "p": 240,
+    "title": "붙임2 재발방지대책 작성 양식 (계속)",
+    "img": "docs/policies/1-24/p240.jpg"
+   },
+   {
+    "p": 241,
+    "title": "붙임2 재발방지대책 작성 양식 (계속)",
+    "img": "docs/policies/1-24/p241.jpg"
+   },
+   {
+    "p": 242,
+    "title": "붙임3 재발방지대책 보고절차 및 주관부서 구분",
+    "img": "docs/policies/1-24/p242.jpg"
+   },
+   {
+    "p": 243,
+    "title": "붙임4 중대재해처벌법 해설 (고용노동부, 2021.11)",
+    "img": "docs/policies/1-24/p243.jpg"
+   },
+   {
+    "p": 244,
+    "title": "붙임4 중대재해처벌법 해설 (고용노동부, 2021.11) (계속)",
+    "img": "docs/policies/1-24/p244.jpg"
+   }
+  ],
+  "_full": {
    "file": "docs/policies/source-2026-1.pdf",
    "from": 221,
    "to": 228
@@ -896,7 +2082,39 @@ Object.assign(STANDARD_DOCS, {
   "date": "2024.09.20.",
   "effective": "2024.09.20.",
   "file": "",
-  "full": {
+  "seq": [
+   {
+    "p": 245,
+    "title": "갑지 · Ⅰ. 추진 배경",
+    "img": "docs/policies/1-25/p245.jpg"
+   },
+   {
+    "p": 246,
+    "title": "Ⅲ. 위험성평가 내실화 방안",
+    "img": "docs/policies/1-25/p246.jpg"
+   },
+   {
+    "p": 247,
+    "title": "Ⅳ. 향후 계획",
+    "img": "docs/policies/1-25/p247.jpg"
+   },
+   {
+    "p": 248,
+    "title": "별 첨 특별관리물질 취급시 필요사항",
+    "img": "docs/policies/1-25/p248.jpg"
+   },
+   {
+    "p": 249,
+    "title": "별 첨 특별관리물질 취급시 필요사항 (계속)",
+    "img": "docs/policies/1-25/p249.jpg"
+   },
+   {
+    "p": 250,
+    "title": "별 첨 특별관리물질 취급시 필요사항 (계속)",
+    "img": "docs/policies/1-25/p250.jpg"
+   }
+  ],
+  "_full": {
    "file": "docs/policies/source-2026-1.pdf",
    "from": 229,
    "to": 234
@@ -924,7 +2142,89 @@ Object.assign(STANDARD_DOCS, {
   "date": "2022.09.06.",
   "effective": "2022.09.06.",
   "file": "",
-  "full": {
+  "seq": [
+   {
+    "p": 251,
+    "title": "갑지 · Ⅰ 추진 배경",
+    "img": "docs/policies/1-26/p251.jpg"
+   },
+   {
+    "p": 252,
+    "title": "Ⅲ 현실태 및 문제점",
+    "img": "docs/policies/1-26/p252.jpg"
+   },
+   {
+    "p": 253,
+    "title": "Ⅳ 개선 방안",
+    "img": "docs/policies/1-26/p253.jpg"
+   },
+   {
+    "p": 254,
+    "title": "Ⅳ 개선 방안 (계속)",
+    "img": "docs/policies/1-26/p254.jpg"
+   },
+   {
+    "p": 255,
+    "title": "Ⅳ 개선 방안 (계속)",
+    "img": "docs/policies/1-26/p255.jpg"
+   },
+   {
+    "p": 256,
+    "title": "Ⅴ 기 타 사 항",
+    "img": "docs/policies/1-26/p256.jpg"
+   },
+   {
+    "p": 257,
+    "title": "붙임 1. 안전보건 부문 예산항목 변경(안)",
+    "img": "docs/policies/1-26/p257.jpg"
+   },
+   {
+    "p": 258,
+    "title": "붙임1 안전보건 부문 예산항목 변경(안)",
+    "img": "docs/policies/1-26/p258.jpg"
+   },
+   {
+    "p": 259,
+    "title": "붙임1 안전보건 부문 예산항목 변경(안) (계속)",
+    "img": "docs/policies/1-26/p259.jpg"
+   },
+   {
+    "p": 260,
+    "title": "붙임1 안전보건 부문 예산항목 변경(안) (계속)",
+    "img": "docs/policies/1-26/p260.jpg"
+   },
+   {
+    "p": 261,
+    "title": "붙임2 (참고) 2021년 안전보건 예산사용 실적",
+    "img": "docs/policies/1-26/p261.jpg"
+   },
+   {
+    "p": 262,
+    "title": "붙임3 안전보건예산 집행기준",
+    "img": "docs/policies/1-26/p262.jpg"
+   },
+   {
+    "p": 263,
+    "title": "붙임3 안전보건예산 집행기준 (계속)",
+    "img": "docs/policies/1-26/p263.jpg"
+   },
+   {
+    "p": 264,
+    "title": "붙임3 안전보건예산 집행기준 (계속)",
+    "img": "docs/policies/1-26/p264.jpg"
+   },
+   {
+    "p": 265,
+    "title": "붙임4 안전보건예산 조정승인서",
+    "img": "docs/policies/1-26/p265.jpg"
+   },
+   {
+    "p": 266,
+    "title": "붙임4 안전보건예산 조정승인서",
+    "img": "docs/policies/1-26/p266.jpg"
+   }
+  ],
+  "_full": {
    "file": "docs/policies/source-2026-1.pdf",
    "from": 235,
    "to": 250
@@ -980,7 +2280,14 @@ Object.assign(STANDARD_DOCS, {
   "date": "2022.08.25.",
   "effective": "2022.08.25.",
   "file": "",
-  "full": {
+  "seq": [
+   {
+    "p": 267,
+    "title": "갑지 · 근로자 「특별교육 이행 가이드」 배포",
+    "img": "docs/policies/1-27/p267.jpg"
+   }
+  ],
+  "_full": {
    "file": "docs/policies/source-2026-1.pdf",
    "from": 251,
    "to": 251
@@ -1001,7 +2308,59 @@ Object.assign(STANDARD_DOCS, {
   "date": "2022.08.18.",
   "effective": "2022.08.18.",
   "file": "",
-  "full": {
+  "seq": [
+   {
+    "p": 268,
+    "title": "갑지 · 산업재해 재발방지대책 수립·이행 유의사항",
+    "img": "docs/policies/1-28/p268.jpg"
+   },
+   {
+    "p": 269,
+    "title": "산업재해 재발방지대책 수립·이행 유의사항 (계속)",
+    "img": "docs/policies/1-28/p269.jpg"
+   },
+   {
+    "p": 270,
+    "title": "산업재해 재발방지대책 수립·이행 유의사항 (계속)",
+    "img": "docs/policies/1-28/p270.jpg"
+   },
+   {
+    "p": 271,
+    "title": "산업재해 재발방지대책 수립·이행 유의사항 (계속)",
+    "img": "docs/policies/1-28/p271.jpg"
+   },
+   {
+    "p": 272,
+    "title": "산업재해 재발방지대책 수립·이행 유의사항 (계속)",
+    "img": "docs/policies/1-28/p272.jpg"
+   },
+   {
+    "p": 273,
+    "title": "붙임#1 재해 발생시 재발방지대책 수립 범위 및 이행절차",
+    "img": "docs/policies/1-28/p273.jpg"
+   },
+   {
+    "p": 274,
+    "title": "붙임#2 재해요인 원인분석 예시",
+    "img": "docs/policies/1-28/p274.jpg"
+   },
+   {
+    "p": 275,
+    "title": "붙임#3 사고조사 및 재발방지대책 양식",
+    "img": "docs/policies/1-28/p275.jpg"
+   },
+   {
+    "p": 276,
+    "title": "Ⅲ 현장 조사내용",
+    "img": "docs/policies/1-28/p276.jpg"
+   },
+   {
+    "p": 277,
+    "title": "붙임#4 (양식) 산업재해 처리경과(예시)",
+    "img": "docs/policies/1-28/p277.jpg"
+   }
+  ],
+  "_full": {
    "file": "docs/policies/source-2026-1.pdf",
    "from": 252,
    "to": 261
@@ -1064,7 +2423,94 @@ Object.assign(STANDARD_DOCS, {
   "date": "2022.07.29.",
   "effective": "2022.07.29.",
   "file": "",
-  "full": {
+  "seq": [
+   {
+    "p": 278,
+    "title": "갑지 · Ⅰ 추 진 배 경",
+    "img": "docs/policies/1-29/p278.jpg"
+   },
+   {
+    "p": 279,
+    "title": "Ⅲ 현 실태 및 문제점",
+    "img": "docs/policies/1-29/p279.jpg"
+   },
+   {
+    "p": 280,
+    "title": "Ⅳ 추진내용",
+    "img": "docs/policies/1-29/p280.jpg"
+   },
+   {
+    "p": 281,
+    "title": "Ⅳ 추진내용 (계속)",
+    "img": "docs/policies/1-29/p281.jpg"
+   },
+   {
+    "p": 282,
+    "title": "Ⅴ 향후 추진계획",
+    "img": "docs/policies/1-29/p282.jpg"
+   },
+   {
+    "p": 283,
+    "title": "붙임#1 장비신호 관련 기준",
+    "img": "docs/policies/1-29/p283.jpg"
+   },
+   {
+    "p": 284,
+    "title": "붙임#1 장비신호 관련 기준 (계속)",
+    "img": "docs/policies/1-29/p284.jpg"
+   },
+   {
+    "p": 285,
+    "title": "붙임#1 장비신호 관련 기준 (계속)",
+    "img": "docs/policies/1-29/p285.jpg"
+   },
+   {
+    "p": 286,
+    "title": "붙임#1 장비신호 관련 기준 (계속)",
+    "img": "docs/policies/1-29/p286.jpg"
+   },
+   {
+    "p": 287,
+    "title": "붙임#1 장비신호 관련 기준 (계속)",
+    "img": "docs/policies/1-29/p287.jpg"
+   },
+   {
+    "p": 288,
+    "title": "붙임#1 장비신호 관련 기준 (계속)",
+    "img": "docs/policies/1-29/p288.jpg"
+   },
+   {
+    "p": 289,
+    "title": "붙임#2 인천항 컨테이너크레인 신호체계 표준화(보도자료)",
+    "img": "docs/policies/1-29/p289.jpg"
+   },
+   {
+    "p": 290,
+    "title": "붙임#2 인천항 컨테이너크레인 신호체계 표준화(보도자료) (계속)",
+    "img": "docs/policies/1-29/p290.jpg"
+   },
+   {
+    "p": 291,
+    "title": "붙임#3 현장 근로자 설문조사 및 실태점검(인터뷰) 주요 내용",
+    "img": "docs/policies/1-29/p291.jpg"
+   },
+   {
+    "p": 292,
+    "title": "붙임#3 현장 근로자 설문조사 및 실태점검(인터뷰) 주요 내용 (계속)",
+    "img": "docs/policies/1-29/p292.jpg"
+   },
+   {
+    "p": 293,
+    "title": "붙임#4 비상상황 긴급 신호장치 상세 운영방안",
+    "img": "docs/policies/1-29/p293.jpg"
+   },
+   {
+    "p": 294,
+    "title": "붙임#4 비상상황 긴급 신호장치 상세 운영방안 (계속)",
+    "img": "docs/policies/1-29/p294.jpg"
+   }
+  ],
+  "_full": {
    "file": "docs/policies/source-2026-1.pdf",
    "from": 262,
    "to": 278
@@ -1104,7 +2550,49 @@ Object.assign(STANDARD_DOCS, {
   "date": "2022.04.29.",
   "effective": "2022.04.29.",
   "file": "",
-  "full": {
+  "seq": [
+   {
+    "p": 295,
+    "title": "갑지 · 안전·보건 관계법령에 따른 의무이행 점검방안",
+    "img": "docs/policies/1-30/p295.jpg"
+   },
+   {
+    "p": 296,
+    "title": "붙임1 산업안전보건법 의무 이행사항 점검항목",
+    "img": "docs/policies/1-30/p296.jpg"
+   },
+   {
+    "p": 297,
+    "title": "붙임1 산업안전보건법 의무 이행사항 점검항목 (계속)",
+    "img": "docs/policies/1-30/p297.jpg"
+   },
+   {
+    "p": 298,
+    "title": "붙임1 산업안전보건법 의무 이행사항 점검항목 (계속)",
+    "img": "docs/policies/1-30/p298.jpg"
+   },
+   {
+    "p": 299,
+    "title": "붙임1 산업안전보건법 의무 이행사항 점검항목 (계속)",
+    "img": "docs/policies/1-30/p299.jpg"
+   },
+   {
+    "p": 300,
+    "title": "붙임1 산업안전보건법 의무 이행사항 점검항목 (계속)",
+    "img": "docs/policies/1-30/p300.jpg"
+   },
+   {
+    "p": 301,
+    "title": "붙임1 산업안전보건법 의무 이행사항 점검항목 (계속)",
+    "img": "docs/policies/1-30/p301.jpg"
+   },
+   {
+    "p": 302,
+    "title": "붙임1 산업안전보건법 의무 이행사항 점검항목 (계속)",
+    "img": "docs/policies/1-30/p302.jpg"
+   }
+  ],
+  "_full": {
    "file": "docs/policies/source-2026-1.pdf",
    "from": 279,
    "to": 286
@@ -1174,7 +2662,29 @@ Object.assign(STANDARD_DOCS, {
   "date": "2022.04.29.",
   "effective": "2022.04.29.",
   "file": "",
-  "full": {
+  "seq": [
+   {
+    "p": 303,
+    "title": "갑지 · Ⅱ 점검자 안전 행동요령",
+    "img": "docs/policies/1-31/p303.jpg"
+   },
+   {
+    "p": 304,
+    "title": "Ⅱ 점검자 안전 행동요령 (계속)",
+    "img": "docs/policies/1-31/p304.jpg"
+   },
+   {
+    "p": 305,
+    "title": "Ⅱ 점검자 안전 행동요령 (계속)",
+    "img": "docs/policies/1-31/p305.jpg"
+   },
+   {
+    "p": 306,
+    "title": "Ⅱ 점검자 안전 행동요령 (계속)",
+    "img": "docs/policies/1-31/p306.jpg"
+   }
+  ],
+  "_full": {
    "file": "docs/policies/source-2026-1.pdf",
    "from": 287,
    "to": 290
@@ -1216,7 +2726,64 @@ Object.assign(STANDARD_DOCS, {
   "date": "2021.09.06.",
   "effective": "2021.09.06.",
   "file": "",
-  "full": {
+  "seq": [
+   {
+    "p": 331,
+    "title": "갑지 · Ⅱ. 작업지휘자 배치기준",
+    "img": "docs/policies/1-34/p331.jpg"
+   },
+   {
+    "p": 332,
+    "title": "Ⅱ. 작업지휘자 배치기준 (계속)",
+    "img": "docs/policies/1-34/p332.jpg"
+   },
+   {
+    "p": 333,
+    "title": "Ⅲ. 신호수 배치기준 (계속)",
+    "img": "docs/policies/1-34/p333.jpg"
+   },
+   {
+    "p": 334,
+    "title": "붙임1 작업지휘자 및 신호수 작업예시",
+    "img": "docs/policies/1-34/p334.jpg"
+   },
+   {
+    "p": 335,
+    "title": "붙임1 작업지휘자 및 신호수 작업예시 (계속)",
+    "img": "docs/policies/1-34/p335.jpg"
+   },
+   {
+    "p": 336,
+    "title": "붙임1 작업지휘자 및 신호수 작업예시 (계속)",
+    "img": "docs/policies/1-34/p336.jpg"
+   },
+   {
+    "p": 337,
+    "title": "붙임2 차량계 하역운반기계 및 건설기계",
+    "img": "docs/policies/1-34/p337.jpg"
+   },
+   {
+    "p": 338,
+    "title": "붙임2 차량계 하역운반기계 및 건설기계 (계속)",
+    "img": "docs/policies/1-34/p338.jpg"
+   },
+   {
+    "p": 339,
+    "title": "붙임2 차량계 하역운반기계 및 건설기계 (계속)",
+    "img": "docs/policies/1-34/p339.jpg"
+   },
+   {
+    "p": 340,
+    "title": "붙임3 산업안전보건기준에 관한 규칙",
+    "img": "docs/policies/1-34/p340.jpg"
+   },
+   {
+    "p": 341,
+    "title": "붙임3 산업안전보건기준에 관한 규칙 (계속)",
+    "img": "docs/policies/1-34/p341.jpg"
+   }
+  ],
+  "_full": {
    "file": "docs/policies/source-2026-1.pdf",
    "from": 291,
    "to": 301

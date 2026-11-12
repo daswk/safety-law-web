@@ -6,7 +6,74 @@ Object.assign(STANDARD_DOCS, {
   "date": "2026.07.08.",
   "effective": "2026.07.08.",
   "file": "",
-  "full": {
+  "seq": [
+   {
+    "p": 1,
+    "title": "갑지 · Ⅰ 추진배경",
+    "img": "docs/policies/2-1/p1.jpg"
+   },
+   {
+    "p": 2,
+    "title": "Ⅱ 추진경위 (계속)",
+    "img": "docs/policies/2-1/p2.jpg"
+   },
+   {
+    "p": 3,
+    "title": "Ⅱ 추진경위 (계속)",
+    "img": "docs/policies/2-1/p3.jpg"
+   },
+   {
+    "p": 4,
+    "title": "Ⅳ 평가 개선 방안",
+    "img": "docs/policies/2-1/p4.jpg"
+   },
+   {
+    "p": 5,
+    "title": "Ⅴ 향후 계획",
+    "img": "docs/policies/2-1/p5.jpg"
+   },
+   {
+    "p": 6,
+    "title": "붙임 1 건설안전지수 평가지표 신구대비표",
+    "img": "docs/policies/2-1/p6.jpg"
+   },
+   {
+    "p": 7,
+    "title": "붙임 1 건설안전지수 평가지표 신구대비표 (계속)",
+    "img": "docs/policies/2-1/p7.jpg"
+   },
+   {
+    "p": 8,
+    "title": "붙임 1 건설안전지수 평가지표 신구대비표 (계속)",
+    "img": "docs/policies/2-1/p8.jpg"
+   },
+   {
+    "p": 9,
+    "title": "붙임 1 건설안전지수 평가지표 신구대비표 (계속)",
+    "img": "docs/policies/2-1/p9.jpg"
+   },
+   {
+    "p": 10,
+    "title": "붙임 2 건설안전지수 평가지표 편람 전문",
+    "img": "docs/policies/2-1/p10.jpg"
+   },
+   {
+    "p": 11,
+    "title": "붙임 2 건설안전지수 평가지표 편람 전문 (계속)",
+    "img": "docs/policies/2-1/p11.jpg"
+   },
+   {
+    "p": 12,
+    "title": "붙임 3 2026년 건설안전지수 평가대상",
+    "img": "docs/policies/2-1/p12.jpg"
+   },
+   {
+    "p": 13,
+    "title": "붙임 3 2026년 건설안전지수 평가대상 (계속)",
+    "img": "docs/policies/2-1/p13.jpg"
+   }
+  ],
+  "_full": {
    "file": "docs/policies/source-2026-2.pdf",
    "from": 1,
    "to": 13
@@ -41,7 +108,64 @@ Object.assign(STANDARD_DOCS, {
   "date": "2026.04.07.",
   "effective": "2026.04.07.",
   "file": "",
-  "full": {
+  "seq": [
+   {
+    "p": 14,
+    "title": "갑지 · Ⅰ. 추 진 배 경",
+    "img": "docs/policies/2-2/p14.jpg"
+   },
+   {
+    "p": 15,
+    "title": "Ⅲ. 현장 의견수렴 및 개선방향",
+    "img": "docs/policies/2-2/p15.jpg"
+   },
+   {
+    "p": 16,
+    "title": "Ⅳ. 개 선 방 안",
+    "img": "docs/policies/2-2/p16.jpg"
+   },
+   {
+    "p": 17,
+    "title": "Ⅳ. 개 선 방 안 (계속)",
+    "img": "docs/policies/2-2/p17.jpg"
+   },
+   {
+    "p": 18,
+    "title": "Ⅴ. 검 토 결 과",
+    "img": "docs/policies/2-2/p18.jpg"
+   },
+   {
+    "p": 19,
+    "title": "Ⅵ. 향 후 계 획",
+    "img": "docs/policies/2-2/p19.jpg"
+   },
+   {
+    "p": 20,
+    "title": "붙임1 건설공사 사업관리방식 검토기준 및 업무수행지침",
+    "img": "docs/policies/2-2/p20.jpg"
+   },
+   {
+    "p": 21,
+    "title": "붙임2 우리공사 공사관리규정",
+    "img": "docs/policies/2-2/p21.jpg"
+   },
+   {
+    "p": 22,
+    "title": "붙임3 위험등급 조정회의 결과보고 양식",
+    "img": "docs/policies/2-2/p22.jpg"
+   },
+   {
+    "p": 23,
+    "title": "붙임4 위험등급 관리기준 대상작업 (가이드라인)",
+    "img": "docs/policies/2-2/p23.jpg"
+   },
+   {
+    "p": 24,
+    "title": "붙임5 위험등급 관리기준 대상작업 신구대조표",
+    "img": "docs/policies/2-2/p24.jpg"
+   }
+  ],
+  "_full": {
    "file": "docs/policies/source-2026-2.pdf",
    "from": 14,
    "to": 24
@@ -83,7 +207,34 @@ Object.assign(STANDARD_DOCS, {
   "date": "2026.06.30.",
   "effective": "2026.06.30.",
   "file": "",
-  "full": {
+  "seq": [
+   {
+    "p": 25,
+    "title": "갑지 · Ⅰ 추 진 배 경",
+    "img": "docs/policies/2-3/p25.jpg"
+   },
+   {
+    "p": 26,
+    "title": "Ⅲ 현황 및 문제점",
+    "img": "docs/policies/2-3/p26.jpg"
+   },
+   {
+    "p": 27,
+    "title": "Ⅳ 운영 방안",
+    "img": "docs/policies/2-3/p27.jpg"
+   },
+   {
+    "p": 28,
+    "title": "Ⅴ 기 타",
+    "img": "docs/policies/2-3/p28.jpg"
+   },
+   {
+    "p": 29,
+    "title": "참 고 CCTV 및 바디캠 설치 예시",
+    "img": "docs/policies/2-3/p29.jpg"
+   }
+  ],
+  "_full": {
    "file": "docs/policies/source-2026-2.pdf",
    "from": 25,
    "to": 29
@@ -111,7 +262,74 @@ Object.assign(STANDARD_DOCS, {
   "date": "2026.01.19.",
   "effective": "2026.01.19.",
   "file": "",
-  "full": {
+  "seq": [
+   {
+    "p": 30,
+    "title": "갑지 · 건설현장 안전관리실 추진 로드맵",
+    "img": "docs/policies/2-4/p30.jpg"
+   },
+   {
+    "p": 31,
+    "title": "건설현장 안전관리실 추진 로드맵 (계속)",
+    "img": "docs/policies/2-4/p31.jpg"
+   },
+   {
+    "p": 32,
+    "title": "건설현장 안전관리실 추진 로드맵 (계속)",
+    "img": "docs/policies/2-4/p32.jpg"
+   },
+   {
+    "p": 33,
+    "title": "건설현장 안전관리실 추진 로드맵",
+    "img": "docs/policies/2-4/p33.jpg"
+   },
+   {
+    "p": 34,
+    "title": "건설현장 안전관리실 추진 로드맵 (계속)",
+    "img": "docs/policies/2-4/p34.jpg"
+   },
+   {
+    "p": 35,
+    "title": "건설현장 안전관리실 추진 로드맵 (계속)",
+    "img": "docs/policies/2-4/p35.jpg"
+   },
+   {
+    "p": 36,
+    "title": "건설현장 안전관리실 추진 로드맵 (계속)",
+    "img": "docs/policies/2-4/p36.jpg"
+   },
+   {
+    "p": 37,
+    "title": "건설현장 안전관리실 추진 로드맵 (계속)",
+    "img": "docs/policies/2-4/p37.jpg"
+   },
+   {
+    "p": 38,
+    "title": "건설현장 안전관리실 추진 로드맵 (계속)",
+    "img": "docs/policies/2-4/p38.jpg"
+   },
+   {
+    "p": 39,
+    "title": "건설현장 안전관리실 추진 로드맵 (계속)",
+    "img": "docs/policies/2-4/p39.jpg"
+   },
+   {
+    "p": 40,
+    "title": "건설현장 안전관리실 추진 로드맵 (계속)",
+    "img": "docs/policies/2-4/p40.jpg"
+   },
+   {
+    "p": 41,
+    "title": "건설현장 안전관리실 추진 로드맵 (계속)",
+    "img": "docs/policies/2-4/p41.jpg"
+   },
+   {
+    "p": 42,
+    "title": "건설현장 안전관리실 추진 로드맵 (계속)",
+    "img": "docs/policies/2-4/p42.jpg"
+   }
+  ],
+  "_full": {
    "file": "docs/policies/source-2026-2.pdf",
    "from": 30,
    "to": 42
@@ -181,7 +399,29 @@ Object.assign(STANDARD_DOCS, {
   "date": "2025.05.14.",
   "effective": "2025.05.14.",
   "file": "",
-  "full": {
+  "seq": [
+   {
+    "p": 43,
+    "title": "갑지 · Ⅰ 추진배경",
+    "img": "docs/policies/2-5/p43.jpg"
+   },
+   {
+    "p": 44,
+    "title": "Ⅲ 강화방안",
+    "img": "docs/policies/2-5/p44.jpg"
+   },
+   {
+    "p": 45,
+    "title": "Ⅲ 강화방안 (계속)",
+    "img": "docs/policies/2-5/p45.jpg"
+   },
+   {
+    "p": 46,
+    "title": "붙임 1 상시관제 대장(양식)",
+    "img": "docs/policies/2-5/p46.jpg"
+   }
+  ],
+  "_full": {
    "file": "docs/policies/source-2026-2.pdf",
    "from": 43,
    "to": 46
@@ -209,7 +449,39 @@ Object.assign(STANDARD_DOCS, {
   "date": "2024.04.09.",
   "effective": "2024.04.09.",
   "file": "",
-  "full": {
+  "seq": [
+   {
+    "p": 47,
+    "title": "갑지 · Ⅰ 추 진 배 경",
+    "img": "docs/policies/2-6/p47.jpg"
+   },
+   {
+    "p": 48,
+    "title": "Ⅲ 현황 및 문제점",
+    "img": "docs/policies/2-6/p48.jpg"
+   },
+   {
+    "p": 49,
+    "title": "Ⅲ 현황 및 문제점 (계속)",
+    "img": "docs/policies/2-6/p49.jpg"
+   },
+   {
+    "p": 50,
+    "title": "Ⅳ 개 선 방 안",
+    "img": "docs/policies/2-6/p50.jpg"
+   },
+   {
+    "p": 51,
+    "title": "Ⅴ 추 진 일 정",
+    "img": "docs/policies/2-6/p51.jpg"
+   },
+   {
+    "p": 52,
+    "title": "Ⅴ 추 진 일 정 (계속)",
+    "img": "docs/policies/2-6/p52.jpg"
+   }
+  ],
+  "_full": {
    "file": "docs/policies/source-2026-2.pdf",
    "from": 47,
    "to": 52
@@ -230,7 +502,79 @@ Object.assign(STANDARD_DOCS, {
   "date": "2023.09.19.",
   "effective": "2023.09.19.",
   "file": "",
-  "full": {
+  "seq": [
+   {
+    "p": 53,
+    "title": "갑지 · Ⅰ 추진 목적",
+    "img": "docs/policies/2-7/p53.jpg"
+   },
+   {
+    "p": 54,
+    "title": "Ⅱ 현황 및 문제점 (계속)",
+    "img": "docs/policies/2-7/p54.jpg"
+   },
+   {
+    "p": 55,
+    "title": "Ⅲ 추진 방향",
+    "img": "docs/policies/2-7/p55.jpg"
+   },
+   {
+    "p": 56,
+    "title": "Ⅳ 안전관리실 시범 운영 계획",
+    "img": "docs/policies/2-7/p56.jpg"
+   },
+   {
+    "p": 57,
+    "title": "Ⅳ 안전관리실 시범 운영 계획 (계속)",
+    "img": "docs/policies/2-7/p57.jpg"
+   },
+   {
+    "p": 58,
+    "title": "Ⅳ 안전관리실 시범 운영 계획 (계속)",
+    "img": "docs/policies/2-7/p58.jpg"
+   },
+   {
+    "p": 59,
+    "title": "Ⅴ 향후 추진계획",
+    "img": "docs/policies/2-7/p59.jpg"
+   },
+   {
+    "p": 60,
+    "title": "붙임 1 산업안전보건법과 건설기술진흥법의 안전관리 비교",
+    "img": "docs/policies/2-7/p60.jpg"
+   },
+   {
+    "p": 61,
+    "title": "붙 임 1 산업안전보건법과 건설기술진흥법의 안전관리 비교",
+    "img": "docs/policies/2-7/p61.jpg"
+   },
+   {
+    "p": 62,
+    "title": "붙 임 2 산업안전보건법과 건설기술진흥법의 안전조직 구성",
+    "img": "docs/policies/2-7/p62.jpg"
+   },
+   {
+    "p": 63,
+    "title": "붙 임 3 안전관리실 시범현장 업무분장(안)",
+    "img": "docs/policies/2-7/p63.jpg"
+   },
+   {
+    "p": 64,
+    "title": "붙 임 4 안전관리실 구축 관련 현장의견 검토",
+    "img": "docs/policies/2-7/p64.jpg"
+   },
+   {
+    "p": 65,
+    "title": "붙 임 5 안전관리실 구축 보고 (양식)",
+    "img": "docs/policies/2-7/p65.jpg"
+   },
+   {
+    "p": 66,
+    "title": "붙 임 6 건설안전관리자 및 안전보조원 업무일지(양식)",
+    "img": "docs/policies/2-7/p66.jpg"
+   }
+  ],
+  "_full": {
    "file": "docs/policies/source-2026-2.pdf",
    "from": 53,
    "to": 66
@@ -272,7 +616,164 @@ Object.assign(STANDARD_DOCS, {
   "date": "2023.09.19.",
   "effective": "2023.09.19.",
   "file": "",
-  "full": {
+  "seq": [
+   {
+    "p": 67,
+    "title": "갑지 · Ⅰ 추 진 배 경",
+    "img": "docs/policies/2-8/p67.jpg"
+   },
+   {
+    "p": 68,
+    "title": "Ⅲ 현 실태 및 문제점",
+    "img": "docs/policies/2-8/p68.jpg"
+   },
+   {
+    "p": 69,
+    "title": "Ⅰ 안전관리 방안",
+    "img": "docs/policies/2-8/p69.jpg"
+   },
+   {
+    "p": 70,
+    "title": "Ⅰ 안전관리 방안 (계속)",
+    "img": "docs/policies/2-8/p70.jpg"
+   },
+   {
+    "p": 71,
+    "title": "Ⅰ 안전관리 방안 (계속)",
+    "img": "docs/policies/2-8/p71.jpg"
+   },
+   {
+    "p": 72,
+    "title": "Ⅰ 안전관리 방안 (계속)",
+    "img": "docs/policies/2-8/p72.jpg"
+   },
+   {
+    "p": 73,
+    "title": "Ⅱ 적정 공사비 현실화",
+    "img": "docs/policies/2-8/p73.jpg"
+   },
+   {
+    "p": 74,
+    "title": "Ⅱ 적정 공사비 현실화 (계속)",
+    "img": "docs/policies/2-8/p74.jpg"
+   },
+   {
+    "p": 75,
+    "title": "붙임 1 현장 운영 현황",
+    "img": "docs/policies/2-8/p75.jpg"
+   },
+   {
+    "p": 76,
+    "title": "붙임 1 현장 B/P 운영 현황",
+    "img": "docs/policies/2-8/p76.jpg"
+   },
+   {
+    "p": 77,
+    "title": "붙임 2 현장 B/P 설계현황",
+    "img": "docs/policies/2-8/p77.jpg"
+   },
+   {
+    "p": 78,
+    "title": "붙임 2 현장 B/P 설계현황 (계속)",
+    "img": "docs/policies/2-8/p78.jpg"
+   },
+   {
+    "p": 79,
+    "title": "붙임 3 현장 B/P 재해사례",
+    "img": "docs/policies/2-8/p79.jpg"
+   },
+   {
+    "p": 80,
+    "title": "붙임 4 산업안전보건비 관련 질의회신 및 관련법령",
+    "img": "docs/policies/2-8/p80.jpg"
+   },
+   {
+    "p": 81,
+    "title": "붙임 4 산업안전보건비 관련 질의회신 및 관련법령 (계속)",
+    "img": "docs/policies/2-8/p81.jpg"
+   },
+   {
+    "p": 82,
+    "title": "붙임 5 장비전담 유도원 관련 방침 및 관련규정 요약",
+    "img": "docs/policies/2-8/p82.jpg"
+   },
+   {
+    "p": 83,
+    "title": "붙임 6 안전관련 책임범위 및 이행업무 관련",
+    "img": "docs/policies/2-8/p83.jpg"
+   },
+   {
+    "p": 84,
+    "title": "붙임 6 안전관련 책임범위 및 이행업무 관련 (계속)",
+    "img": "docs/policies/2-8/p84.jpg"
+   },
+   {
+    "p": 85,
+    "title": "붙임 7 도급사업 위험성평가 이행점검 결과 서식",
+    "img": "docs/policies/2-8/p85.jpg"
+   },
+   {
+    "p": 86,
+    "title": "붙임 8 안전 및 보건에 관한 협의체 회의록(안)",
+    "img": "docs/policies/2-8/p86.jpg"
+   },
+   {
+    "p": 87,
+    "title": "붙임 9 B/P장 점검 체크리스트(안)",
+    "img": "docs/policies/2-8/p87.jpg"
+   },
+   {
+    "p": 88,
+    "title": "붙임 9 B/P장 점검 체크리스트(안) (계속)",
+    "img": "docs/policies/2-8/p88.jpg"
+   },
+   {
+    "p": 89,
+    "title": "붙임 9 B/P장 점검 체크리스트(안) (계속)",
+    "img": "docs/policies/2-8/p89.jpg"
+   },
+   {
+    "p": 90,
+    "title": "붙임 9 B/P장 점검 체크리스트(안) (계속)",
+    "img": "docs/policies/2-8/p90.jpg"
+   },
+   {
+    "p": 91,
+    "title": "붙임 9 B/P장 점검 체크리스트(안) (계속)",
+    "img": "docs/policies/2-8/p91.jpg"
+   },
+   {
+    "p": 92,
+    "title": "붙임 11 품질관리비용 반영 관련",
+    "img": "docs/policies/2-8/p92.jpg"
+   },
+   {
+    "p": 93,
+    "title": "붙임 12 환경보전비 반영 관련",
+    "img": "docs/policies/2-8/p93.jpg"
+   },
+   {
+    "p": 94,
+    "title": "붙임 13 검교정 비용 반영 관련",
+    "img": "docs/policies/2-8/p94.jpg"
+   },
+   {
+    "p": 95,
+    "title": "붙임 14 공사비 산출방법(예시)",
+    "img": "docs/policies/2-8/p95.jpg"
+   },
+   {
+    "p": 96,
+    "title": "붙임 14 공사비 산출방법(예시) (계속)",
+    "img": "docs/policies/2-8/p96.jpg"
+   },
+   {
+    "p": 97,
+    "title": "붙임 14 공사비 산출방법(예시) (계속)",
+    "img": "docs/policies/2-8/p97.jpg"
+   }
+  ],
+  "_full": {
    "file": "docs/policies/source-2026-2.pdf",
    "from": 67,
    "to": 97
@@ -363,7 +864,119 @@ Object.assign(STANDARD_DOCS, {
   "date": "2022.02.23.",
   "effective": "2022.02.23.",
   "file": "",
-  "full": {
+  "seq": [
+   {
+    "p": 98,
+    "title": "갑지 · Ⅰ 배경 및 경위",
+    "img": "docs/policies/2-9/p98.jpg"
+   },
+   {
+    "p": 99,
+    "title": "Ⅰ 배경 및 경위 (계속)",
+    "img": "docs/policies/2-9/p99.jpg"
+   },
+   {
+    "p": 100,
+    "title": "Ⅱ 발굴조사 안전제도 운영현황",
+    "img": "docs/policies/2-9/p100.jpg"
+   },
+   {
+    "p": 101,
+    "title": "Ⅲ 현 실태 및 문제점 분석",
+    "img": "docs/policies/2-9/p101.jpg"
+   },
+   {
+    "p": 102,
+    "title": "Ⅳ 발굴조사 안전관리 의무",
+    "img": "docs/policies/2-9/p102.jpg"
+   },
+   {
+    "p": 103,
+    "title": "Ⅳ 발굴조사 안전관리 의무 (계속)",
+    "img": "docs/policies/2-9/p103.jpg"
+   },
+   {
+    "p": 104,
+    "title": "Ⅴ 발굴조사 안전관리 이행사항",
+    "img": "docs/policies/2-9/p104.jpg"
+   },
+   {
+    "p": 105,
+    "title": "Ⅴ 발굴조사 안전관리 이행사항 (계속)",
+    "img": "docs/policies/2-9/p105.jpg"
+   },
+   {
+    "p": 106,
+    "title": "Ⅴ 발굴조사 안전관리 이행사항 (계속)",
+    "img": "docs/policies/2-9/p106.jpg"
+   },
+   {
+    "p": 107,
+    "title": "Ⅵ 기 타 사 항",
+    "img": "docs/policies/2-9/p107.jpg"
+   },
+   {
+    "p": 108,
+    "title": "붙임 #1 고용노동부 협의결과",
+    "img": "docs/policies/2-9/p108.jpg"
+   },
+   {
+    "p": 109,
+    "title": "붙임 1 고용노동부 협의결과",
+    "img": "docs/policies/2-9/p109.jpg"
+   },
+   {
+    "p": 110,
+    "title": "붙임 1 고용노동부 협의결과 (계속)",
+    "img": "docs/policies/2-9/p110.jpg"
+   },
+   {
+    "p": 111,
+    "title": "붙임 2 문화재청 협의결과",
+    "img": "docs/policies/2-9/p111.jpg"
+   },
+   {
+    "p": 112,
+    "title": "붙임 2 문화재청 협의결과 (계속)",
+    "img": "docs/policies/2-9/p112.jpg"
+   },
+   {
+    "p": 113,
+    "title": "붙임 3 발굴조사 안전관리계획서(안)",
+    "img": "docs/policies/2-9/p113.jpg"
+   },
+   {
+    "p": 114,
+    "title": "붙임 3 발굴조사 안전관리계획서(안) (계속)",
+    "img": "docs/policies/2-9/p114.jpg"
+   },
+   {
+    "p": 115,
+    "title": "붙임 4 발굴현장 안전점검 체크리스트(안)",
+    "img": "docs/policies/2-9/p115.jpg"
+   },
+   {
+    "p": 116,
+    "title": "붙임 4 발굴현장 안전점검 체크리스트(안) (계속)",
+    "img": "docs/policies/2-9/p116.jpg"
+   },
+   {
+    "p": 117,
+    "title": "붙임 5 안전관리비 산출내역 표기방안",
+    "img": "docs/policies/2-9/p117.jpg"
+   },
+   {
+    "p": 118,
+    "title": "붙임 6 현장사진대지",
+    "img": "docs/policies/2-9/p118.jpg"
+   },
+   {
+    "p": 119,
+    "title": "붙임 6 현장사진대지 (계속)",
+    "img": "docs/policies/2-9/p119.jpg"
+   }
+  ],
+  "_full": {
    "file": "docs/policies/source-2026-2.pdf",
    "from": 98,
    "to": 119
@@ -440,7 +1053,69 @@ Object.assign(STANDARD_DOCS, {
   "date": "2020.08.19.",
   "effective": "2020.08.19.",
   "file": "",
-  "full": {
+  "seq": [
+   {
+    "p": 120,
+    "title": "갑지 · Ⅰ 검 토 배 경",
+    "img": "docs/policies/2-10/p120.jpg"
+   },
+   {
+    "p": 121,
+    "title": "Ⅲ 현 실태 및 문제점",
+    "img": "docs/policies/2-10/p121.jpg"
+   },
+   {
+    "p": 122,
+    "title": "Ⅳ 추 진 방 향",
+    "img": "docs/policies/2-10/p122.jpg"
+   },
+   {
+    "p": 123,
+    "title": "Ⅴ 세부 추진 내용 (계속)",
+    "img": "docs/policies/2-10/p123.jpg"
+   },
+   {
+    "p": 124,
+    "title": "Ⅴ 세부 추진 내용 (계속)",
+    "img": "docs/policies/2-10/p124.jpg"
+   },
+   {
+    "p": 125,
+    "title": "붙임 #1 건설기술진흥법 및 동법 시행령",
+    "img": "docs/policies/2-10/p125.jpg"
+   },
+   {
+    "p": 126,
+    "title": "붙임 #1 건설기술 진흥법 및 동법 시행령",
+    "img": "docs/policies/2-10/p126.jpg"
+   },
+   {
+    "p": 127,
+    "title": "붙임 #2 최근 5년간 벌점 부과 현황",
+    "img": "docs/policies/2-10/p127.jpg"
+   },
+   {
+    "p": 128,
+    "title": "붙임 #3-1 유권해석 결과",
+    "img": "docs/policies/2-10/p128.jpg"
+   },
+   {
+    "p": 129,
+    "title": "붙임 #3-2 유권해석 결과",
+    "img": "docs/policies/2-10/p129.jpg"
+   },
+   {
+    "p": 130,
+    "title": "붙임 #4 하도급 계약 저가심사 평가 항목 및 배점한도",
+    "img": "docs/policies/2-10/p130.jpg"
+   },
+   {
+    "p": 131,
+    "title": "붙임 #4 하도급 계약 저가심사 평가 항목 및 배점한도 (계속)",
+    "img": "docs/policies/2-10/p131.jpg"
+   }
+  ],
+  "_full": {
    "file": "docs/policies/source-2026-2.pdf",
    "from": 120,
    "to": 131
@@ -475,7 +1150,134 @@ Object.assign(STANDARD_DOCS, {
   "date": "2020.07.29.",
   "effective": "2020.07.29.",
   "file": "",
-  "full": {
+  "seq": [
+   {
+    "p": 132,
+    "title": "갑지 · Ⅰ 추 진 배 경",
+    "img": "docs/policies/2-11/p132.jpg"
+   },
+   {
+    "p": 133,
+    "title": "Ⅲ 이동식 크레인 사고내용 및 사고 원인",
+    "img": "docs/policies/2-11/p133.jpg"
+   },
+   {
+    "p": 134,
+    "title": "이동식 크레인 사고방지대책",
+    "img": "docs/policies/2-11/p134.jpg"
+   },
+   {
+    "p": 135,
+    "title": "이동식 크레인 사고방지대책 (계속)",
+    "img": "docs/policies/2-11/p135.jpg"
+   },
+   {
+    "p": 136,
+    "title": "Ⅴ 기 타 사 항",
+    "img": "docs/policies/2-11/p136.jpg"
+   },
+   {
+    "p": 137,
+    "title": "붙임 1 이동식 크레인의 종류",
+    "img": "docs/policies/2-11/p137.jpg"
+   },
+   {
+    "p": 138,
+    "title": "붙임 1 이동식 크레인의 종류",
+    "img": "docs/policies/2-11/p138.jpg"
+   },
+   {
+    "p": 139,
+    "title": "붙임 2 크레인 사고현황 - 고속도로 건설 및 유지관리 현장",
+    "img": "docs/policies/2-11/p139.jpg"
+   },
+   {
+    "p": 140,
+    "title": "붙임 3 크레인 안전점검표",
+    "img": "docs/policies/2-11/p140.jpg"
+   },
+   {
+    "p": 141,
+    "title": "붙임 3 크레인 안전점검표 (계속)",
+    "img": "docs/policies/2-11/p141.jpg"
+   },
+   {
+    "p": 142,
+    "title": "붙임 4 이동식 크레인 안전보건작업 지침",
+    "img": "docs/policies/2-11/p142.jpg"
+   },
+   {
+    "p": 143,
+    "title": "붙임 4 이동식 크레인 안전보건작업 지침 (계속)",
+    "img": "docs/policies/2-11/p143.jpg"
+   },
+   {
+    "p": 144,
+    "title": "붙임 4 이동식 크레인 안전보건작업 지침 (계속)",
+    "img": "docs/policies/2-11/p144.jpg"
+   },
+   {
+    "p": 145,
+    "title": "붙임 4 이동식 크레인 안전보건작업 지침 (계속)",
+    "img": "docs/policies/2-11/p145.jpg"
+   },
+   {
+    "p": 146,
+    "title": "붙임 4 이동식 크레인 안전보건작업 지침 (계속)",
+    "img": "docs/policies/2-11/p146.jpg"
+   },
+   {
+    "p": 147,
+    "title": "붙임 4 이동식 크레인 안전보건작업 지침 (계속)",
+    "img": "docs/policies/2-11/p147.jpg"
+   },
+   {
+    "p": 148,
+    "title": "붙임 4 이동식 크레인 안전보건작업 지침 (계속)",
+    "img": "docs/policies/2-11/p148.jpg"
+   },
+   {
+    "p": 149,
+    "title": "붙임 4 이동식 크레인 안전보건작업 지침 (계속)",
+    "img": "docs/policies/2-11/p149.jpg"
+   },
+   {
+    "p": 150,
+    "title": "붙임 4 이동식 크레인 안전보건작업 지침 (계속)",
+    "img": "docs/policies/2-11/p150.jpg"
+   },
+   {
+    "p": 151,
+    "title": "붙임 4 이동식 크레인 안전보건작업 지침 (계속)",
+    "img": "docs/policies/2-11/p151.jpg"
+   },
+   {
+    "p": 152,
+    "title": "붙임 4 이동식 크레인 안전보건작업 지침 (계속)",
+    "img": "docs/policies/2-11/p152.jpg"
+   },
+   {
+    "p": 153,
+    "title": "붙임 4 이동식 크레인 안전보건작업 지침 (계속)",
+    "img": "docs/policies/2-11/p153.jpg"
+   },
+   {
+    "p": 154,
+    "title": "붙임 4 이동식 크레인 안전보건작업 지침 (계속)",
+    "img": "docs/policies/2-11/p154.jpg"
+   },
+   {
+    "p": 155,
+    "title": "붙임 4 이동식 크레인 안전보건작업 지침 (계속)",
+    "img": "docs/policies/2-11/p155.jpg"
+   },
+   {
+    "p": 156,
+    "title": "붙임 4 이동식 크레인 안전보건작업 지침 (계속)",
+    "img": "docs/policies/2-11/p156.jpg"
+   }
+  ],
+  "_full": {
    "file": "docs/policies/source-2026-2.pdf",
    "from": 132,
    "to": 156
@@ -524,7 +1326,84 @@ Object.assign(STANDARD_DOCS, {
   "date": "2020.04.14.",
   "effective": "2020.04.14.",
   "file": "",
-  "full": {
+  "seq": [
+   {
+    "p": 157,
+    "title": "갑지 · Ⅰ 추 진 배 경",
+    "img": "docs/policies/2-12/p157.jpg"
+   },
+   {
+    "p": 158,
+    "title": "Ⅱ 장비별 운영실태 및 위험요인",
+    "img": "docs/policies/2-12/p158.jpg"
+   },
+   {
+    "p": 159,
+    "title": "Ⅱ 장비별 운영실태 및 위험요인 (계속)",
+    "img": "docs/policies/2-12/p159.jpg"
+   },
+   {
+    "p": 160,
+    "title": "Ⅱ 장비별 운영실태 및 위험요인 (계속)",
+    "img": "docs/policies/2-12/p160.jpg"
+   },
+   {
+    "p": 161,
+    "title": "Ⅱ 장비별 운영실태 및 위험요인 (계속)",
+    "img": "docs/policies/2-12/p161.jpg"
+   },
+   {
+    "p": 162,
+    "title": "Ⅲ 사고예방 안전대책",
+    "img": "docs/policies/2-12/p162.jpg"
+   },
+   {
+    "p": 163,
+    "title": "붙임 #1 철근 절곡기 안전수칙 및 체크리스트",
+    "img": "docs/policies/2-12/p163.jpg"
+   },
+   {
+    "p": 164,
+    "title": "붙임#1 철근 절곡기 안전대책 및 체크리스트",
+    "img": "docs/policies/2-12/p164.jpg"
+   },
+   {
+    "p": 165,
+    "title": "붙임#1 철근 절곡기 안전대책 및 체크리스트 (계속)",
+    "img": "docs/policies/2-12/p165.jpg"
+   },
+   {
+    "p": 166,
+    "title": "붙임#1 철근 절곡기 안전대책 및 체크리스트 (계속)",
+    "img": "docs/policies/2-12/p166.jpg"
+   },
+   {
+    "p": 167,
+    "title": "붙임#1 철근 절곡기 안전대책 및 체크리스트 (계속)",
+    "img": "docs/policies/2-12/p167.jpg"
+   },
+   {
+    "p": 168,
+    "title": "붙임#2 핸드 그라인더 안전대책 및 체크리스트",
+    "img": "docs/policies/2-12/p168.jpg"
+   },
+   {
+    "p": 169,
+    "title": "붙임#2 핸드 그라인더 안전대책 및 체크리스트 (계속)",
+    "img": "docs/policies/2-12/p169.jpg"
+   },
+   {
+    "p": 170,
+    "title": "붙임#2 핸드 그라인더 안전대책 및 체크리스트 (계속)",
+    "img": "docs/policies/2-12/p170.jpg"
+   },
+   {
+    "p": 171,
+    "title": "붙임#2 핸드 그라인더 안전대책 및 체크리스트 (계속)",
+    "img": "docs/policies/2-12/p171.jpg"
+   }
+  ],
+  "_full": {
    "file": "docs/policies/source-2026-2.pdf",
    "from": 157,
    "to": 171
@@ -601,7 +1480,94 @@ Object.assign(STANDARD_DOCS, {
   "date": "2019.10.30.",
   "effective": "2019.10.30.",
   "file": "",
-  "full": {
+  "seq": [
+   {
+    "p": 172,
+    "title": "갑지 · Ⅰ 추진 배경",
+    "img": "docs/policies/2-13/p172.jpg"
+   },
+   {
+    "p": 173,
+    "title": "Ⅲ 현장 여건 분석",
+    "img": "docs/policies/2-13/p173.jpg"
+   },
+   {
+    "p": 174,
+    "title": "Ⅳ 추락예방 특별 대책",
+    "img": "docs/policies/2-13/p174.jpg"
+   },
+   {
+    "p": 175,
+    "title": "Ⅳ 추락예방 특별 대책 (계속)",
+    "img": "docs/policies/2-13/p175.jpg"
+   },
+   {
+    "p": 176,
+    "title": "Ⅳ 추락예방 특별 대책 (계속)",
+    "img": "docs/policies/2-13/p176.jpg"
+   },
+   {
+    "p": 177,
+    "title": "Ⅳ 추락예방 특별 대책 (계속)",
+    "img": "docs/policies/2-13/p177.jpg"
+   },
+   {
+    "p": 178,
+    "title": "Ⅳ 추락예방 특별 대책 (계속)",
+    "img": "docs/policies/2-13/p178.jpg"
+   },
+   {
+    "p": 179,
+    "title": "붙임 #1 안전대 부착설비 관련 기준",
+    "img": "docs/policies/2-13/p179.jpg"
+   },
+   {
+    "p": 180,
+    "title": "붙임#1 안전대 부착설비 관련 기준",
+    "img": "docs/policies/2-13/p180.jpg"
+   },
+   {
+    "p": 181,
+    "title": "붙임#1 안전대 부착설비 관련 기준 (계속)",
+    "img": "docs/policies/2-13/p181.jpg"
+   },
+   {
+    "p": 182,
+    "title": "붙임#2 터널 갱문부 작업용 안전시설",
+    "img": "docs/policies/2-13/p182.jpg"
+   },
+   {
+    "p": 183,
+    "title": "붙임#3 추락 방지 교육 자료 (참고)",
+    "img": "docs/policies/2-13/p183.jpg"
+   },
+   {
+    "p": 184,
+    "title": "붙임#3 추락 방지 교육 자료 (참고) (계속)",
+    "img": "docs/policies/2-13/p184.jpg"
+   },
+   {
+    "p": 185,
+    "title": "붙임#3 추락 방지 교육 자료 (참고) (계속)",
+    "img": "docs/policies/2-13/p185.jpg"
+   },
+   {
+    "p": 186,
+    "title": "붙임#4 정부 안전규정 개정 건의",
+    "img": "docs/policies/2-13/p186.jpg"
+   },
+   {
+    "p": 187,
+    "title": "붙임#4 정부 안전규정 개정 건의 (계속)",
+    "img": "docs/policies/2-13/p187.jpg"
+   },
+   {
+    "p": 188,
+    "title": "참고 안전로프 강도",
+    "img": "docs/policies/2-13/p188.jpg"
+   }
+  ],
+  "_full": {
    "file": "docs/policies/source-2026-2.pdf",
    "from": 172,
    "to": 188
@@ -692,7 +1658,109 @@ Object.assign(STANDARD_DOCS, {
   "date": "2019.09.09.",
   "effective": "2019.09.09.",
   "file": "",
-  "full": {
+  "seq": [
+   {
+    "p": 189,
+    "title": "갑지 · Ⅰ 검 토 배 경",
+    "img": "docs/policies/2-14/p189.jpg"
+   },
+   {
+    "p": 190,
+    "title": "Ⅰ 검 토 배 경 (계속)",
+    "img": "docs/policies/2-14/p190.jpg"
+   },
+   {
+    "p": 191,
+    "title": "Ⅱ 피해 예 방대책",
+    "img": "docs/policies/2-14/p191.jpg"
+   },
+   {
+    "p": 192,
+    "title": "Ⅱ 피해 예 방대책 (계속)",
+    "img": "docs/policies/2-14/p192.jpg"
+   },
+   {
+    "p": 193,
+    "title": "Ⅲ 기 타 사 항",
+    "img": "docs/policies/2-14/p193.jpg"
+   },
+   {
+    "p": 194,
+    "title": "붙임#1 이동식 피뢰침 구성 (예시)",
+    "img": "docs/policies/2-14/p194.jpg"
+   },
+   {
+    "p": 195,
+    "title": "붙임#1 아산천안 사업단 이동식 피뢰시설 (예시)",
+    "img": "docs/policies/2-14/p195.jpg"
+   },
+   {
+    "p": 196,
+    "title": "붙임#2 피뢰시설 기준",
+    "img": "docs/policies/2-14/p196.jpg"
+   },
+   {
+    "p": 197,
+    "title": "붙임#2 피뢰시설 기준 (계속)",
+    "img": "docs/policies/2-14/p197.jpg"
+   },
+   {
+    "p": 198,
+    "title": "붙임#2 피뢰시설 기준 (계속)",
+    "img": "docs/policies/2-14/p198.jpg"
+   },
+   {
+    "p": 199,
+    "title": "붙임#2 피뢰시설 기준 (계속)",
+    "img": "docs/policies/2-14/p199.jpg"
+   },
+   {
+    "p": 200,
+    "title": "붙임#2 피뢰시설 기준 (계속)",
+    "img": "docs/policies/2-14/p200.jpg"
+   },
+   {
+    "p": 201,
+    "title": "붙임#2 피뢰시설 기준 (계속)",
+    "img": "docs/policies/2-14/p201.jpg"
+   },
+   {
+    "p": 202,
+    "title": "붙임#2 피뢰시설 기준 (계속)",
+    "img": "docs/policies/2-14/p202.jpg"
+   },
+   {
+    "p": 203,
+    "title": "붙임#2 피뢰시설 기준 (계속)",
+    "img": "docs/policies/2-14/p203.jpg"
+   },
+   {
+    "p": 204,
+    "title": "붙임#2 피뢰시설 기준 (계속)",
+    "img": "docs/policies/2-14/p204.jpg"
+   },
+   {
+    "p": 205,
+    "title": "붙임#2 피뢰시설 기준 (계속)",
+    "img": "docs/policies/2-14/p205.jpg"
+   },
+   {
+    "p": 206,
+    "title": "붙임#2 피뢰시설 기준 (계속)",
+    "img": "docs/policies/2-14/p206.jpg"
+   },
+   {
+    "p": 207,
+    "title": "붙임#2 피뢰시설 기준 (계속)",
+    "img": "docs/policies/2-14/p207.jpg"
+   },
+   {
+    "p": 208,
+    "title": "붙임#3 우리동네 낙뢰정보 (기상청)",
+    "img": "docs/policies/2-14/p208.jpg"
+   }
+  ],
+  "_full": {
    "file": "docs/policies/source-2026-2.pdf",
    "from": 189,
    "to": 208
@@ -727,7 +1795,139 @@ Object.assign(STANDARD_DOCS, {
   "date": "2019.07.18.",
   "effective": "2019.07.18.",
   "file": "",
-  "full": {
+  "seq": [
+   {
+    "p": 209,
+    "title": "갑지 · Ⅰ 추 진 배 경",
+    "img": "docs/policies/2-15/p209.jpg"
+   },
+   {
+    "p": 210,
+    "title": "Ⅲ 연령과 재 해의 영 향분석",
+    "img": "docs/policies/2-15/p210.jpg"
+   },
+   {
+    "p": 211,
+    "title": "Ⅳ 추 진 방 향",
+    "img": "docs/policies/2-15/p211.jpg"
+   },
+   {
+    "p": 212,
+    "title": "Ⅴ 세 부 관 리 방 안",
+    "img": "docs/policies/2-15/p212.jpg"
+   },
+   {
+    "p": 213,
+    "title": "Ⅴ 세 부 관 리 방 안 (계속)",
+    "img": "docs/policies/2-15/p213.jpg"
+   },
+   {
+    "p": 214,
+    "title": "Ⅴ 세 부 관 리 방 안 (계속)",
+    "img": "docs/policies/2-15/p214.jpg"
+   },
+   {
+    "p": 215,
+    "title": "Ⅴ 세 부 관 리 방 안 (계속)",
+    "img": "docs/policies/2-15/p215.jpg"
+   },
+   {
+    "p": 216,
+    "title": "Ⅴ 세 부 관 리 방 안 (계속)",
+    "img": "docs/policies/2-15/p216.jpg"
+   },
+   {
+    "p": 217,
+    "title": "Ⅴ 세 부 관 리 방 안 (계속)",
+    "img": "docs/policies/2-15/p217.jpg"
+   },
+   {
+    "p": 218,
+    "title": "Ⅴ 세 부 관 리 방 안 (계속)",
+    "img": "docs/policies/2-15/p218.jpg"
+   },
+   {
+    "p": 219,
+    "title": "Ⅴ 세 부 관 리 방 안 (계속)",
+    "img": "docs/policies/2-15/p219.jpg"
+   },
+   {
+    "p": 220,
+    "title": "Ⅵ 향 후 계 획",
+    "img": "docs/policies/2-15/p220.jpg"
+   },
+   {
+    "p": 221,
+    "title": "붙임 #1 건설재해 발생현황 (2012~2016년)",
+    "img": "docs/policies/2-15/p221.jpg"
+   },
+   {
+    "p": 222,
+    "title": "붙임 #5 폭염관련 건설현장 관리방안 (범정부, 건설처) (계속)",
+    "img": "docs/policies/2-15/p222.jpg"
+   },
+   {
+    "p": 223,
+    "title": "붙임 #5 폭염관련 건설현장 관리방안 (범정부, 건설처) (계속)",
+    "img": "docs/policies/2-15/p223.jpg"
+   },
+   {
+    "p": 224,
+    "title": "붙임 #5 폭염관련 건설현장 관리방안 (범정부, 건설처) (계속)",
+    "img": "docs/policies/2-15/p224.jpg"
+   },
+   {
+    "p": 225,
+    "title": "붙임 #5 폭염관련 건설현장 관리방안 (범정부, 건설처) (계속)",
+    "img": "docs/policies/2-15/p225.jpg"
+   },
+   {
+    "p": 226,
+    "title": "붙임 #5 폭염관련 건설현장 관리방안 (범정부, 건설처) (계속)",
+    "img": "docs/policies/2-15/p226.jpg"
+   },
+   {
+    "p": 227,
+    "title": "붙임 #5 폭염관련 건설현장 관리방안 (범정부, 건설처) (계속)",
+    "img": "docs/policies/2-15/p227.jpg"
+   },
+   {
+    "p": 228,
+    "title": "Ⅴ 과제별 추진내용",
+    "img": "docs/policies/2-15/p228.jpg"
+   },
+   {
+    "p": 229,
+    "title": "Ⅴ 과제별 추진내용 (계속)",
+    "img": "docs/policies/2-15/p229.jpg"
+   },
+   {
+    "p": 230,
+    "title": "Ⅴ 과제별 추진내용 (계속)",
+    "img": "docs/policies/2-15/p230.jpg"
+   },
+   {
+    "p": 231,
+    "title": "Ⅴ 과제별 추진내용 (계속)",
+    "img": "docs/policies/2-15/p231.jpg"
+   },
+   {
+    "p": 232,
+    "title": "Ⅴ 과제별 추진내용 (계속)",
+    "img": "docs/policies/2-15/p232.jpg"
+   },
+   {
+    "p": 233,
+    "title": "Ⅴ 과제별 추진내용 (계속)",
+    "img": "docs/policies/2-15/p233.jpg"
+   },
+   {
+    "p": 234,
+    "title": "Ⅴ 과제별 추진내용 (계속)",
+    "img": "docs/policies/2-15/p234.jpg"
+   }
+  ],
+  "_full": {
    "file": "docs/policies/source-2026-2.pdf",
    "from": 209,
    "to": 234
@@ -798,7 +1998,109 @@ Object.assign(STANDARD_DOCS, {
   "date": "2019.10.18.",
   "effective": "2019.10.18.",
   "file": "",
-  "full": {
+  "seq": [
+   {
+    "p": 235,
+    "title": "갑지 · Ⅰ 검토배경",
+    "img": "docs/policies/2-16/p235.jpg"
+   },
+   {
+    "p": 236,
+    "title": "Ⅱ 현실태 및 문제점",
+    "img": "docs/policies/2-16/p236.jpg"
+   },
+   {
+    "p": 237,
+    "title": "Ⅲ 개선방안",
+    "img": "docs/policies/2-16/p237.jpg"
+   },
+   {
+    "p": 238,
+    "title": "Ⅲ 개선방안 (계속)",
+    "img": "docs/policies/2-16/p238.jpg"
+   },
+   {
+    "p": 239,
+    "title": "Ⅲ 개선방안 (계속)",
+    "img": "docs/policies/2-16/p239.jpg"
+   },
+   {
+    "p": 240,
+    "title": "Ⅲ 개선방안 (계속)",
+    "img": "docs/policies/2-16/p240.jpg"
+   },
+   {
+    "p": 241,
+    "title": "Ⅲ 개선방안 (계속)",
+    "img": "docs/policies/2-16/p241.jpg"
+   },
+   {
+    "p": 242,
+    "title": "Ⅳ 적용계획",
+    "img": "docs/policies/2-16/p242.jpg"
+   },
+   {
+    "p": 243,
+    "title": "붙임#1 가설구조물의 안전성 검토 시행 근거",
+    "img": "docs/policies/2-16/p243.jpg"
+   },
+   {
+    "p": 244,
+    "title": "붙임#1 가설구조물의 안전성 검토 시행 근거 (계속)",
+    "img": "docs/policies/2-16/p244.jpg"
+   },
+   {
+    "p": 245,
+    "title": "붙임#2 안전성 검토비용 반영에 대한 적정성 검토",
+    "img": "docs/policies/2-16/p245.jpg"
+   },
+   {
+    "p": 246,
+    "title": "붙임#2 안전성 검토비용 반영에 대한 적정성 검토 (계속)",
+    "img": "docs/policies/2-16/p246.jpg"
+   },
+   {
+    "p": 247,
+    "title": "붙임#2 안전성 검토비용 반영에 대한 적정성 검토 (계속)",
+    "img": "docs/policies/2-16/p247.jpg"
+   },
+   {
+    "p": 248,
+    "title": "붙임#3 시공단계 표준 안전성 검토 항목",
+    "img": "docs/policies/2-16/p248.jpg"
+   },
+   {
+    "p": 249,
+    "title": "붙임#4 기준시설물에 대한 표준대가(잠정)",
+    "img": "docs/policies/2-16/p249.jpg"
+   },
+   {
+    "p": 250,
+    "title": "붙임#4 기준시설물에 대한 표준대가(잠정) (계속)",
+    "img": "docs/policies/2-16/p250.jpg"
+   },
+   {
+    "p": 251,
+    "title": "붙임#5 시설물별 조정계수",
+    "img": "docs/policies/2-16/p251.jpg"
+   },
+   {
+    "p": 252,
+    "title": "붙임#6 안전성 검토 용역 참여기술자 자격기준(안)",
+    "img": "docs/policies/2-16/p252.jpg"
+   },
+   {
+    "p": 253,
+    "title": "붙임#7 안전성 검토 용역 기술자 투입 계획(보고양식)",
+    "img": "docs/policies/2-16/p253.jpg"
+   },
+   {
+    "p": 254,
+    "title": "붙임#8 신규 용역 도입에 따른 일자리 성과 관리",
+    "img": "docs/policies/2-16/p254.jpg"
+   }
+  ],
+  "_full": {
    "file": "docs/policies/source-2026-2.pdf",
    "from": 235,
    "to": 254
@@ -861,7 +2163,14 @@ Object.assign(STANDARD_DOCS, {
   "date": "2018.11.05.",
   "effective": "2018.11.05.",
   "file": "",
-  "full": {
+  "seq": [
+   {
+    "p": 255,
+    "title": "갑지 · 다국적 근로자 중심 글로벌 안전표지 배포",
+    "img": "docs/policies/2-17/p255.jpg"
+   }
+  ],
+  "_full": {
    "file": "docs/policies/source-2026-2.pdf",
    "from": 255,
    "to": 255
@@ -882,7 +2191,89 @@ Object.assign(STANDARD_DOCS, {
   "date": "2017.02.28.",
   "effective": "2017.02.28.",
   "file": "",
-  "full": {
+  "seq": [
+   {
+    "p": 276,
+    "title": "갑지 · Ⅰ 목 적",
+    "img": "docs/policies/2-19/p276.jpg"
+   },
+   {
+    "p": 277,
+    "title": "Ⅲ 사고분석 및 추진방향 설정",
+    "img": "docs/policies/2-19/p277.jpg"
+   },
+   {
+    "p": 278,
+    "title": "Ⅳ 관리혁신방안",
+    "img": "docs/policies/2-19/p278.jpg"
+   },
+   {
+    "p": 279,
+    "title": "Ⅳ 관리혁신방안 (계속)",
+    "img": "docs/policies/2-19/p279.jpg"
+   },
+   {
+    "p": 280,
+    "title": "Ⅳ 관리혁신방안 (계속)",
+    "img": "docs/policies/2-19/p280.jpg"
+   },
+   {
+    "p": 281,
+    "title": "Ⅴ 향 후 계 획",
+    "img": "docs/policies/2-19/p281.jpg"
+   },
+   {
+    "p": 282,
+    "title": "Ⅴ 향 후 계 획 (계속)",
+    "img": "docs/policies/2-19/p282.jpg"
+   },
+   {
+    "p": 283,
+    "title": "Ⅴ 향 후 계 획 (계속)",
+    "img": "docs/policies/2-19/p283.jpg"
+   },
+   {
+    "p": 284,
+    "title": "Ⅴ 향 후 계 획 (계속)",
+    "img": "docs/policies/2-19/p284.jpg"
+   },
+   {
+    "p": 285,
+    "title": "Ⅴ 향 후 계 획 (계속)",
+    "img": "docs/policies/2-19/p285.jpg"
+   },
+   {
+    "p": 286,
+    "title": "Ⅴ 향 후 계 획 (계속)",
+    "img": "docs/policies/2-19/p286.jpg"
+   },
+   {
+    "p": 287,
+    "title": "Ⅴ 향 후 계 획 (계속)",
+    "img": "docs/policies/2-19/p287.jpg"
+   },
+   {
+    "p": 288,
+    "title": "Ⅴ 향 후 계 획 (계속)",
+    "img": "docs/policies/2-19/p288.jpg"
+   },
+   {
+    "p": 289,
+    "title": "Ⅴ 향 후 계 획 (계속)",
+    "img": "docs/policies/2-19/p289.jpg"
+   },
+   {
+    "p": 290,
+    "title": "Ⅴ 향 후 계 획 (계속)",
+    "img": "docs/policies/2-19/p290.jpg"
+   },
+   {
+    "p": 291,
+    "title": "Ⅴ 향 후 계 획 (계속)",
+    "img": "docs/policies/2-19/p291.jpg"
+   }
+  ],
+  "_full": {
    "file": "docs/policies/source-2026-2.pdf",
    "from": 256,
    "to": 271
