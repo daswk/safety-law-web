@@ -53,6 +53,7 @@
         .priority-1 { border-top: 5px solid #f9ab00; } 
         .priority-2 { border-top: 5px solid #1a73e8; }
         .card-title { font-size: 17px; font-weight: 700; color: #1a0dab; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: flex-start; line-height: 1.4; padding-right: 70px;}
+        .badge-adm { background: #e8f0fe !important; color: #1967d2 !important; }
         .badge { font-size: 12px; background: #fef7e0; color: #b06000; padding: 4px 8px; border-radius: 12px; font-weight: 600; white-space: nowrap; margin-left: 10px; flex-shrink: 0; }
         .card-content { font-size: 15px; color: #3c4043; line-height: 1.7; white-space: pre-wrap; word-break: keep-all; }
         
@@ -168,7 +169,7 @@
             </div>
         </div>
 
-        <div id="loading" class="loading">법령 데이터를 스캔하고 있습니다... ⏳<br><span style="font-size:12px; color:#aaa; margin-top:5px; display:block;">(첫 검색 시에만 10~15초 소요, 이후 즉시 표출)</span></div>
+        <div id="loading" class="loading">법령을 검색하고 있습니다... ⏳</div>
         <div id="resultCount" class="result-count"></div>
         <div id="resultArea"></div>
     </div>
@@ -180,6 +181,7 @@
         const vercelURL = 'https://safety-law-api.vercel.app'; 
         
         let currentResults = [];
+        const ADMRUL_NAMES = new Set();   // 행정규칙(고시·지침) 이름 — 법제처 링크 주소 구분용
         let recentSearches = [];
         let bookmarks = [];
 
@@ -307,7 +309,7 @@
 
         function openLawPopup(targetLawName, specificTarget = '') {
             let safeLawName = targetLawName.replace(/\s/g, '');
-            let urlType = (safeLawName.includes('지침') || safeLawName.includes('기준')) ? '행정규칙' : '법령';
+            let urlType = (ADMRUL_NAMES.has(targetLawName) || safeLawName.includes('지침') || safeLawName.includes('기준') || safeLawName.includes('규정')) ? '행정규칙' : '법령';
             let url = '';
             
             if (specificTarget) {
@@ -538,7 +540,7 @@
                 }
                 lawNo++;
                 const priorityClass = item.priority === 1 ? 'priority-1' : 'priority-2';
-                const badgeHtml = item.priority === 1 ? '<span class="badge">제목 일치</span>' : '';
+                const badgeHtml = (item.lawType === '행정규칙' ? '<span class="badge badge-adm">고시·지침</span>' : '') + (item.priority === 1 ? '<span class="badge">제목 일치</span>' : '');
                 let titleText = highlightText(item.articleTitle ? `(${item.articleTitle})` : '', keyword);
                 let linkedContent = highlightText(applyBlueLinks(item.content, item.lawName), keyword);
 
@@ -583,6 +585,8 @@
 
                 document.getElementById('loading').style.display = 'none';
                 const lawResults = (data && data.results) ? data.results : [];
+                lawResults.forEach(r => { if (r.lawType === '행정규칙') ADMRUL_NAMES.add(r.lawName); });
+                const lawInfo = `법령 ${data.total || 0}건` + ((data.shown && data.shown < data.total) ? ` (상위 ${data.shown}건 표시)` : '') + (data.updatedAt ? ` · 법령 기준일 ${String(data.updatedAt).slice(0, 10)}` : '');
 
                 if(lawResults.length === 0 && stdResults.length === 0) {
                     document.getElementById('resultArea').innerHTML = '<div class="card"><div class="card-content" style="text-align:center; color:#555;">검색결과가 없습니다. 정확한 키워드로 다시 검색해주세요.</div></div>';
@@ -590,8 +594,8 @@
                 }
 
                 document.getElementById('resultCount').innerHTML = stdResults.length > 0
-                    ? `자체기준 ${stdResults.length}건 · 법령 약 ${data.total || 0}개`
-                    : `검색결과 약 ${data.total}개`;
+                    ? `자체기준 ${stdResults.length}건 · ${lawInfo}`
+                    : lawInfo;
 
                 currentResults = stdResults.concat(lawResults);
                 renderCards(query);
