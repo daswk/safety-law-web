@@ -89,6 +89,16 @@
         .grade-B { background: #f9ab00; color: #3c2a00; } .grade-C { background: #188038; }
         .doc-link { display: inline-block; margin-top: 14px; font-size: 14px; color: #188038; font-weight: 600; text-decoration: none; border: 1px solid #ceead6; background: #f6fbf7; padding: 7px 12px; border-radius: 8px; }
         .doc-link:hover { background: #e6f4ea; }
+        .grade-wrap { display: flex; gap: 4px; flex-shrink: 0; margin-left: 10px; }
+        .grade-wrap .grade { margin-left: 0; padding: 4px 8px; }
+        .std-tags { display: flex; flex-wrap: wrap; gap: 6px; margin: -2px 0 12px; }
+        .std-tag { font-size: 12px; background: #f1f3f4; color: #5f6368; padding: 3px 9px; border-radius: 10px; }
+        .page-img-link { display: block; }
+        .page-img { width: 100%; height: auto; display: block; border: 1px solid #dadce0; border-radius: 8px; background: #fff; }
+        .img-hint { font-size: 12px; color: #9aa0a6; text-align: center; margin: 6px 0 4px; }
+        .std-text { margin-top: 8px; border-top: 1px dashed #e0e0e0; padding-top: 8px; }
+        .std-text summary { cursor: pointer; font-size: 14px; color: #5f6368; font-weight: 600; padding: 4px 0; }
+        .std-text .card-content { margin-top: 8px; }
     </style>
 </head>
 <body>
@@ -344,24 +354,48 @@
                 if (title.includes(q)) score += 30;                                     // 제목 일치
                 if (body.includes(q)) score += 10;                                      // 본문 일치
                 if (score === 0 && tokens.length > 1 && tokens.every(t => kws.some(k => k.includes(t)) || title.includes(t) || body.includes(t))) score = 20; // 여러 단어 검색
-                if (score > 0) scored.push({ st, score });
+                if (score > 0) scored.push({ st, score: score + (st.boost || 0) });
             });
             scored.sort((a, b) => b.score - a.score);
 
-            return scored.map(({ st }) => {
+            // 같은 문서·같은 쪽(이미지 등록된 쪽)은 카드 1장으로 묶음
+            const groups = [];
+            const byKey = {};
+            scored.forEach(({ st, score }) => {
                 const d = STANDARD_DOCS[st.doc] || {};
-                return {
-                    isStandard: true,
-                    lawName: d.name || '자체기준',
-                    org: d.org || '',
-                    docDate: d.effective || d.date || '',
-                    docUrl: d.file ? `${d.file}${st.page ? '#page=' + st.page : ''}` : '',
-                    articleNo: st.title,
-                    articleTitle: '',
-                    grade: st.grade || '',
-                    content: st.content
-                };
+                const pg = (d.pages && st.page && d.pages[st.page]) ? d.pages[st.page] : null;
+                const key = pg ? `${st.doc}#${st.page}` : `${st.doc}@${st.title}`;
+                let g = byKey[key];
+                if (!g) {
+                    g = byKey[key] = {
+                        isStandard: true,
+                        lawName: d.name || '자체기준',
+                        org: d.org || '',
+                        docDate: d.effective || d.date || '',
+                        docUrl: d.file ? `${d.file}${st.page ? '#page=' + st.page : ''}` : '',
+                        img: pg ? pg.img : '',
+                        articleNo: pg ? pg.title : st.title,
+                        articleTitle: '',
+                        grades: [],
+                        items: [],
+                        content: '',
+                        best: 0
+                    };
+                    groups.push(g);
+                }
+                g.best += score;
+                if (st.grade && !g.grades.includes(st.grade)) g.grades.push(st.grade);
+                g.items.push(st.title);
+                (g._idx = g._idx || []).push(STANDARDS.indexOf(st));
+                g.content += (g.content ? '\n\n' : '') + (pg ? `【${st.title}】\n` : '') + st.content;
             });
+            groups.forEach(g => {
+                g.grades.sort((a, b) => 'SABC'.indexOf(a) - 'SABC'.indexOf(b));
+                g.items = g.items.map((t, i) => [t, g._idx[i]]).sort((a, b) => a[1] - b[1]).map(x => x[0]);
+                delete g._idx;
+            });
+            groups.sort((a, b) => b.best - a.best);
+            return groups;
         }
 
         function renderCards(keyword) {
@@ -383,9 +417,17 @@
 
                 if (item.isStandard) {
                     if (index === 0 && keyword) html += `<div class="section-head">🏢 도로공사 자체기준 <span class="cnt">${stdCount}건</span></div>`;
-                    const gradeHtml = item.grade ? `<span class="grade grade-${item.grade}">${item.grade}등급</span>` : '';
+                    const grades = item.grades || (item.grade ? [item.grade] : []);
+                    const gradeHtml = grades.length ? `<span class="grade-wrap">${grades.map(g => `<span class="grade grade-${g}">${g}</span>`).join('')}</span>` : '';
                     const content = highlightText(escapeHtml(item.content), keyword);
-                    const linkHtml = item.docUrl ? `<a class="doc-link" href="${item.docUrl}" target="_blank" rel="noopener">📄 원문 PDF 보기</a>` : '';
+                    const tagsHtml = (item.img && item.items && item.items.length)
+                        ? `<div class="std-tags">${item.items.map(t => `<span class="std-tag">${highlightText(escapeHtml(t), keyword)}</span>`).join('')}</div>` : '';
+                    const bodyHtml = item.img
+                        ? `<a href="${item.img}" target="_blank" rel="noopener" class="page-img-link"><img class="page-img" src="${item.img}" alt="${escapeHtml(item.articleNo)} 원문" loading="lazy"></a>
+                           <div class="img-hint">🔍 이미지를 누르면 크게 볼 수 있어요</div>
+                           <details class="std-text"><summary>📝 텍스트로 보기</summary><div class="card-content">${content}</div></details>`
+                        : `<div class="card-content">${content}</div>`;
+                    const linkHtml = item.docUrl ? `<a class="doc-link" href="${item.docUrl}" target="_blank" rel="noopener">📄 원문 PDF 전체 보기</a>` : '';
                     html += `
                     <div class="card priority-std">
                         ${actions}
@@ -394,7 +436,8 @@
                             <span>${highlightText(escapeHtml(item.articleNo), keyword)}</span>
                             ${gradeHtml}
                         </div>
-                        <div class="card-content">${content}</div>
+                        ${tagsHtml}
+                        ${bodyHtml}
                         ${linkHtml}
                     </div>`;
                     return;
