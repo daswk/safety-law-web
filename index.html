@@ -33,6 +33,10 @@
         
         .header { text-align: center; margin-bottom: 30px; cursor: pointer; transition: opacity 0.2s; padding-top: 15px; }
         .header:hover { opacity: 0.8; }
+        .brand { display: inline-flex; flex-direction: column; align-items: flex-end; margin-bottom: 12px; }
+        .brand-main { height: 31px; display: block; }
+        /* '한국도로공사' 글자 폭(로고 419~976px)에 맞춰 같은 폭으로 정렬 */
+        .brand-unit { width: calc(31px * 557 / 109); height: auto; display: block; margin-top: 7px; margin-right: 1px; }
         .header h1 { color: #1a73e8; font-size: 23px; font-weight: 700; margin: 0; word-break: keep-all; letter-spacing: 0.5px; }
         
         .search-container { display: flex; justify-content: center; margin-bottom: 20px; }
@@ -209,7 +213,10 @@
     <div class="container">
         <button class="menu-btn" onclick="toggleSidebar()">☰</button>
         <div class="header" onclick="resetToHome()">
-            <img src="./logo.png" alt="한국도로공사 로고" style="height: 31px; margin-bottom: 10px; display: inline-block;">
+            <div class="brand">
+                <img src="./logo.png" class="brand-main" alt="ex 한국도로공사">
+                <img src="./logo-unit.png" class="brand-unit" alt="중부도로개량사업단">
+            </div>
             <h1>안전법령 통합검색 플랫폼</h1>
         </div>
         
