@@ -160,6 +160,8 @@
                 <span class="chip chip-std" onclick="searchByChip('신호수')">#신호수</span>
                 <span class="chip chip-std" onclick="searchByChip('폭염')">#폭염</span>
                 <span class="chip chip-std" onclick="searchByChip('재발방지대책')">#재발방지대책</span>
+                <span class="chip chip-std" onclick="searchByChip('추락')">#추락</span>
+                <span class="chip chip-std" onclick="searchByChip('크레인')">#크레인</span>
             </div>
         </div>
 
@@ -170,6 +172,7 @@
 
     <script src="./standards.js"></script>
     <script src="./standards-policies.js"></script>
+    <script src="./standards-policies-2.js"></script>
     <script>
         const vercelURL = 'https://safety-law-api.vercel.app'; 
         
@@ -371,14 +374,14 @@
                 if (title.includes(q)) score += 30;                                     // 쪽 제목 일치
                 if (body.includes(q)) score += 10 + Math.min(body.split(q).length - 1, 10) * 2; // 본문 언급(많을수록 가점)
                 if (score === 0 && tokens.length > 1 && tokens.every(t => kws.some(k => k.includes(t)) || title.includes(t) || body.includes(t))) score = 20;
-                if (score > 0) score += (st.boost || 0);
-                (byDoc[st.doc] = byDoc[st.doc] || []).push({ st, idx, score });
+                // boost 는 카드 안 쪽 순서에만 사용 (방침 간 순위에는 미반영)
+                (byDoc[st.doc] = byDoc[st.doc] || []).push({ st, idx, score, rank: score > 0 ? score + (st.boost || 0) : 0 });
             });
 
             // 2) 방침 1개 = 카드 1장. 검색어가 나온 쪽을 앞에, 나머지 핵심 쪽은 뒤에(좌우로 넘겨보기)
             const groups = [];
             Object.entries(byDoc).forEach(([docId, list]) => {
-                const hits = list.filter(x => x.score > 0).sort((a, b) => (b.score - a.score) || (a.idx - b.idx));
+                const hits = list.filter(x => x.score > 0).sort((a, b) => (b.rank - a.rank) || (a.idx - b.idx));
                 if (!hits.length) return;
                 const rest = list.filter(x => x.score === 0).sort((a, b) => a.idx - b.idx);
                 const d = STANDARD_DOCS[docId] || {};
@@ -415,7 +418,7 @@
                     hitCount: hits.length,
                     content: hits.map(x => `【${x.st.title}】\n${x.st.content}`).join('\n\n'),
                     // 방침 점수 = 가장 관련 높은 쪽 점수 + 관련 쪽 수 가점(최대 5쪽)
-                    best: hits[0].score + Math.min(hits.length - 1, 5) * 3
+                    best: Math.max(...hits.map(x => x.score)) + Math.min(hits.length - 1, 5) * 3
                 });
             });
             groups.sort((a, b) => b.best - a.best);
