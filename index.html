@@ -160,6 +160,19 @@
         .sum-toggle { display: block; width: 100%; margin-top: 6px; border: none; background: none; color: #1a73e8; font-weight: 700; font-size: 13px; cursor: pointer; padding: 6px; font-family: inherit; }
         .card.flash { animation: flash 1.4s ease; }
         @keyframes flash { 0%, 40% { box-shadow: 0 0 0 3px #fbbc04, 0 1px 3px rgba(0,0,0,0.06); } 100% { box-shadow: 0 1px 3px rgba(0,0,0,0.06); } }
+        #smartNote { margin: -6px 0 12px; }
+        .sn-box { background: linear-gradient(135deg, #f3f8ff, #f7fbf8); border: 1px solid #d2e3fc; border-radius: 12px; padding: 11px 14px; font-size: 13px; color: #3c4043; }
+        .sn-head { font-weight: 700; display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+        .sn-work { background: #fff; border: 1px solid #d2e3fc; color: #1967d2; border-radius: 12px; padding: 2px 9px; font-size: 12.5px; }
+        .sn-grade { color: #fff; border-radius: 8px; padding: 0 6px; font-size: 11px; margin-left: 2px; }
+        .sn-line { margin-top: 6px; line-height: 1.6; word-break: keep-all; }
+        .sn-rel { color: #5f6368; font-size: 12.5px; }
+        .sn-link { color: #1a73e8; font-weight: 700; cursor: pointer; margin-left: 4px; white-space: nowrap; }
+        .priority-pin { border-top: 5px solid #d93025; }
+        .badge-pin { background: #fce8e6 !important; color: #c5221f !important; }
+        .sum-label.pin { color: #c5221f; }
+        .sum-chip.pin { border-color: #f5c6c2; background: #fff5f4; color: #c5221f; }
+        .sum-chip.pin small { font-weight: 500; color: #9a5b57; margin-left: 4px; font-size: 11px; }
         .more-btn { width: 100%; padding: 12px; margin: 0 0 15px; border: 1px solid #ceead6; background: #f6fbf7; color: #188038; font-weight: 700; font-size: 14px; border-radius: 12px; cursor: pointer; font-family: inherit; }
         .page-img { width: 100%; height: auto; display: block; border: 1px solid #dadce0; border-radius: 8px; background: #fff; }
         .img-hint { font-size: 12px; color: #9aa0a6; text-align: center; margin: 6px 0 4px; }
@@ -231,10 +244,12 @@
 
         <div id="loading" class="loading">법령을 검색하고 있습니다... ⏳</div>
         <div id="resultCount" class="result-count"></div>
+        <div id="smartNote"></div>
         <div id="resultSummary"></div>
         <div id="resultArea"></div>
     </div>
 
+    <script src="./smart.js"></script>
     <script src="./standards.js"></script>
     <script src="./standards-policies.js"></script>
     <script src="./standards-policies-2.js"></script>
@@ -243,6 +258,9 @@
         const vercelURL = 'https://safety-law-api.vercel.app'; 
         
         let currentResults = [];
+        let SMART = null;          // 질문 이해 결과(똑똑한 검색)
+        let HL_TERMS = null;       // 형광펜·빨간 글씨로 표시할 말들
+        let FORCE_PLAIN = false;   // '검색어 그대로 찾기'
         const ADMRUL_NAMES = new Set();   // 행정규칙(고시·지침) 이름 — 법제처 링크 주소 구분용
         let recentSearches = [];
         let bookmarks = [];
@@ -410,7 +428,7 @@
             document.getElementById('searchInput').value = '';
             document.getElementById('loading').style.display = 'none';
             window.scrollTo({ top: 0, behavior: 'smooth' });
-            clearSummary();
+            clearSummary(); clearSmart();
         }
         function openPolicy(id) {
             const d = STANDARD_DOCS[id]; if (!d) return;
@@ -454,8 +472,24 @@
         }
 
         function clearSummary() { const b = document.getElementById('resultSummary'); if (b) b.innerHTML = ''; }
+        function clearSmart() { SMART = null; HL_TERMS = null; const n = document.getElementById('smartNote'); if (n) n.innerHTML = ''; }
+        function renderSmartNote(query) {
+            const box = document.getElementById('smartNote');
+            if (!SMART || (!SMART.works.length && SMART.mode !== 'smart')) { box.innerHTML = ''; return; }
+            const gColor = { S: '#d93025', A: '#e8710a', B: '#f9ab00', C: '#188038' };
+            const works = SMART.works.map(w => `<span class="sn-work">${escapeHtml(w.name)}${w.grade ? ` <b class="sn-grade" style="background:${gColor[w.grade]}">${w.grade}</b>` : ''}</span>`).join('');
+            const grades = SMART.works.filter(w => w.grade).map(w => `${escapeHtml(w.name)} <b>${w.grade}등급</b> — ${escapeHtml(w.gradeNote)}`);
+            const rel = SMART.mode === 'smart' ? SMART.terms.filter(x => x.w < 2.5).slice(0, 10).map(x => x.t) : [];
+            box.innerHTML = `<div class="sn-box">
+                <div class="sn-head">🤖 ${SMART.mode === 'smart' ? '이렇게 이해했어요' : '관련 공종'} ${works || '<span class="sn-work">' + escapeHtml(SMART.extra.join(' · ')) + '</span>'}</div>
+                ${grades.length ? `<div class="sn-line">⚠️ 사업단 위험등급: ${grades.join(' / ')} <a class="sn-link" onclick="openPolicy('riskGrade2024')">기준 보기</a></div>` : ''}
+                ${rel.length ? `<div class="sn-line sn-rel">🔗 함께 찾은 말: ${rel.map(escapeHtml).join(' · ')}</div>` : ''}
+                ${SMART.mode === 'smart' ? `<div class="sn-line"><a class="sn-link" style="margin-left:0" onclick="searchPlain()">↩ 검색어 그대로 찾기</a></div>` : ''}
+            </div>`;
+        }
+        function searchPlain() { FORCE_PLAIN = true; searchLaw(); }
         function resetToHome() {
-            clearSummary();
+            clearSummary(); clearSmart();
             document.getElementById('searchInput').value = '';
             document.getElementById('resultArea').innerHTML = '';
             document.getElementById('resultCount').innerHTML = '';
@@ -515,6 +549,12 @@
 
         function highlightText(text, keyword) {
             if (!keyword) return text;
+            if (HL_TERMS && HL_TERMS.length) {
+                // 여러 말을 한 번에, 글자 사이 띄어쓰기도 허용 (차량계건설기계 ↔ 차량계 건설기계)
+                const esc = (c) => c.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                const alt = HL_TERMS.slice().sort((a, b) => b.length - a.length).map(t => [...t].map(esc).join('\\s*')).join('|');
+                return text.replace(new RegExp(`(${alt})(?![^<]*>)`, 'gi'), '<span class="highlight-keyword">$1</span>');
+            }
             const escapedKeyword = keyword.replace(/[.*+?^\${}()|[\]\\]/g, '\\$&');
             const regex = new RegExp(`(${escapedKeyword})(?![^<]*>)`, 'gi');
             return text.replace(regex, '<span class="highlight-keyword">\$1</span>');
@@ -530,6 +570,7 @@
             const tokens = query.split(/\s+/).map(normalize).filter(t => t.length >= 2);
             if (!q) return [];
 
+            const smart = (SMART && SMART.mode === 'smart') ? SMART : null;
             // 1) 쪽(항목)별 점수 : 주제 키워드 일치 >> 제목 일치 > 본문에 언급
             const byDoc = {};
             STANDARDS.forEach((st, idx) => {
@@ -537,6 +578,21 @@
                 const title = normalize(st.title);
                 const body = normalize(st.content);
                 let score = 0;
+                if (smart) {
+                    // 똑똑한 검색: 말마다 가중치를 곱해 합산, 핵심어 1개 이상 + (2개 이상 일치 또는 주제 키워드 일치)
+                    let hit = 0, strong = 0, kwHit = false;
+                    smart.terms.forEach(({ t, w }) => {
+                        const f = w / 3; let s1 = 0;
+                        if (kws.includes(t)) { s1 = 100; kwHit = kwHit || w >= 2.5; }
+                        else if (kws.some(k => k.length >= 2 && (k.includes(t) || t.includes(k)))) { s1 = 50; kwHit = kwHit || w >= 2.5; }
+                        if (title.includes(t)) s1 += 30;
+                        if (body.includes(t)) s1 += 8 + Math.min(body.split(t).length - 1, 8) * 1.5;
+                        if (s1 > 0) { hit++; if (w >= 2.5) strong++; score += s1 * f; }
+                    });
+                    if (!strong || (hit < 2 && !kwHit)) score = 0; else score += (hit - 1) * 5;
+                    (byDoc[st.doc] = byDoc[st.doc] || []).push({ st, idx, score, rank: score > 0 ? score + (st.boost || 0) : 0 });
+                    return;
+                }
                 if (kws.includes(q)) score = 100;                                       // 키워드 정확히 일치 (방침의 주제)
                 else if (kws.some(k => k.length >= 2 && (k.includes(q) || q.includes(k)))) score = 60; // 키워드 부분 일치
                 if (title.includes(q)) score += 30;                                     // 쪽 제목 일치
@@ -581,6 +637,7 @@
                 hits.forEach(x => { if (x.st.grade && !grades.includes(x.st.grade)) grades.push(x.st.grade); });
                 grades.sort((a, b) => 'SABC'.indexOf(a) - 'SABC'.indexOf(b));
                 groups.push({
+                    _docId: docId,
                     isStandard: true,
                     lawName: d.name || '자체기준',
                     articleNo: '',
@@ -600,6 +657,13 @@
                     best: Math.max(...hits.map(x => x.score)) + Math.min(hits.length - 1, 5) * 3
                 });
             });
+            if (smart) {
+                // 공종 사전에 연결된 방침은 가점, 관련도가 낮은 방침은 정리
+                groups.forEach(g => { if (g._docId && smart.docs.has(g._docId)) g.best += 60; });
+                groups.sort((a, b) => b.best - a.best);
+                const top = groups.length ? groups[0].best : 0;
+                return groups.filter((g, i) => i < 10 && g.best >= top * 0.3);
+            }
             groups.sort((a, b) => b.best - a.best);
             return groups;
         }
@@ -627,9 +691,10 @@
         function renderSummary(keyword) {
             const box = document.getElementById('resultSummary');
             if (!keyword || currentResults.length < 2) { box.innerHTML = ''; return; }
-            const stds = [], groups = [], byLaw = {};
+            const stds = [], groups = [], byLaw = {}, pinnedItems = [];
             currentResults.forEach((r, i) => {
                 if (r.isStandard) { stds.push({ i, r }); return; }
+                if (r.pinned) { pinnedItems.push({ i, r }); return; }
                 if (!byLaw[r.lawName]) { byLaw[r.lawName] = { name: r.lawName, adm: r.lawType === '행정규칙', items: [] }; groups.push(byLaw[r.lawName]); }
                 byLaw[r.lawName].items.push({ i, r });
             });
@@ -645,6 +710,11 @@
                         const label = m ? `${m[1]} ${short(m[2], 14)}` : short(r.lawName || '', 16);
                         return `<button class="sum-chip std${k >= 3 ? ' x' : ''}" onclick="jumpToCard(${i})" title="${escapeHtml(r.lawName)}">${escapeHtml(label)}</button>`;
                     }).join('') + (stds.length > 3 ? `<span class="sum-more">+${stds.length - 3}개</span>` : '') + `</span></div>`;
+            }
+            if (pinnedItems.length) {
+                const shortLaw = (n) => n.replace('산업안전보건기준에 관한 규칙', '안전보건기준규칙');
+                html += `<div class="sum-row"><span class="sum-label pin">📌 꼭 볼 조문</span><span class="sum-chips">` +
+                    pinnedItems.map(({ i, r }) => `<button class="sum-chip pin" onclick="jumpToCard(${i})" title="${escapeHtml(r.articleTitle || '')}">${escapeHtml(shortLaw(r.lawName))} ${escapeHtml(r.articleNo)}<small>${escapeHtml((r.articleTitle || '').slice(0, 10))}</small></button>`).join('') + `</span></div>`;
             }
             if (groups.length) {
                 const total = groups.reduce((a, g) => a + g.items.length, 0);
@@ -756,8 +826,8 @@
                     lawHeaderDone = true;
                 }
                 lawNo++;
-                const priorityClass = item.priority === 1 ? 'priority-1' : 'priority-2';
-                const badgeHtml = (item.lawType === '행정규칙' ? '<span class="badge badge-adm">고시·지침</span>' : '') + (item.priority === 1 ? '<span class="badge">제목 일치</span>' : '');
+                const priorityClass = item.pinned ? 'priority-pin' : (item.priority === 1 ? 'priority-1' : 'priority-2');
+                const badgeHtml = (item.pinned ? '<span class="badge badge-pin">📌 꼭 볼 조문</span>' : '') + (item.lawType === '행정규칙' ? '<span class="badge badge-adm">고시·지침</span>' : '') + (item.priority === 1 && !item.pinned ? '<span class="badge">제목 일치</span>' : '');
                 let titleText = highlightText(item.articleTitle ? `(${item.articleTitle})` : '', keyword);
                 let linkedContent = highlightText(applyBlueLinks(item.content, item.lawName), keyword);
 
@@ -785,6 +855,7 @@
             return LINES_CACHE[dir];
         }
         function hlTerms(keyword) {
+            if (SMART && SMART.mode === 'smart') return SMART.terms.filter(x => x.w >= 2.5).map(x => x.t);
             const nz = (t) => t.replace(/[\s\u00ad]+/g, '').toLowerCase();
             const terms = new Set();
             const whole = nz(keyword); if (whole) terms.add(whole);
@@ -860,6 +931,12 @@
             document.getElementById('homeState').style.display = 'none';
             document.getElementById('resultArea').innerHTML = '';
             document.getElementById('resultCount').innerHTML = '';
+            clearSummary();
+            // 0) 질문 이해
+            SMART = (!FORCE_PLAIN && typeof understandQuery === 'function') ? understandQuery(query) : null;
+            FORCE_PLAIN = false;
+            HL_TERMS = (SMART && SMART.mode === 'smart') ? SMART.terms.map(x => x.t) : null;
+            renderSmartNote(query);
             // 1) 자체기준은 즉시 표시
             const stdResults = searchStandards(query);
             if (stdResults.length > 0) {
@@ -872,14 +949,25 @@
 
             // 2) 법령 API 결과를 아래에 이어서 표시
             try {
-                const response = await fetch(`${vercelURL}/api/search?query=${encodeURIComponent(query)}`);
+                let url = `${vercelURL}/api/search?query=${encodeURIComponent(query)}`;
+                if (SMART && SMART.mode !== 'smart' && SMART.works.length) {
+                    const pins = []; SMART.works.forEach(w => (w.pins || []).forEach(p => pins.push(p)));
+                    if (pins.length) url += `&pins=${encodeURIComponent(JSON.stringify(pins.slice(0, 8)))}`;
+                }
+                if (SMART && SMART.mode === 'smart') {
+                    url += `&terms=${encodeURIComponent(JSON.stringify(SMART.terms.map(x => [x.t, x.w])))}&pins=${encodeURIComponent(JSON.stringify(SMART.pins || []))}`;
+                }
+                const response = await fetch(url);
                 const data = await response.json();
                 if (document.getElementById('searchInput').value !== query) return; // 그 사이 다른 검색을 한 경우
 
                 document.getElementById('loading').style.display = 'none';
                 const lawResults = (data && data.results) ? data.results : [];
                 lawResults.forEach(r => { if (r.lawType === '행정규칙') ADMRUL_NAMES.add(r.lawName); });
-                const lawInfo = `법령 ${data.total || 0}건` + ((data.shown && data.shown < data.total) ? ` (상위 ${data.shown}건 표시)` : '') + (data.updatedAt ? ` · 법령 기준일 ${String(data.updatedAt).slice(0, 10)}` : '');
+                const lawInfo = (data.mode === 'smart'
+                        ? `법령 ${data.shown || 0}건(관련도순${data.pinned ? ` · 꼭 볼 조문 ${data.pinned}` : ''})`
+                        : `법령 ${data.total || 0}건` + ((data.shown && data.shown < data.total) ? ` (상위 ${data.shown}건 표시)` : ''))
+                    + (data.updatedAt ? ` · 법령 기준일 ${String(data.updatedAt).slice(0, 10)}` : '');
 
                 if(lawResults.length === 0 && stdResults.length === 0) {
                     document.getElementById('resultArea').innerHTML = '<div class="card"><div class="card-content" style="text-align:center; color:#555;">검색결과가 없습니다. 정확한 키워드로 다시 검색해주세요.</div></div>';
