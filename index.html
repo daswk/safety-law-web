@@ -76,6 +76,19 @@
         .sidebar-list li:hover { color: #1a73e8; font-weight: 600; }
         .sidebar-list li:last-child { border-bottom: none; }
         .del-btn { font-size: 12px; color: #9aa0a6; cursor: pointer; padding: 5px; }
+
+        /* ── 도로공사 자체기준 ── */
+        .chip-std { background-color: #e6f4ea; color: #137333; border-color: #ceead6; }
+        .keyword-title-std { margin-top: 18px; }
+        .section-head { font-size: 15px; font-weight: 700; color: #3c4043; margin: 22px 0 12px 4px; display: flex; align-items: center; gap: 6px; }
+        .section-head .cnt { font-size: 13px; color: #70757a; font-weight: 500; }
+        .priority-std { border-top: 5px solid #188038; }
+        .std-source { font-size: 13px; color: #188038; font-weight: 600; margin-bottom: 6px; padding-right: 80px; line-height: 1.4; }
+        .grade { font-size: 12px; padding: 4px 9px; border-radius: 12px; font-weight: 800; white-space: nowrap; margin-left: 10px; flex-shrink: 0; color: #fff; }
+        .grade-S { background: #d93025; } .grade-A { background: #e8710a; }
+        .grade-B { background: #f9ab00; color: #3c2a00; } .grade-C { background: #188038; }
+        .doc-link { display: inline-block; margin-top: 14px; font-size: 14px; color: #188038; font-weight: 600; text-decoration: none; border: 1px solid #ceead6; background: #f6fbf7; padding: 7px 12px; border-radius: 8px; }
+        .doc-link:hover { background: #e6f4ea; }
     </style>
 </head>
 <body>
@@ -118,6 +131,11 @@
                 <span class="chip" onclick="searchByChip('안전보건조정자')">#안전보건조정자</span>
                 <span class="chip" onclick="searchByChip('산업안전보건관리비')">#산업안전보건관리비</span>
             </div>
+            <div class="keyword-title keyword-title-std">🏢 도로공사 자체기준</div>
+            <div class="keyword-chips">
+                <span class="chip chip-std" onclick="searchByChip('위험공종')">#위험공종</span>
+                <span class="chip chip-std" onclick="searchByChip('위험등급')">#위험등급</span>
+            </div>
         </div>
 
         <div id="loading" class="loading">법령 데이터를 스캔하고 있습니다... ⏳<br><span style="font-size:12px; color:#aaa; margin-top:5px; display:block;">(첫 검색 시에만 10~15초 소요, 이후 즉시 표출)</span></div>
@@ -125,6 +143,7 @@
         <div id="resultArea"></div>
     </div>
 
+    <script src="./standards.js"></script>
     <script>
         const vercelURL = 'https://safety-law-api.vercel.app'; 
         
@@ -160,7 +179,9 @@
             const bmUl = document.getElementById('bookmarkList');
             bmUl.innerHTML = bookmarks.length === 0 ? '<li style="color:#aaa;">저장된 북마크가 없습니다.</li>' : '';
             bookmarks.forEach((bm, idx) => {
-                let shortTitle = `[${bm.lawName.substring(0,6)}..] ${bm.articleNo}`;
+                let shortTitle = bm.isStandard
+                    ? `🏢 ${bm.articleNo}`
+                    : `[${bm.lawName.substring(0,6)}..] ${bm.articleNo}`;
                 bmUl.innerHTML += `<li onclick="viewBookmark(${idx})"><span>⭐ ${shortTitle}</span> <span class="del-btn" onclick="event.stopPropagation(); toggleBookmarkObj(${idx})">✕</span></li>`;
             });
         }
@@ -302,26 +323,98 @@
             return text.replace(regex, '<span class="highlight-keyword">\$1</span>');
         }
 
+        // ★ 도로공사 자체기준 검색 (standards.js, 서버 없이 즉시 검색) ★
+        function normalize(s) { return (s || '').replace(/\s+/g, '').toLowerCase(); }
+        function escapeHtml(s) { return (s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+        function searchStandards(query) {
+            if (typeof STANDARDS === 'undefined') return [];
+            const q = normalize(query);
+            const tokens = query.split(/\s+/).map(normalize).filter(t => t.length >= 2);
+            if (!q) return [];
+
+            const scored = [];
+            STANDARDS.forEach(st => {
+                const kws = (st.keywords || []).map(normalize);
+                const title = normalize(st.title);
+                const body = normalize(st.content);
+                let score = 0;
+                if (kws.includes(q)) score = 100;                                       // 키워드 정확히 일치
+                else if (kws.some(k => k.length >= 2 && (k.includes(q) || q.includes(k)))) score = 60; // 키워드 부분 일치
+                if (title.includes(q)) score += 30;                                     // 제목 일치
+                if (body.includes(q)) score += 10;                                      // 본문 일치
+                if (score === 0 && tokens.length > 1 && tokens.every(t => kws.some(k => k.includes(t)) || title.includes(t) || body.includes(t))) score = 20; // 여러 단어 검색
+                if (score > 0) scored.push({ st, score });
+            });
+            scored.sort((a, b) => b.score - a.score);
+
+            return scored.map(({ st }) => {
+                const d = STANDARD_DOCS[st.doc] || {};
+                return {
+                    isStandard: true,
+                    lawName: d.name || '자체기준',
+                    org: d.org || '',
+                    docDate: d.effective || d.date || '',
+                    docUrl: d.file ? `${d.file}${st.page ? '#page=' + st.page : ''}` : '',
+                    articleNo: st.title,
+                    articleTitle: '',
+                    grade: st.grade || '',
+                    content: st.content
+                };
+            });
+        }
+
         function renderCards(keyword) {
             let html = '';
+            const stdCount = currentResults.filter(r => r.isStandard).length;
+            const lawCount = currentResults.length - stdCount;
+            let lawHeaderDone = false;
+            let lawNo = 0;
+
             currentResults.forEach((item, index) => {
+                const isBookmarked = bookmarks.some(b => (b.lawName + b.articleNo) === (item.lawName + item.articleNo));
+                const starIcon = isBookmarked ? '★' : '☆';
+                const starClass = isBookmarked ? 'bm-active' : '';
+                const actions = `
+                        <div class="card-actions">
+                            <button id="bm-btn-${index}" class="action-btn ${starClass}" onclick="toggleBookmark(${index})" title="북마크 저장">${starIcon}</button>
+                            <button class="action-btn" onclick="copyArticle(${index})" title="조항 복사">📋</button>
+                        </div>`;
+
+                if (item.isStandard) {
+                    if (index === 0 && keyword) html += `<div class="section-head">🏢 도로공사 자체기준 <span class="cnt">${stdCount}건</span></div>`;
+                    const gradeHtml = item.grade ? `<span class="grade grade-${item.grade}">${item.grade}등급</span>` : '';
+                    const content = highlightText(escapeHtml(item.content), keyword);
+                    const linkHtml = item.docUrl ? `<a class="doc-link" href="${item.docUrl}" target="_blank" rel="noopener">📄 원문 PDF 보기</a>` : '';
+                    html += `
+                    <div class="card priority-std">
+                        ${actions}
+                        <div class="std-source">${escapeHtml(item.org)} · ${escapeHtml(item.lawName)} (${escapeHtml(item.docDate)})</div>
+                        <div class="card-title">
+                            <span>${highlightText(escapeHtml(item.articleNo), keyword)}</span>
+                            ${gradeHtml}
+                        </div>
+                        <div class="card-content">${content}</div>
+                        ${linkHtml}
+                    </div>`;
+                    return;
+                }
+
+                if (!lawHeaderDone && stdCount > 0) {
+                    html += `<div class="section-head">📘 법령·고시 <span class="cnt">${lawCount}건</span></div>`;
+                    lawHeaderDone = true;
+                }
+                lawNo++;
                 const priorityClass = item.priority === 1 ? 'priority-1' : 'priority-2';
                 const badgeHtml = item.priority === 1 ? '<span class="badge">제목 일치</span>' : '';
                 let titleText = highlightText(item.articleTitle ? `(${item.articleTitle})` : '', keyword);
                 let linkedContent = highlightText(applyBlueLinks(item.content, item.lawName), keyword);
 
-                const isBookmarked = bookmarks.some(b => (b.lawName + b.articleNo) === (item.lawName + item.articleNo));
-                const starIcon = isBookmarked ? '★' : '☆';
-                const starClass = isBookmarked ? 'bm-active' : '';
-
                 html += `
                     <div class="card ${priorityClass}">
-                        <div class="card-actions">
-                            <button id="bm-btn-${index}" class="action-btn ${starClass}" onclick="toggleBookmark(${index})" title="북마크 저장">${starIcon}</button>
-                            <button class="action-btn" onclick="copyArticle(${index})" title="조항 복사">📋</button>
-                        </div>
+                        ${actions}
                         <div class="card-title">
-                            <span>${index + 1}. [${item.lawName}] ${item.articleNo} ${titleText}</span>
+                            <span>${lawNo}. [${item.lawName}] ${item.articleNo} ${titleText}</span>
                             ${badgeHtml}
                         </div>
                         <div class="card-content">${linkedContent}</div>
@@ -340,27 +433,46 @@
             document.getElementById('homeState').style.display = 'none';
             document.getElementById('resultArea').innerHTML = '';
             document.getElementById('resultCount').innerHTML = '';
+            // 1) 자체기준은 즉시 표시
+            const stdResults = searchStandards(query);
+            if (stdResults.length > 0) {
+                currentResults = stdResults;
+                document.getElementById('resultCount').innerHTML = `자체기준 ${stdResults.length}건 · 법령 검색 중...`;
+                renderCards(query);
+                document.getElementById('resultArea').after(document.getElementById('loading'));
+            }
             document.getElementById('loading').style.display = 'block';
-            
+
+            // 2) 법령 API 결과를 아래에 이어서 표시
             try {
                 const response = await fetch(`${vercelURL}/api/search?query=${encodeURIComponent(query)}`);
                 const data = await response.json();
-                
-                document.getElementById('loading').style.display = 'none';
+                if (document.getElementById('searchInput').value !== query) return; // 그 사이 다른 검색을 한 경우
 
-                if(data.total === 0) {
+                document.getElementById('loading').style.display = 'none';
+                const lawResults = (data && data.results) ? data.results : [];
+
+                if(lawResults.length === 0 && stdResults.length === 0) {
                     document.getElementById('resultArea').innerHTML = '<div class="card"><div class="card-content" style="text-align:center; color:#555;">검색결과가 없습니다. 정확한 키워드로 다시 검색해주세요.</div></div>';
                     return;
                 }
 
-                document.getElementById('resultCount').innerHTML = `검색결과 약 ${data.total}개`;
-                
-                currentResults = data.results; 
+                document.getElementById('resultCount').innerHTML = stdResults.length > 0
+                    ? `자체기준 ${stdResults.length}건 · 법령 약 ${data.total || 0}개`
+                    : `검색결과 약 ${data.total}개`;
+
+                currentResults = stdResults.concat(lawResults);
                 renderCards(query);
 
             } catch (error) {
                 document.getElementById('loading').style.display = 'none';
-                document.getElementById('resultArea').innerHTML = `<div class="card"><div style="color:red; text-align:center; padding:10px;">서버 통신 오류</div><div style="font-size:13px; color:#555; text-align:center;">새로고침 후 다시 시도해 주세요.</div></div>`;
+                const errHtml = `<div class="card"><div style="color:red; text-align:center; padding:10px;">법령 서버 통신 오류</div><div style="font-size:13px; color:#555; text-align:center;">새로고침 후 다시 시도해 주세요.</div></div>`;
+                if (stdResults.length > 0) {
+                    document.getElementById('resultCount').innerHTML = `자체기준 ${stdResults.length}건 (법령 검색 실패)`;
+                    document.getElementById('resultArea').insertAdjacentHTML('beforeend', errHtml);
+                } else {
+                    document.getElementById('resultArea').innerHTML = errHtml;
+                }
             }
         }
     </script>
