@@ -95,6 +95,8 @@
         .std-tags { display: flex; flex-wrap: wrap; gap: 6px; margin: -2px 0 12px; }
         .std-tag { font-size: 12px; background: #f1f3f4; color: #5f6368; padding: 3px 9px; border-radius: 10px; }
         .page-img-link { display: block; margin-bottom: 8px; }
+        .pimg { position: relative; display: block; }
+        .hl { position: absolute; background: rgba(255, 214, 0, 0.42); box-shadow: 0 0 0 2px rgba(217, 48, 37, 0.85); border-radius: 3px; pointer-events: none; mix-blend-mode: multiply; }
         .slider { position: relative; margin: 4px -4px 0; }
         .jump { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: #d93025; margin: 2px 0 10px; }
         .jump-btn { border: 1px solid #f5c6c2; background: #fce8e6; color: #d93025; font-weight: 700; font-size: 13px; padding: 4px 10px; border-radius: 12px; cursor: pointer; font-family: inherit; }
@@ -499,7 +501,7 @@
                                     ${sl.hit && keyword ? '<span class="hit-badge">🔍 검색어</span>' : ''}
                                 </div>
                                 ${sl.img
-                                    ? `<a href="${sl.img}" target="_blank" rel="noopener" class="page-img-link"><img class="page-img" src="${sl.img}" alt="${escapeHtml(sl.title)} 원문" loading="${k < 2 ? 'eager' : 'lazy'}"></a>`
+                                    ? `<a href="${sl.img}" target="_blank" rel="noopener" class="page-img-link"><span class="pimg" data-img="${sl.img}"><img class="page-img" src="${sl.img}" alt="${escapeHtml(sl.title)} 원문" loading="${k < 2 ? 'eager' : 'lazy'}"></span></a>`
                                     : `<div class="card-content">${highlightText(escapeHtml(sl.text || ''), keyword)}</div>`}
                             </div>`).join('');
                     const navHtml = total > 1 ? `
@@ -557,6 +559,81 @@
                 `;
             });
             document.getElementById('resultArea').innerHTML = html;
+            if (keyword) applyHighlights(keyword);
+        }
+
+        // ★ 방침 이미지 위 검색어 위치 표시(형광펜) ★
+        // docs/.../lines.json : { "p5.jpg": [[y0, y1, [[단어, x0, x1], ...]], ...] }  (좌표는 이미지 대비 0~1000)
+        const LINES_CACHE = {};
+        function loadLines(dir) {
+            if (!LINES_CACHE[dir]) LINES_CACHE[dir] = fetch(`${dir}/lines.json`).then(r => r.ok ? r.json() : {}).catch(() => ({}));
+            return LINES_CACHE[dir];
+        }
+        function hlTerms(keyword) {
+            const nz = (t) => t.replace(/[\s\u00ad]+/g, '').toLowerCase();
+            const terms = new Set();
+            const whole = nz(keyword); if (whole) terms.add(whole);
+            keyword.split(/\s+/).map(nz).filter(t => t.length >= 2).forEach(t => terms.add(t));
+            return [...terms];
+        }
+        function findBoxes(lines, terms) {
+            const nz = (t) => t.replace(/[\s\u00ad]+/g, '').toLowerCase();
+            const marks = lines.map(ln => new Array(ln[2].length).fill(false));
+            const build = (li) => {
+                let str = '', map = [];
+                lines[li][2].forEach((w, wi) => { const t = nz(w[0]); str += t; for (let c = 0; c < t.length; c++) map.push([li, wi]); });
+                return { str, map };
+            };
+            const built = lines.map((_, li) => build(li));
+            for (let li = 0; li < lines.length; li++) {
+                // 한 줄 + 다음 줄을 이어서 찾음(줄바꿈에 걸친 단어 대비)
+                const a = built[li], b = built[li + 1] || { str: '', map: [] };
+                const str = a.str + b.str, map = a.map.concat(b.map);
+                for (const t of terms) {
+                    let i = str.indexOf(t);
+                    while (i !== -1 && i < a.str.length) {
+                        for (let c = i; c < i + t.length; c++) { const [L, W] = map[c]; marks[L][W] = true; }
+                        i = str.indexOf(t, i + 1);
+                    }
+                }
+            }
+            const boxes = [];
+            lines.forEach((ln, li) => {
+                let run = null;
+                ln[2].forEach((w, wi) => {
+                    if (marks[li][wi]) { if (!run) run = { x0: w[1], x1: w[2] }; else run.x1 = w[2]; }
+                    if ((!marks[li][wi] || wi === ln[2].length - 1) && run) { boxes.push({ x0: run.x0, x1: run.x1, y0: ln[0], y1: ln[1] }); run = null; }
+                });
+            });
+            return boxes;
+        }
+        function applyHighlights(keyword) {
+            const terms = hlTerms(keyword);
+            if (!terms.length) return;
+            const els = [...document.querySelectorAll('#resultArea .pimg[data-img]')];
+            const byDir = {};
+            els.forEach(el => { const src = el.dataset.img; const dir = src.slice(0, src.lastIndexOf('/')); (byDir[dir] = byDir[dir] || []).push(el); });
+            Object.entries(byDir).forEach(([dir, list]) => {
+                loadLines(dir).then(data => {
+                    list.forEach(el => {
+                        if (!el.isConnected || el.dataset.hl) return;
+                        const lines = data[el.dataset.img.slice(el.dataset.img.lastIndexOf('/') + 1)];
+                        if (!lines) return;
+                        const boxes = findBoxes(lines, terms);
+                        el.dataset.hl = boxes.length;
+                        boxes.forEach(bx => {
+                            const d = document.createElement('i');
+                            d.className = 'hl';
+                            const px = 4, py = 3;
+                            d.style.left = Math.max(0, (bx.x0 - px) / 10) + '%';
+                            d.style.top = Math.max(0, (bx.y0 - py) / 10) + '%';
+                            d.style.width = Math.min(100, (bx.x1 - bx.x0 + px * 2) / 10) + '%';
+                            d.style.height = ((bx.y1 - bx.y0 + py * 2) / 10) + '%';
+                            el.appendChild(d);
+                        });
+                    });
+                });
+            });
         }
 
         async function searchLaw() {
