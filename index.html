@@ -93,7 +93,8 @@
         .grade-wrap .grade { margin-left: 0; padding: 4px 8px; }
         .std-tags { display: flex; flex-wrap: wrap; gap: 6px; margin: -2px 0 12px; }
         .std-tag { font-size: 12px; background: #f1f3f4; color: #5f6368; padding: 3px 9px; border-radius: 10px; }
-        .page-img-link { display: block; }
+        .page-img-link { display: block; margin-bottom: 8px; }
+        .more-btn { width: 100%; padding: 12px; margin: 0 0 15px; border: 1px solid #ceead6; background: #f6fbf7; color: #188038; font-weight: 700; font-size: 14px; border-radius: 12px; cursor: pointer; font-family: inherit; }
         .page-img { width: 100%; height: auto; display: block; border: 1px solid #dadce0; border-radius: 8px; background: #fff; }
         .img-hint { font-size: 12px; color: #9aa0a6; text-align: center; margin: 6px 0 4px; }
         .std-text { margin-top: 8px; border-top: 1px dashed #e0e0e0; padding-top: 8px; }
@@ -145,6 +146,10 @@
             <div class="keyword-chips">
                 <span class="chip chip-std" onclick="searchByChip('위험공종')">#위험공종</span>
                 <span class="chip chip-std" onclick="searchByChip('위험등급')">#위험등급</span>
+                <span class="chip chip-std" onclick="searchByChip('특별교육')">#특별교육</span>
+                <span class="chip chip-std" onclick="searchByChip('신호수')">#신호수</span>
+                <span class="chip chip-std" onclick="searchByChip('폭염')">#폭염</span>
+                <span class="chip chip-std" onclick="searchByChip('재발방지대책')">#재발방지대책</span>
             </div>
         </div>
 
@@ -154,6 +159,7 @@
     </div>
 
     <script src="./standards.js"></script>
+    <script src="./standards-policies.js"></script>
     <script>
         const vercelURL = 'https://safety-law-api.vercel.app'; 
         
@@ -352,7 +358,7 @@
                 if (kws.includes(q)) score = 100;                                       // 키워드 정확히 일치
                 else if (kws.some(k => k.length >= 2 && (k.includes(q) || q.includes(k)))) score = 60; // 키워드 부분 일치
                 if (title.includes(q)) score += 30;                                     // 제목 일치
-                if (body.includes(q)) score += 10;                                      // 본문 일치
+                if (body.includes(q)) score += 10 + Math.min(body.split(q).length - 1, 10) * 2; // 본문 일치(많이 나올수록 가점)
                 if (score === 0 && tokens.length > 1 && tokens.every(t => kws.some(k => k.includes(t)) || title.includes(t) || body.includes(t))) score = 20; // 여러 단어 검색
                 if (score > 0) scored.push({ st, score: score + (st.boost || 0) });
             });
@@ -372,8 +378,12 @@
                         lawName: d.name || '자체기준',
                         org: d.org || '',
                         docDate: d.effective || d.date || '',
-                        docUrl: d.file ? `${d.file}${st.page ? '#page=' + st.page : ''}` : '',
+                        docUrl: d.full
+                            ? `viewer.html?f=${encodeURIComponent(d.full.file)}&from=${d.full.from}&to=${d.full.to}&t=${encodeURIComponent(d.name || '')}`
+                            : (d.file ? `${d.file}${st.page ? '#page=' + st.page : ''}` : ''),
+                        docFull: !!d.full,
                         img: pg ? pg.img : '',
+                        imgs: pg ? (pg.imgs || [pg.img]) : [],
                         articleNo: pg ? pg.title : st.title,
                         articleTitle: '',
                         grades: [],
@@ -398,6 +408,9 @@
             return groups;
         }
 
+        const STD_LIMIT = 6;
+        function showMoreStd(btn) { btn.nextElementSibling.style.display = 'block'; btn.remove(); }
+
         function renderCards(keyword) {
             let html = '';
             const stdCount = currentResults.filter(r => r.isStandard).length;
@@ -417,17 +430,21 @@
 
                 if (item.isStandard) {
                     if (index === 0 && keyword) html += `<div class="section-head">🏢 도로공사 자체기준 <span class="cnt">${stdCount}건</span></div>`;
+                    if (index === STD_LIMIT && keyword) html += `<button class="more-btn" onclick="showMoreStd(this)">🏢 자체기준 ${stdCount - STD_LIMIT}건 더보기 ▼</button><div class="std-more" style="display:none">`;
                     const grades = item.grades || (item.grade ? [item.grade] : []);
                     const gradeHtml = grades.length ? `<span class="grade-wrap">${grades.map(g => `<span class="grade grade-${g}">${g}</span>`).join('')}</span>` : '';
                     const content = highlightText(escapeHtml(item.content), keyword);
-                    const tagsHtml = (item.img && item.items && item.items.length)
+                    const tagsHtml = (item.img && item.items && item.items.length > 1)
                         ? `<div class="std-tags">${item.items.map(t => `<span class="std-tag">${highlightText(escapeHtml(t), keyword)}</span>`).join('')}</div>` : '';
-                    const bodyHtml = item.img
-                        ? `<a href="${item.img}" target="_blank" rel="noopener" class="page-img-link"><img class="page-img" src="${item.img}" alt="${escapeHtml(item.articleNo)} 원문" loading="lazy"></a>
+                    const imgList = (item.imgs && item.imgs.length) ? item.imgs : (item.img ? [item.img] : []);
+                    const bodyHtml = imgList.length
+                        ? `${imgList.map(src => `<a href="${src}" target="_blank" rel="noopener" class="page-img-link"><img class="page-img" src="${src}" alt="${escapeHtml(item.articleNo)} 원문" loading="lazy"></a>`).join('')}
                            <div class="img-hint">🔍 이미지를 누르면 크게 볼 수 있어요</div>
                            <details class="std-text"><summary>📝 텍스트로 보기</summary><div class="card-content">${content}</div></details>`
                         : `<div class="card-content">${content}</div>`;
-                    const linkHtml = item.docUrl ? `<a class="doc-link" href="${item.docUrl}" target="_blank" rel="noopener">📄 원문 PDF 전체 보기</a>` : '';
+                    const linkHtml = item.docUrl ? (item.docFull
+                        ? `<a class="doc-link" href="${item.docUrl}">📄 원문 보기 (배경~붙임 전체)</a>`
+                        : `<a class="doc-link" href="${item.docUrl}" target="_blank" rel="noopener">📄 원문 PDF 전체 보기</a>`) : '';
                     html += `
                     <div class="card priority-std">
                         ${actions}
@@ -440,6 +457,7 @@
                         ${bodyHtml}
                         ${linkHtml}
                     </div>`;
+                    if (keyword && stdCount > STD_LIMIT && index === stdCount - 1) html += `</div>`;
                     return;
                 }
 
