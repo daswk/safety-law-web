@@ -2,12 +2,17 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="mobile-web-app-capable" content="yes">
-    <meta name="theme-color" content="#f8f9fa">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="manifest" href="./manifest.webmanifest">
+    <link rel="icon" type="image/png" sizes="96x96" href="./icon-96.png">
+    <link rel="apple-touch-icon" href="./apple-touch-icon.png">
+    <meta name="apple-mobile-web-app-title" content="안전법령검색">
+    <script defer src="/_vercel/insights/script.js"></script>
     
     <meta property="og:title" content="한국도로공사 안전법령 통합검색 플랫폼">
     <meta property="og:description" content="우리 현장에 딱 맞는 핵심 안전법령 및 고시를 즉시 찾아보세요.">
@@ -183,6 +188,112 @@
         .std-text { margin-top: 8px; border-top: 1px dashed #e0e0e0; padding-top: 8px; }
         .std-text summary { cursor: pointer; font-size: 14px; color: #5f6368; font-weight: 600; padding: 4px 0; }
         .std-text .card-content { margin-top: 8px; }
+
+        /* ===================== 모바일 우선 새 디자인 (preview) ===================== */
+        html, body { background: #fff; }
+        body { padding: 0 0 env(safe-area-inset-bottom) 0; }
+        .container { max-width: 760px; margin: 0 auto; padding: 0 14px 30px; }
+        /* 상단바 */
+        .topbar { position: sticky; top: 0; z-index: 120; display: flex; align-items: center; gap: 4px; height: 58px; padding: env(safe-area-inset-top) 6px 0; background: rgba(255,255,255,0.96); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
+        .tb-btn { width: 44px; height: 44px; border: none; background: none; border-radius: 50%; color: #5f6368; display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; }
+        .tb-btn:active { background: #f1f3f4; }
+        .tb-home { height: 15px; width: auto; flex-shrink: 0; cursor: pointer; margin: 0 4px 0 2px; display: none; }
+        .tb-slot { flex: 1; min-width: 0; }
+        #tbShare { visibility: hidden; }
+        body.mode-results .topbar { box-shadow: 0 1px 0 #ebebeb; }
+        body.mode-results .tb-home { display: block; }
+        body.mode-results #tbShare { visibility: visible; }
+        /* 첫 화면 */
+        .header { margin: max(7vh, 28px) 0 22px; padding-top: 0; }
+        .brand-main { height: 38px; }
+        .brand-unit { width: calc(38px * 557 / 109); margin-top: 8px; }
+        .header h1 { font-size: 21px; margin-top: 2px; }
+        body.mode-results .header, body.mode-results #homeState, body.mode-results .site-foot, body.mode-results #searchHome { display: none !important; }
+        body.mode-results .container { padding-top: 0; }
+        /* 검색창 (구글식) */
+        .search-container { display: block; margin-bottom: 20px; }
+        .sbox { position: relative; display: flex; align-items: center; width: 100%; max-width: 640px; margin: 0 auto; height: 52px; background: #fff; border: 1px solid #dfe1e5; border-radius: 26px; padding: 0 5px 0 16px; box-sizing: border-box; box-shadow: 0 1px 6px rgba(32,33,36,0.10); transition: box-shadow .2s, border-color .2s; }
+        .sbox:focus-within { box-shadow: 0 2px 10px rgba(32,33,36,0.20); border-color: transparent; }
+        .s-ico { color: #9aa0a6; flex-shrink: 0; }
+        .sbox input[type="search"] { flex: 1; min-width: 0; height: 100%; border: none; outline: none; background: transparent; font-size: 16px; font-family: inherit; color: #202124; padding: 0 8px 0 10px; -webkit-appearance: none; appearance: none; }
+        .sbox input::-webkit-search-cancel-button, .sbox input::-webkit-search-decoration { -webkit-appearance: none; display: none; }
+        .s-btn { width: 40px; height: 40px; border: none; background: none; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; color: #70757a; padding: 0; }
+        .s-btn:active { background: #f1f3f4; }
+        .s-clear { display: none; }
+        .sbox.has-text .s-clear { display: flex; }
+        .sbox.has-text .s-mic { display: none; }
+        .s-go { background: #1a73e8; width: 40px; height: 40px; margin-left: 2px; }
+        .s-go:active { background: #1557b0; }
+        .s-mic.listening { animation: mic 1s infinite; background: #e8f0fe; }
+        @keyframes mic { 50% { box-shadow: 0 0 0 6px rgba(66,133,244,0.25); } }
+        body.mode-results .sbox { height: 44px; border-radius: 22px; box-shadow: none; background: #f1f3f4; border-color: #f1f3f4; padding-left: 12px; }
+        body.mode-results .sbox:focus-within { background: #fff; box-shadow: 0 2px 10px rgba(32,33,36,0.18); }
+        body.mode-results .s-ico { display: none; }
+        body.mode-results .s-go { width: 34px; height: 34px; }
+        /* 자동완성 */
+        .suggest { display: none; position: absolute; top: calc(100% + 6px); left: 0; right: 0; background: #fff; border-radius: 16px; box-shadow: 0 6px 24px rgba(32,33,36,0.22); z-index: 130; max-height: 62vh; overflow-y: auto; padding: 6px 0; }
+        .suggest.open { display: block; }
+        .sg-item { display: flex; align-items: center; gap: 12px; min-height: 48px; padding: 6px 16px; cursor: pointer; }
+        .sg-item:active, .sg-item:hover { background: #f1f3f4; }
+        .sg-ico { width: 22px; text-align: center; flex-shrink: 0; font-size: 16px; }
+        .sg-txt { flex: 1; min-width: 0; font-size: 15px; color: #202124; line-height: 1.35; word-break: keep-all; }
+        .sg-txt b { color: #1a73e8; font-weight: 700; }
+        .sg-sub { display: block; font-size: 12px; color: #80868b; margin-top: 1px; }
+        .sg-head { font-size: 12px; color: #80868b; padding: 8px 16px 4px; font-weight: 600; }
+        /* 첫 화면 칩: 한 줄 가로 스크롤 */
+        .keyword-section { margin-bottom: 18px; text-align: left; }
+        .keyword-title { margin: 14px 2px 8px; font-size: 13px; font-weight: 600; color: #5f6368; }
+        .keyword-title-std { margin-top: 14px; }
+        .keyword-chips { flex-wrap: nowrap; justify-content: flex-start; overflow-x: auto; margin: 0 -14px; padding: 2px 14px 6px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+        .keyword-chips::-webkit-scrollbar { display: none; }
+        .chip { flex-shrink: 0; min-height: 36px; display: inline-flex; align-items: center; padding: 0 14px; font-size: 14px; border-radius: 18px; white-space: nowrap; }
+        .chip-ask { background: #fff; border: 1px solid #dadce0; color: #3c4043; }
+        .chip-ask::before { content: '🔎'; margin-right: 6px; font-size: 13px; }
+        @media (min-width: 720px) { .keyword-chips { flex-wrap: wrap; justify-content: center; overflow: visible; } .keyword-title { text-align: center; } }
+        .site-foot { margin: 34px 0 10px; text-align: center; font-size: 12px; color: #9aa0a6; line-height: 1.9; }
+        .foot-tip { margin-top: 6px; color: #5f6368; background: #f8f9fa; border-radius: 10px; padding: 8px 10px; display: inline-block; }
+        /* 결과 탭 */
+        .tabs { display: none; position: sticky; top: 58px; z-index: 110; background: #fff; margin: 0 -14px 12px; margin-top: 0; padding: 0 8px; border-bottom: 1px solid #ebebeb; overflow-x: auto; white-space: nowrap; scrollbar-width: none; }
+        .tabs::-webkit-scrollbar { display: none; }
+        body.mode-results:not(.no-tabs) .tabs { display: flex; }
+        .tabs button { flex-shrink: 0; height: 46px; padding: 0 12px; border: none; background: none; font-size: 14.5px; font-weight: 600; color: #5f6368; font-family: inherit; border-bottom: 3px solid transparent; cursor: pointer; }
+        .tabs button b { font-weight: 500; color: #9aa0a6; font-size: 12.5px; margin-left: 2px; }
+        .tabs button.on { color: #1a73e8; border-bottom-color: #1a73e8; }
+        .tabs button.empty { opacity: .45; }
+        body[data-tab="std"] #resultArea [data-kind="law"], body[data-tab="std"] #resultArea [data-kind="adm"],
+        body[data-tab="law"] #resultArea [data-kind="std"], body[data-tab="law"] #resultArea [data-kind="adm"],
+        body[data-tab="adm"] #resultArea [data-kind="std"], body[data-tab="adm"] #resultArea [data-kind="law"] { display: none !important; }
+        body[data-tab]:not([data-tab="all"]) #resultSummary, body[data-tab]:not([data-tab="all"]) #resultArea .section-head { display: none; }
+        body[data-tab]:not([data-tab="all"]) #resultArea .std-more { display: block !important; }
+        body[data-tab]:not([data-tab="all"]) #resultArea .more-btn { display: none; }
+        /* 결과 카드 (모바일) */
+        .result-count { padding-left: 2px; margin-bottom: 12px; font-size: 13px; }
+        #resultArea .card { border: none; border-radius: 16px; padding: 16px 15px; box-shadow: 0 1px 3px rgba(60,64,67,0.16), 0 1px 1px rgba(60,64,67,0.06); margin-bottom: 14px; scroll-margin-top: 112px; }
+        .card-title { font-size: 16px; padding-right: 84px; display: block; }
+        .card-title > span:first-child { display: block; }
+        .card-title .badge { display: inline-block; margin: 7px 6px 0 0; }
+        .card-title .grade-wrap { display: inline-flex; margin: 7px 0 0 0; }
+        .card-actions { right: 10px; top: 12px; gap: 6px; }
+        .action-btn { width: 38px; height: 38px; font-size: 17px; }
+        .card-content { font-size: 15.5px; line-height: 1.75; }
+        .snip .ell { color: #9aa0a6; }
+        .more-lines { display: flex; align-items: center; gap: 6px; margin-top: 8px; border: none; background: #f1f3f4; color: #1a73e8; font-weight: 700; font-size: 14px; border-radius: 18px; padding: 8px 14px; cursor: pointer; font-family: inherit; }
+        .more-lines small { color: #80868b; font-weight: 500; }
+        /* 이미지 확대 */
+        .lightbox { display: none; position: fixed; inset: 0; z-index: 2000; background: #1f1f1f; flex-direction: column; }
+        .lightbox.open { display: flex; }
+        .lb-bar { display: flex; align-items: center; justify-content: space-between; gap: 10px; height: 52px; padding: env(safe-area-inset-top) 6px 0 16px; color: #fff; font-size: 14px; font-weight: 600; }
+        .lb-bar span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .lb-bar button { width: 44px; height: 44px; border: none; background: rgba(255,255,255,0.12); color: #fff; font-size: 18px; border-radius: 50%; cursor: pointer; flex-shrink: 0; }
+        .lb-body { flex: 1; overflow: auto; touch-action: pan-x pan-y pinch-zoom; display: flex; align-items: flex-start; justify-content: center; }
+        .lb-body .pimg { width: 100%; max-width: 1000px; background: #fff; }
+        .lb-tip { color: #bbb; font-size: 12px; text-align: center; padding: 8px 0 calc(10px + env(safe-area-inset-bottom)); }
+        /* 알림·맨위로 */
+        .toast { position: fixed; left: 50%; bottom: calc(28px + env(safe-area-inset-bottom)); transform: translate(-50%, 20px); background: #323232; color: #fff; font-size: 14px; padding: 12px 18px; border-radius: 22px; opacity: 0; pointer-events: none; transition: all .25s; z-index: 3000; max-width: 86vw; text-align: center; }
+        .toast.show { opacity: 1; transform: translate(-50%, 0); }
+        .to-top { position: fixed; right: 16px; bottom: calc(20px + env(safe-area-inset-bottom)); width: 46px; height: 46px; border-radius: 50%; border: none; background: #fff; color: #1a73e8; box-shadow: 0 2px 10px rgba(0,0,0,0.2); display: none; align-items: center; justify-content: center; z-index: 150; cursor: pointer; }
+        .to-top.show { display: flex; }
+        .loading { padding: 30px 10px; }
     </style>
 </head>
 <body>
@@ -210,8 +321,17 @@
         </div>
     </div>
 
+    <header class="topbar" id="topbar">
+        <button class="tb-btn" onclick="toggleSidebar()" aria-label="메뉴">
+            <svg viewBox="0 0 24 24" width="24" height="24"><path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </button>
+        <img src="./ex-mark.png" class="tb-home" id="tbHome" alt="처음으로" onclick="resetToHome()">
+        <div class="tb-slot" id="tbSlot"></div>
+        <button class="tb-btn" id="tbShare" onclick="shareCurrent()" aria-label="공유">
+            <svg viewBox="0 0 24 24" width="22" height="22"><circle cx="18" cy="5" r="3" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="6" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="18" cy="19" r="3" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4" stroke="currentColor" stroke-width="2"/></svg>
+        </button>
+    </header>
     <div class="container">
-        <button class="menu-btn" onclick="toggleSidebar()">☰</button>
         <div class="header" onclick="resetToHome()">
             <div class="brand">
                 <img src="./logo.png" class="brand-main" alt="ex 한국도로공사">
@@ -220,14 +340,33 @@
             <h1>안전법령 통합검색 플랫폼</h1>
         </div>
         
-        <div class="search-container">
-            <div class="search-box">
-                <input type="text" id="searchInput" placeholder="예) 위험성평가, 작업계획서..." onkeypress="if(event.keyCode==13) searchLaw()" oninput="checkEmpty()">
-                <button class="search-btn" onclick="searchLaw()">검색</button>
+        <div class="search-container" id="searchHome">
+            <div class="sbox" id="searchWrap">
+                <svg class="s-ico" viewBox="0 0 24 24" width="20" height="20"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="M20 20l-4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                <input type="search" id="searchInput" enterkeyhint="search" autocomplete="off" autocapitalize="off" spellcheck="false"
+                       placeholder="작업이나 궁금한 점 입력" onkeypress="if(event.keyCode==13){ event.preventDefault(); searchLaw(); }" oninput="checkEmpty()">
+                <button class="s-btn s-clear" id="clearBtn" aria-label="지우기" onclick="clearSearch()">
+                    <svg viewBox="0 0 24 24" width="18" height="18"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+                </button>
+                <button class="s-btn s-mic" id="micBtn" aria-label="음성으로 검색" onclick="startVoice()">
+                    <svg viewBox="0 0 24 24" width="20" height="20"><rect x="9" y="3" width="6" height="11" rx="3" fill="#4285f4"/><path d="M5 11a7 7 0 0014 0M12 18v3" stroke="#4285f4" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+                </button>
+                <button class="s-btn s-go" aria-label="검색" onclick="searchLaw()">
+                    <svg viewBox="0 0 24 24" width="20" height="20"><circle cx="11" cy="11" r="7" fill="none" stroke="#fff" stroke-width="2.4"/><path d="M20 20l-4-4" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/></svg>
+                </button>
+                <div class="suggest" id="suggest"></div>
             </div>
         </div>
 
         <div id="homeState" class="keyword-section">
+            <div class="keyword-title">🤖 이렇게 물어보세요</div>
+            <div class="keyword-chips">
+                <span class="chip chip-ask" onclick="searchByChip('오늘 콘크리트포장 작업하는데 어떤 법을 봐야 할까?')">오늘 콘크리트포장 작업하는데 어떤 법?</span>
+                <span class="chip chip-ask" onclick="searchByChip('카고크레인으로 가드레일 인양')">카고크레인으로 가드레일 인양</span>
+                <span class="chip chip-ask" onclick="searchByChip('야간에 차단 설치하고 아스콘 절삭')">야간 차단 설치·아스콘 절삭</span>
+                <span class="chip chip-ask" onclick="searchByChip('맨홀 내부 작업')">맨홀 내부 작업</span>
+                <span class="chip chip-ask" onclick="searchByChip('교량 하부 단면보수 비계 설치')">교량 하부 비계 설치</span>
+            </div>
             <div class="keyword-title">💡 금주의 필수안전키워드</div>
             <div class="keyword-chips">
                 <span class="chip" onclick="searchByChip('위험성평가')">#위험성평가</span>
@@ -249,12 +388,32 @@
             </div>
         </div>
 
+        <nav class="tabs" id="tabs">
+            <button data-tab="all" class="on" onclick="setTab('all')">전체</button>
+            <button data-tab="std" onclick="setTab('std')">도로공사 방침 <b id="tc-std"></b></button>
+            <button data-tab="law" onclick="setTab('law')">법령 <b id="tc-law"></b></button>
+            <button data-tab="adm" onclick="setTab('adm')">고시·지침 <b id="tc-adm"></b></button>
+        </nav>
         <div id="loading" class="loading">법령을 검색하고 있습니다... ⏳</div>
         <div id="resultCount" class="result-count"></div>
         <div id="smartNote"></div>
         <div id="resultSummary"></div>
         <div id="resultArea"></div>
+        <footer class="site-foot" id="siteFoot">
+            <div>법령·고시: 국가법령정보센터 (매일 새벽 자동 갱신)</div>
+            <div>방침: 한국도로공사 · 중부도로개량사업단 품질안전부</div>
+            <div class="foot-tip">📲 브라우저 메뉴에서 <b>홈 화면에 추가</b>하면 앱처럼 쓸 수 있어요</div>
+        </footer>
     </div>
+    <div class="lightbox" id="lightbox">
+        <div class="lb-bar"><span id="lbTitle"></span><button onclick="closeLightbox()" aria-label="닫기">✕</button></div>
+        <div class="lb-body" id="lbBody"></div>
+        <div class="lb-tip">두 손가락으로 확대할 수 있어요</div>
+    </div>
+    <div class="toast" id="toast"></div>
+    <button class="to-top" id="toTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="맨 위로">
+        <svg viewBox="0 0 24 24" width="22" height="22"><path d="M6 14l6-6 6 6" stroke="currentColor" stroke-width="2.4" fill="none" stroke-linecap="round"/></svg>
+    </button>
 
     <script src="./smart.js"></script>
     <script src="./standards.js"></script>
@@ -749,10 +908,10 @@
                 hidden.style.display = 'block';
                 const btn = hidden.previousElementSibling; if (btn && btn.classList.contains('more-btn')) btn.remove();
             }
-            const go = (smooth) => window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 12, behavior: smooth ? 'smooth' : 'auto' });
+            const go = (smooth) => window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 112, behavior: smooth ? 'smooth' : 'auto' });
             go(true);
             // 위쪽 이미지가 늦게 불러와져 화면이 밀리면 다시 맞춤
-            [700, 1400].forEach(t => setTimeout(() => { const off = el.getBoundingClientRect().top - 12; if (Math.abs(off) > 30) go(false); }, t));
+            [700, 1400].forEach(t => setTimeout(() => { const off = el.getBoundingClientRect().top - 112; if (Math.abs(off) > 30) go(false); }, t));
             el.classList.remove('flash'); void el.offsetWidth; el.classList.add('flash');
         }
         function showMoreStd(btn) { btn.nextElementSibling.style.display = 'block'; btn.remove(); }
@@ -1000,6 +1159,250 @@
                 }
             }
         }
+    </script>
+    <script>
+    /* ===================== 모바일 우선 새 동작 (preview) ===================== */
+    (function () {
+        const $ = (q) => document.querySelector(q);
+        const $$ = (q) => [...document.querySelectorAll(q)];
+        const input = $('#searchInput');
+        const ORIG = { searchLaw, renderCards, openPolicy, openLaw, resetToHome, toggleSidebar, viewBookmark, searchByChip };
+        let suppressBack = false;
+
+        // ── 화면 모드: 첫 화면 / 결과 화면 (결과에서는 검색창이 상단바로 이동) ──
+        function setMode(m) {
+            document.body.classList.toggle('mode-results', m === 'results');
+            document.body.classList.toggle('mode-home', m === 'home');
+            const wrap = $('#searchWrap');
+            const target = m === 'results' ? $('#tbSlot') : $('#searchHome');
+            if (wrap.parentElement !== target) target.appendChild(wrap);
+        }
+        window.setMode = setMode;
+
+        // ── 주소(URL) 관리: 뒤로가기·공유 ──
+        function navPush(url, state) {
+            const full = location.pathname + url;
+            if (history.state && (history.state.menu || history.state.lb)) history.replaceState(state, '', full);
+            else history.pushState(state, '', full);
+        }
+        const sidebarOpen = () => document.getElementById('sidebar').style.left === '0px';
+
+        window.toggleSidebar = function () {
+            const wasOpen = sidebarOpen();
+            ORIG.toggleSidebar();
+            if (!wasOpen) history.pushState({ menu: 1 }, '', location.href);
+            else if (!suppressBack && history.state && history.state.menu) history.back();
+        };
+        const fromMenu = (fn) => function (...args) { suppressBack = true; try { return fn.apply(this, args); } finally { suppressBack = false; } };
+
+        // ── 검색 ──
+        window.searchLaw = async function (opts = {}) {
+            const q = input.value.trim();
+            if (!q) { input.focus(); return; }
+            hideSuggest(); input.blur();
+            setMode('results'); document.body.classList.remove('no-tabs'); setTab('all', true);
+            if (!opts.noPush) navPush('?q=' + encodeURIComponent(q), { q });
+            window.scrollTo(0, 0);
+            await ORIG.searchLaw();
+            updateTabCounts();
+        };
+        window.searchByChip = fromMenu(function (kw) { if (sidebarOpen()) ORIG.toggleSidebar(); input.value = kw; updateClear(); window.searchLaw(); });
+
+        window.openPolicy = fromMenu(function (id, noPush) {
+            setMode('results'); document.body.classList.add('no-tabs'); setTab('all', true);
+            if (!noPush) navPush('?p=' + encodeURIComponent(id), { p: id });
+            ORIG.openPolicy(id);
+            input.value = ''; updateClear();
+        });
+        window.openLaw = fromMenu(async function (i, noPush) {
+            await ensureLawList();
+            const l = LAW_LIST && LAW_LIST[i]; if (!l) return;
+            setMode('results'); document.body.classList.add('no-tabs'); setTab('all', true);
+            if (!noPush) navPush('?law=' + encodeURIComponent(l.name), { law: l.name });
+            await ORIG.openLaw(i);
+            input.value = ''; updateClear();
+        });
+        window.viewBookmark = fromMenu(function (idx) {
+            ORIG.viewBookmark(idx);
+            setMode('results'); document.body.classList.add('no-tabs');
+        });
+        window.resetToHome = function (noPush) {
+            ORIG.resetToHome();
+            setMode('home'); document.body.classList.remove('no-tabs'); setTab('all', true);
+            input.value = ''; updateClear(); hideSuggest();
+            if (noPush !== true) navPush('', {});
+            window.scrollTo(0, 0);
+        };
+        window.checkEmpty = function () { updateClear(); updateSuggest(); };
+        window.clearSearch = function () { input.value = ''; updateClear(); input.focus(); updateSuggest(); };
+        function updateClear() { $('#searchWrap').classList.toggle('has-text', !!input.value); }
+
+        async function ensureLawList() {
+            if (!LAW_LIST) { try { LAW_LIST = (await (await fetch(`${vercelURL}/api/search`)).json()).laws || []; } catch (e) { LAW_LIST = null; } }
+            return LAW_LIST;
+        }
+        async function openLawByName(name, noPush) {
+            await ensureLawList();
+            const i = (LAW_LIST || []).findIndex(l => l.name === name);
+            if (i >= 0) window.openLaw(i, noPush);
+        }
+
+        // ── 결과 꾸미기: 탭 분류 + 법령은 검색어 주변 3줄 요약 ──
+        window.renderCards = function (keyword) {
+            ORIG.renderCards(keyword);
+            $$('#resultArea .card[id^="card-"]').forEach(card => {
+                const r = currentResults[Number(card.id.slice(5))];
+                if (!r) return;
+                const kind = r.isStandard ? 'std' : (r.lawType === '행정규칙' ? 'adm' : 'law');
+                card.dataset.kind = kind;
+                if (keyword && kind !== 'std') makeSnippet(card);
+            });
+            $$('#resultArea .section-head').forEach(h => h.dataset.kind = h.textContent.includes('자체기준') ? 'std' : 'law');
+            $$('#resultArea .more-btn, #resultArea .std-more').forEach(e => e.dataset.kindgroup = 'std');
+            updateTabCounts();
+        };
+        function makeSnippet(card) {
+            const cc = card.querySelector('.card-content');
+            if (!cc || cc.dataset.snip) return;
+            const html = cc.innerHTML, lines = html.split('\n');
+            if (lines.length <= 4) return;
+            let i = lines.findIndex(l => l.includes('highlight-keyword')); if (i < 0) i = 0;
+            const a = Math.max(0, i - 1), b = Math.min(lines.length, a + 3);
+            cc.dataset.snip = '1';
+            cc.innerHTML = `<div class="snip">${a > 0 ? '<span class="ell">…</span>\n' : ''}${lines.slice(a, b).join('\n')}${b < lines.length ? '\n<span class="ell">…</span>' : ''}</div><div class="full" hidden>${html}</div>`;
+            cc.insertAdjacentHTML('afterend', `<button class="more-lines" onclick="toggleFull(this)">전체 조문 보기 ▾ <small>${lines.length}줄</small></button>`);
+        }
+        window.toggleFull = function (btn) {
+            const cc = btn.previousElementSibling, full = cc.querySelector('.full'), snip = cc.querySelector('.snip');
+            const open = full.hidden;
+            full.hidden = !open; snip.hidden = open;
+            btn.innerHTML = open ? '접기 ▴' : `전체 조문 보기 ▾ <small>${full.innerHTML.split('\n').length}줄</small>`;
+            if (!open) btn.closest('.card').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        };
+
+        // ── 탭 ──
+        window.setTab = function (t, silent) {
+            document.body.dataset.tab = t;
+            $$('#tabs button').forEach(b => b.classList.toggle('on', b.dataset.tab === t));
+            if (!silent) window.scrollTo({ top: 0, behavior: 'smooth' });
+        };
+        function updateTabCounts() {
+            const c = { std: 0, law: 0, adm: 0 };
+            (currentResults || []).forEach(r => { c[r.isStandard ? 'std' : (r.lawType === '행정규칙' ? 'adm' : 'law')]++; });
+            Object.entries(c).forEach(([k, v]) => {
+                $('#tc-' + k).textContent = v || '';
+                $(`#tabs button[data-tab="${k}"]`).classList.toggle('empty', !v);
+            });
+        }
+
+        // ── 자동완성 ──
+        const SG = { items: [] };
+        function hideSuggest() { $('#suggest').classList.remove('open'); }
+        function hl(text, v) {
+            const i = text.toLowerCase().indexOf(v.toLowerCase());
+            return i < 0 ? escapeHtml(text) : escapeHtml(text.slice(0, i)) + '<b>' + escapeHtml(text.slice(i, i + v.length)) + '</b>' + escapeHtml(text.slice(i + v.length));
+        }
+        function updateSuggest() {
+            const v = input.value.trim(), box = $('#suggest');
+            const items = [];
+            if (!v) {
+                (recentSearches || []).slice(0, 5).forEach(r => items.push({ ico: '🕒', html: escapeHtml(r), sub: '최근 검색', go: () => { input.value = r; window.searchLaw(); } }));
+                if (!items.length) { hideSuggest(); return; }
+                SG.head = '최근 검색어';
+            } else {
+                SG.head = '';
+                const n = smartNz(v);
+                items.push({ ico: '🔍', html: `<b>${escapeHtml(v)}</b> 검색`, sub: '', go: () => window.searchLaw() });
+                (recentSearches || []).filter(r => r !== v && smartNz(r).includes(n)).slice(0, 2).forEach(r => items.push({ ico: '🕒', html: hl(r, v), sub: '최근 검색', go: () => { input.value = r; window.searchLaw(); } }));
+                if (typeof WORKTYPES !== 'undefined' && n.length >= 1) {
+                    WORKTYPES.filter(w => smartNz(w.name).includes(n) || w.alias.some(a => smartNz(a).includes(n))).slice(0, 3).forEach(w => {
+                        const al = w.alias.find(a => smartNz(a).includes(n)) || w.name;
+                        items.push({ ico: '🛠', html: hl(al, v) + (al !== w.name ? ` <span style="color:#80868b">· ${escapeHtml(w.name)}</span>` : ''), sub: '공종' + (w.grade ? ` · 사업단 위험등급 ${w.grade}` : '') + ' · 관련 법령·방침 찾기', go: () => { input.value = al + ' 작업'; window.searchLaw(); } });
+                    });
+                }
+                if (n.length >= 2) {
+                    policyList().filter(x => smartNz((x.no || '') + x.title).includes(n) || smartNz(x.title).includes(n)).slice(0, 3)
+                        .forEach(x => items.push({ ico: '🏢', html: (x.no ? `<span style="color:#188038;font-weight:700">${x.no}</span> ` : '') + hl(x.title, v), sub: '도로공사 방침 · ' + (x.d.org || ''), go: () => window.openPolicy(x.id) }));
+                    (LAW_LIST || []).map((l, i) => ({ l, i })).filter(({ l }) => smartNz(l.name).includes(n)).slice(0, 3)
+                        .forEach(({ l, i }) => items.push({ ico: '📘', html: hl(l.name, v), sub: (l.type === 'admrul' ? '고시·지침' : '법령') + ` · 조문 ${l.count}개 전체 보기`, go: () => window.openLaw(i) }));
+                }
+            }
+            SG.items = items;
+            box.innerHTML = (SG.head ? `<div class="sg-head">${SG.head}</div>` : '') + items.map((it, k) =>
+                `<div class="sg-item" data-k="${k}"><span class="sg-ico">${it.ico}</span><span class="sg-txt">${it.html}${it.sub ? `<span class="sg-sub">${it.sub}</span>` : ''}</span></div>`).join('');
+            box.classList.add('open');
+        }
+        $('#suggest').addEventListener('pointerdown', (e) => {
+            const it = e.target.closest('.sg-item'); if (!it) return;
+            e.preventDefault();
+            const go = SG.items[Number(it.dataset.k)].go; hideSuggest(); go();
+        });
+        input.addEventListener('focus', () => { ensureLawList(); updateSuggest(); });
+        input.addEventListener('blur', () => setTimeout(hideSuggest, 150));
+
+        // ── 음성 검색 ──
+        const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+        if (!SR) $('#micBtn').style.display = 'none';
+        window.startVoice = function () {
+            if (!SR) return;
+            const rec = new SR(); rec.lang = 'ko-KR'; rec.interimResults = false; rec.maxAlternatives = 1;
+            const mic = $('#micBtn'); mic.classList.add('listening'); toast('🎤 말씀하세요… (예: 오늘 굴착 작업)');
+            rec.onresult = (e) => { input.value = e.results[0][0].transcript; updateClear(); window.searchLaw(); };
+            rec.onend = () => mic.classList.remove('listening');
+            rec.onerror = () => { mic.classList.remove('listening'); toast('음성을 인식하지 못했어요'); };
+            rec.start();
+        };
+
+        // ── 공유 ──
+        function toast(msg) { const t = $('#toast'); t.textContent = msg; t.classList.add('show'); clearTimeout(t._h); t._h = setTimeout(() => t.classList.remove('show'), 2200); }
+        window.toast = toast;
+        window.shareCurrent = async function () {
+            const p = new URLSearchParams(location.search);
+            const text = p.get('q') ? `'${p.get('q')}' 안전법령·방침 검색 결과` : p.get('p') ? (STANDARD_DOCS[p.get('p')] || {}).name : p.get('law') ? `${p.get('law')} 전체 조문` : '한국도로공사 안전법령 통합검색';
+            const url = location.href;
+            if (navigator.share) { try { await navigator.share({ title: '안전법령 통합검색', text, url }); } catch (e) { } return; }
+            try { await navigator.clipboard.writeText(url); toast('🔗 링크를 복사했어요. 카톡에 붙여넣으세요'); } catch (e) { prompt('아래 주소를 복사하세요', url); }
+        };
+
+        // ── 이미지 확대 (형광펜 유지) ──
+        document.addEventListener('click', (e) => {
+            const a = e.target.closest('#resultArea .page-img-link'); if (!a) return;
+            e.preventDefault();
+            const pimg = a.querySelector('.pimg'); if (!pimg) return;
+            const slide = a.closest('.slide');
+            $('#lbTitle').textContent = slide ? (slide.querySelector('.slide-title') || {}).textContent || '' : '';
+            const body = $('#lbBody'); body.innerHTML = ''; body.appendChild(pimg.cloneNode(true));
+            $('#lightbox').classList.add('open'); document.body.style.overflow = 'hidden';
+            history.pushState({ lb: 1 }, '', location.href);
+        });
+        window.closeLightbox = function (fromPop) {
+            $('#lightbox').classList.remove('open'); document.body.style.overflow = '';
+            if (fromPop !== true && history.state && history.state.lb) history.back();
+        };
+
+        // ── 뒤로가기 ──
+        function route(fromPop) {
+            const p = new URLSearchParams(location.search);
+            if (p.get('q')) { input.value = p.get('q'); updateClear(); window.searchLaw({ noPush: true }); }
+            else if (p.get('p')) window.openPolicy(p.get('p'), true);
+            else if (p.get('law')) openLawByName(p.get('law'), true);
+            else if (fromPop) window.resetToHome(true);
+        }
+        window.addEventListener('popstate', () => {
+            if ($('#lightbox').classList.contains('open')) { window.closeLightbox(true); return; }
+            if (sidebarOpen()) { ORIG.toggleSidebar(); return; }
+            hideSuggest();
+            route(true);
+        });
+
+        // ── 맨 위로 버튼 ──
+        window.addEventListener('scroll', () => $('#toTop').classList.toggle('show', window.scrollY > 700), { passive: true });
+
+        // 시작
+        setMode('home');
+        history.replaceState({}, '', location.href);
+        route(false);
+    })();
     </script>
 </body>
 </html>
